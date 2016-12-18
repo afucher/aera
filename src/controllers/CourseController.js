@@ -1,7 +1,7 @@
 'use strict';
 const Course = require('../models').Course;
 
-let CourseController = {};
+const CourseController = {};
 
 CourseController.get = () => Course.findAll();
 
