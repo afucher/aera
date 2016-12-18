@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test node_modules/lab/bin/lab"
   },
   "keywords": [],
   "author": "",
@@ -12,5 +12,9 @@
   "dependencies": {
     "pg": "^6.1.2",
     "sequelize": "^3.27.0"
+  },
+  "devDependencies": {
+    "code": "^4.0.0",
+    "lab": "^11.2.1"
   }
 }
