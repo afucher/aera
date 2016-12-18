@@ -1,0 +1,37 @@
+'use strict';
+const CourseController = require('../controllers/CourseController');
+
+module.exports = [
+    {
+        method: 'GET',
+        path: '/courses',
+        handler: (request, reply) => {
+            CourseController.getAll()
+                .then((courses) => reply(courses));
+        }
+    },
+    {
+        method: 'GET',
+        path: '/courses/{id}',
+        handler: (request, reply) => {
+            CourseController.get(request.params.id)
+                .then((course) => reply(course));
+        }
+    },
+    {
+        method: 'POST',
+        path: '/courses',
+        handler: (request, reply) => {
+            CourseController.create({description:request.payload.description})
+                .then((course) => reply(course));
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/courses/{id}',
+        handler: (request, reply) => {
+            CourseController.delete(request.params.id)
+                .then((course) => reply(course));
+        }
+    }
+];
