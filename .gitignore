@@ -1,3 +1,4 @@
 .vscode
 _random
 node_modules
+app/build
