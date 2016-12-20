@@ -7,7 +7,7 @@
     
 </template>
 <script>
-import MyService from '../services/first';
+import MyService from '../services/CourseService';
     export default{
         data : () => {
             return {message: 'Seja bem-vindo'}
