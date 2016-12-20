@@ -7,7 +7,8 @@ module.exports = [
         path: '/courses',
         handler: (request, reply) => {
             CourseController.getAll()
-                .then((courses) => reply(courses));
+                .then(reply);
+                //.then(reply);
         }
     },
     {
