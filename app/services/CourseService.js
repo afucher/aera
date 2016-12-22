@@ -14,4 +14,8 @@ export default class MyService {
     putCourses(){
         return this.resource.put();
     }
+
+    createCourse(course){
+        return this.resource.save(course).then((c) => c.json());
+    }
 }
