@@ -1,4 +1,5 @@
-module.exports = {
+const webpack = require('webpack');
+const config = {
   // the main entry of our app
   entry: ['./app/index.js'],
   // output configuration
@@ -26,5 +27,21 @@ module.exports = {
   babel: {
     presets: ['es2015'],
     plugins: ['transform-runtime']
-  }
+  },
+  vue: {
+    loaders: {
+      js: 'babel'
+    }
+  },
+  plugins: []
 }
+
+if (process.env.NODE_ENV === 'production') {
+    config.plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true
+        })
+    )
+}
+
+module.exports = config;
