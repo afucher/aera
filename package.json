@@ -7,7 +7,7 @@
     "dev_front": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "dev_back": "cross-env NODE_ENV=development nodemon index.js ",
     "dev": "cross-env NODE_ENV=development node myWebpack.js ",
-    "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test node_modules/lab/bin/lab -v"
+    "test": "cross-env NODE_ENV=test sequelize db:migrate:undo:all && cross-env NODE_ENV=test sequelize db:migrate && cross-env NODE_ENV=test node_modules/lab/bin/lab -v"
   },
   "keywords": [],
   "author": "",
