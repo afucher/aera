@@ -26,7 +26,7 @@ const config = {
   },
   babel: {
     presets: ['es2015'],
-    plugins: ['transform-runtime']
+    plugins: ['transform-runtime','transform-object-rest-spread']
   },
   vue: {
     loaders: {
