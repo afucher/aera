@@ -11,6 +11,9 @@
         name: "AeraListCourse",
         computed: {
             courses () {return this.$store.state.courses}
+        },
+        mounted() {
+            this.$store.dispatch('loadCourses')
         }
     }
 </script>

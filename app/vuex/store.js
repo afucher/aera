@@ -16,6 +16,9 @@ export default new Vuex.Store({
     mutations: {
         addCourse (state, payload) {
             state.courses.push(payload);
+        },
+        loadCourses (state, payload) {
+            state.courses = payload;
         }
     }
 })
