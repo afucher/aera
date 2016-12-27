@@ -9,6 +9,8 @@
 <script>
     export default {
         name: "AeraListCourse",
-        props: ['courses'] 
+        computed: {
+            courses () {return this.$store.state.courses}
+        }
     }
 </script>

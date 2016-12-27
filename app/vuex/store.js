@@ -1,10 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueResource from 'vue-resource'
 
-Vue.use(Vuex)
+import actions from './actions'
 
-export default {
+
+
+
+export default new Vuex.Store({
     state : {
-        message : "Seja bem-vindo"
+        message : "Seja bem-vindo",
+        courses: []
+    },
+    actions,
+    mutations: {
+        addCourse (state, payload) {
+            state.courses.push(payload);
+        }
     }
-}
+})
