@@ -1,5 +1,5 @@
 import CourseService from '../services/CourseService'
-import { CREATE_COURSE } from './mutation-types'
+import { CREATE_COURSE, DELETE_COURSE } from './mutation-types'
 const myService = new CourseService();
 
 export default {
@@ -13,6 +13,10 @@ export default {
                         myService.getCourses()
                         .then((courses) => commit('loadCourses', courses))
                 }
+        },
+        delCourse: ( {commit}, payload ) => {
+                commit(DELETE_COURSE, payload)
+                myService.deleteCourse(payload)
         }
 
 }

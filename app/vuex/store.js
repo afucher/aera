@@ -4,6 +4,8 @@ import VueResource from 'vue-resource'
 
 import actions from './actions'
 
+import {DELETE_COURSE} from './mutation-types'
+
 
 
 
@@ -19,6 +21,10 @@ export default new Vuex.Store({
         },
         loadCourses (state, payload) {
             state.courses = payload;
+        },
+        [DELETE_COURSE] ({courses}, payload) {
+            courses.splice(courses.findIndex((el)=> el.id == payload.id), 1);
+            
         }
     }
 })
