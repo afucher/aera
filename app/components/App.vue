@@ -1,15 +1,17 @@
 <template>
     <div>
-    <h1>Aera</h1>
-    <h4>{{ message }}</h4>
-    <router-view></router-view>
+        <AeraMenu></AeraMenu>
+        <h4>{{ message }}</h4>
+        <router-view></router-view>
     </div>
     
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import AeraMenu from './Menu.vue'
 export default {
+    components:{AeraMenu},
     computed : {
          ...mapState([
             'message',
