@@ -8,7 +8,10 @@ const config = {
     publicPath: 'app/build/',
     filename: 'build.js'
   },
-
+  devServer:{
+    proxy: {'/courses': 'http://localhost:3000'},
+    hot: true
+  },
   module: {
     loaders: [
       // process *.vue files using vue-loader
