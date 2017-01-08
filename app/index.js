@@ -5,9 +5,12 @@ import store from './vuex/store'
 
 import App from './components/App.vue'
 
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+
 const router = new VueRouter({
   routes: [
-    {path: '/courses', component: require('./components/course/Courses.vue')}
+    {path: '/courses', name:'courses', component: require('./components/course/Courses.vue')}
   ]
 });
 
