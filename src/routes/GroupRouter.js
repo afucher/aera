@@ -1,6 +1,6 @@
 'use strict';
 const GroupController = require('../controllers/GroupController');
-
+const GroupValidation = require('../validation_schemas/Group');
 module.exports = [
     {
         method: 'GET',
@@ -25,6 +25,11 @@ module.exports = [
         handler: (request, reply) => {
             GroupController.create({description:request.payload.description})
                 .then((group) => reply(group));
+        },
+        config: {
+            validate: {
+                payload : GroupValidation
+            }
         }
     },
     {
