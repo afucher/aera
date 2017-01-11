@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "create_db": "sequelize db:migrate",
     "dev_front": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "dev_back": "cross-env NODE_ENV=development nodemon index.js ",
     "dev": "cross-env NODE_ENV=development node myWebpack.js ",
