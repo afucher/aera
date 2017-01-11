@@ -22,9 +22,12 @@ module.exports = [
     {
         method: 'POST',
         path: '/groups',
-        handler: (request, reply) => {
-            GroupController.create({description:request.payload.description})
-                .then((group) => reply(group));
+        handler: ({payload}, reply) => {
+            GroupController.create(payload)
+                .then((group) => reply(group))
+                .catch((err) => {
+                    reply(err);
+                });
         },
         config: {
             validate: {
