@@ -2,7 +2,8 @@
 module.exports = function(sequelize, DataTypes) {
   const Course = sequelize.define('Course', {
     code: DataTypes.STRING,
-    description: DataTypes.STRING
+    description: DataTypes.STRING,
+    courseLoad: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

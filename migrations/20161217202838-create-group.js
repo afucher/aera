@@ -16,6 +16,16 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: false
       },
+      end_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: false
+      },
+      start_hour: {
+        type: Sequelize.TIME
+      },
+      end_hour: {
+        type: Sequelize.TIME
+      },
       class_info: {
         type: Sequelize.JSON
       },

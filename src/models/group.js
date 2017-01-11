@@ -3,6 +3,9 @@ module.exports = function(sequelize, DataTypes) {
   var Group = sequelize.define('Group', {
     course_id: DataTypes.INTEGER,
     start_date: DataTypes.DATEONLY,
+    end_date: DataTypes.DATEONLY,
+    start_hour: DataTypes.TIME,
+    end_hour: DataTypes.TIME,
     class_info: DataTypes.JSON
   }, {
     classMethods: {
