@@ -7,7 +7,7 @@
     "create_db": "sequelize db:migrate",
     "dev_front": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "dev_back": "cross-env NODE_ENV=development nodemon index.js ",
-    "dev": "cross-env NODE_ENV=development node myWebpack.js ",
+    "dev": "cross-env NODE_ENV=development run-p dev_front dev_back",
     "test": "cross-env NODE_ENV=test sequelize db:migrate:undo:all && cross-env NODE_ENV=test sequelize db:migrate && cross-env NODE_ENV=test node_modules/lab/bin/lab -v"
   },
   "keywords": [],
@@ -40,6 +40,7 @@
     "imports-loader": "^0.7.0",
     "lab": "^11.2.1",
     "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.0",
     "sequelize-cli": "^2.5.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
