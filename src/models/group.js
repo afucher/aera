@@ -1,8 +1,14 @@
 'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   var Group = sequelize.define('Group', {
     course_id: DataTypes.INTEGER,
-    start_date: DataTypes.DATEONLY,
+    start_date: {
+      type: DataTypes.DATEONLY,
+      get: function(field) {
+        return getDateWithoutTime(this.getDataValue(field))
+      }
+    },
     end_date: DataTypes.DATEONLY,
     start_hour: DataTypes.TIME,
     end_hour: DataTypes.TIME,
@@ -23,3 +29,7 @@ module.exports = function(sequelize, DataTypes) {
   });
   return Group;
 };
+
+function getDateWithoutTime(date) {
+    return require('moment')(date).format('YYYY-MM-DD');
+}

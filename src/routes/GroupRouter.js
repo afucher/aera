@@ -8,7 +8,6 @@ module.exports = [
         handler: (request, reply) => {
             GroupController.getAll()
                 .then(reply);
-                //.then(reply);
         }
     },
     {
