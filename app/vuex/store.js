@@ -4,7 +4,7 @@ import VueResource from 'vue-resource'
 
 import actions from './actions'
 
-import {DELETE_COURSE} from './mutation-types'
+import * as types from './mutation-types'
 
 
 
@@ -12,7 +12,8 @@ import {DELETE_COURSE} from './mutation-types'
 export default new Vuex.Store({
     state : {
         message : "Seja bem-vindo",
-        courses: []
+        courses: [],
+        groups : []
     },
     actions,
     mutations: {
@@ -22,9 +23,12 @@ export default new Vuex.Store({
         loadCourses (state, payload) {
             state.courses = payload;
         },
-        [DELETE_COURSE] ({courses}, payload) {
+        [types.DELETE_COURSE] ({courses}, payload) {
             courses.splice(courses.findIndex((el)=> el.id == payload.id), 1);
             
+        },
+        [types.SET_GROUPS] (state, payload) {
+            state.groups = payload;
         }
     }
 })

@@ -10,7 +10,8 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 
 const router = new VueRouter({
   routes: [
-    {path: '/courses', name:'courses', component: require('./components/course/Courses.vue')}
+    {path: '/courses', name:'courses', component: require('./components/course/Courses.vue')},
+    {path: '/groups', name:'groups', component: require('./components/group/ListGroup.vue')}
   ]
 });
 

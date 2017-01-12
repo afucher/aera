@@ -1,22 +1,39 @@
 import CourseService from '../services/CourseService'
-import { CREATE_COURSE, DELETE_COURSE } from './mutation-types'
-const myService = new CourseService();
+import GroupService from '../services/GroupService'
+import * as mut_types from './mutation-types';
+const course_srv = new CourseService();
+const group_srv = new GroupService();
 
 export default {
         createCourse: ( {commit} , payload ) => {
-                myService.createCourse(payload)
-                .then((c) => commit(CREATE_COURSE, c))
+                course_srv.createCourse(payload)
+                .then((c) => commit(mut_types.CREATE_COURSE, c))
                 
         },
         loadCourses: ( {commit, state} ) => {
                 if (state.courses.length == 0){
-                        myService.getCourses()
+                        course_srv.getCourses()
                         .then((courses) => commit('loadCourses', courses))
                 }
         },
         delCourse: ( {commit}, payload ) => {
-                commit(DELETE_COURSE, payload)
-                myService.deleteCourse(payload)
+                commit(mut_types.DELETE_COURSE, payload)
+                course_srv.deleteCourse(payload)
+        },
+        createGroup: ( {commit} , payload ) => {
+                group_srv.createGroup(payload)
+                .then((c) => commit(mut_types.CREATE_GROUP, c))
+                
+        },
+        loadGroups: ( {commit, state} ) => {
+                if (state.groups.length == 0){
+                        group_srv.getAll()
+                        .then((groups) => commit(mut_types.SET_GROUPS, groups))
+                }
+        },
+        delGroup: ( {commit}, payload ) => {
+                commit(mut_types.DELETE_COURSE, payload)
+                group_srv.deleteCourse(payload)
         }
 
 }

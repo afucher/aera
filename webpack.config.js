@@ -9,7 +9,8 @@ const config = {
     filename: 'build.js'
   },
   devServer:{
-    proxy: {'/courses': 'http://localhost:3000'},
+    proxy: {'/courses': 'http://localhost:3000',
+    '/groups': 'http://localhost:3000'},
     hot: true
   },
   module: {
