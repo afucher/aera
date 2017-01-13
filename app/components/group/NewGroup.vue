@@ -1,7 +1,7 @@
 <template>
 <div>
     <form @submit.prevent="createGroup">
-        <input type="text" v-model="start_date"></input>
+        <input type="text" v-model="course.start_date"></input>
         <button type="submit">Nova Turma</button>
     </form>
     
@@ -13,10 +13,13 @@ import { mapActions } from 'vuex'
 export default {
     data: function(){
         return {
-            start_date: '',
-            end_date: '',
-            start_hour: '',
-            end_hour: ''
+            course : {
+                start_date: '',
+                end_date: '',
+                start_hour: '',
+                end_hour: '',
+                course_id: this.$route.params.id
+            }
         }
     },
     methods: {
@@ -28,7 +31,7 @@ export default {
                 start_hour: this.start_hour,
                 end_hour: this.end_hour
             }
-            this.$store.dispatch('createGroup', course);
+            this.$store.dispatch('createGroup', this.course);
         }
     }
 }
