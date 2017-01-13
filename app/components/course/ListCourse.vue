@@ -2,6 +2,8 @@
     <div>
         <div v-for="course in courses">
             {{course.description}}
+            <router-link :to="{ name: 'newGroup', 
+                    params:{id: course.id}}">Nova Turma</router-link>
             <button @click="deleteCourse(course)">X</button>
         </div>
     </div>
