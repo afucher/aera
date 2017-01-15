@@ -4,8 +4,8 @@ import Vue from 'vue';
 
 export default class MyService {
     constructor(){
-        this.resourceAll = Vue.resource('/groups');
-        this.resourceOne = Vue.resource('/groups{/id}');
+        this.resourceAll = Vue.resource('/api/groups');
+        this.resourceOne = Vue.resource('/api/groups{/id}');
     }
     
     getAll() {
