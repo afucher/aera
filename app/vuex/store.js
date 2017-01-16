@@ -10,28 +10,33 @@ import * as types from './mutation-types'
 
 
 export default new Vuex.Store({
-    state : {
-        message : "Seja bem-vindo",
+    state: {
+        message: "Seja bem-vindo",
         courses: [],
-        groups : []
+        groups: []
     },
     actions,
     mutations: {
-        addCourse (state, payload) {
+        addCourse(state, payload) {
             state.courses.push(payload);
         },
-        loadCourses (state, payload) {
+        loadCourses(state, payload) {
             state.courses = payload;
         },
-        [types.DELETE_COURSE] ({courses}, payload) {
-            courses.splice(courses.findIndex((el)=> el.id == payload.id), 1);
-            
+        [types.DELETE_COURSE]({courses}, payload) {
+            courses.splice(courses.findIndex((el) => el.id == payload.id), 1);
+
         },
-        [types.SET_GROUPS] (state, payload) {
+        [types.SET_GROUPS](state, payload) {
             state.groups = payload;
         },
-        [types.CREATE_GROUP] (state, payload) {
+        [types.CREATE_GROUP](state, payload) {
             state.groups.push(payload);
+        }
+    },
+    getters: {
+        doneTodos: (state) => course_id => {
+            return state.groups.filter(group => group.course_id == course_id)
         }
     }
 })

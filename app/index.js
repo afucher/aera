@@ -15,17 +15,24 @@ Vue.use(ElementUI)
 
 const router = new VueRouter({
   routes: [
-    {path: '/courses', name:'courses', component: require('./components/course/Courses.vue')},
-    {path: '/courses/:id/newGroup', name:'newGroup', component: require('./components/group/NewGroup.vue')},
-    {path: '/groups', name:'groups', component: require('./components/group/ListGroup.vue')}
+    {
+      path: '/courses', name: 'courses', component: require('./components/course/Courses.vue'),
+      children: [{
+        name: 'courseGroups',
+        path: ':id/groups',
+        component: require('./components/group/CourseGroups.vue')
+      }]
+    },
+    { path: '/courses/:id/newGroup', name: 'newGroup', component: require('./components/group/NewGroup.vue') },
+    { path: '/groups', name: 'groups', component: require('./components/group/ListGroup.vue') }
   ],
   linkActiveClass: 'active'
 });
 
 new Vue({
-  el : '#app',
+  el: '#app',
   router,
   store,
-  render : (h) => h(App)
+  render: (h) => h(App)
 
 });
