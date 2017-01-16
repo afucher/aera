@@ -29,6 +29,9 @@ export default new Vuex.Store({
         },
         [types.SET_GROUPS] (state, payload) {
             state.groups = payload;
+        },
+        [types.CREATE_GROUP] (state, payload) {
+            state.groups.push(payload);
         }
     }
 })

@@ -4,9 +4,14 @@ import config from './config'
 import store from './vuex/store'
 
 import App from './components/App.vue'
+import ElementUI from 'element-ui'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+import 'element-ui/lib/theme-default/index.css'
+
+Vue.use(ElementUI)
+
 
 const router = new VueRouter({
   routes: [

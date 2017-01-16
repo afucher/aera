@@ -1,7 +1,30 @@
 <template>
 <div>
     <form @submit.prevent="createGroup">
-        <input type="text" v-model="course.start_date"></input>
+    <div class="form-group">
+        <label>Data de início</label>
+        <datepicker v-model="course.start_date"></datepicker>
+    </div>
+    <div class="form-group">
+        <label>Data de término</label>
+        <datepicker v-model="course.end_date"></datepicker>
+    </div>
+    <div class="form-group">
+        <label>Horário de início</label>
+        <el-time-select
+      
+      :picker-options="{ start: '00:00:00', end: '24:00:00' }"
+            v-model="course.start_hour">
+        </el-time-select>
+    </div>
+    <div class="form-group">
+        <label>Horário de término</label>
+        <el-time-select
+        :picker-options="{ start: '00:00', step: '00:30', end: '24:00' }"
+            v-model="course.end_hour">
+        </el-time-select>
+    </div>
+    <input type="text" v-model="course.start_hour">
         <button type="submit">Nova Turma</button>
     </form>
     
@@ -10,7 +33,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import moment from 'moment'
+import Datepicker from 'vuejs-datepicker'
+
 export default {
+    components: {Datepicker},
     data: function(){
         return {
             course : {
@@ -24,13 +51,6 @@ export default {
     },
     methods: {
         createGroup(e) {
-            e.preventDefault();
-            let course = {
-                start_date: this.start_date,
-                end_date: this.end_date,
-                start_hour: this.start_hour,
-                end_hour: this.end_hour
-            }
             this.$store.dispatch('createGroup', this.course);
         }
     }

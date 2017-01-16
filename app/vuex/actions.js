@@ -21,6 +21,10 @@ export default {
                 course_srv.deleteCourse(payload)
         },
         createGroup: ( {commit} , payload ) => {
+                if(payload.start_hour.length == 5)
+                        payload.start_hour += ":00"
+                if(payload.end_hour.length == 5)
+                        payload.end_hour += ":00"
                 group_srv.createGroup(payload)
                 .then((c) => commit(mut_types.CREATE_GROUP, c))
                 

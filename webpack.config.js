@@ -21,7 +21,7 @@ const config = {
       // apply babel transform to all the dependencies!
       { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
       {test: /\.css$/, loader: 'style-loader!css-loader'},
-      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
+      { test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/, loader: 'url-loader?limit=100000' },
       { test: /bootstrap.+\.(jsx|js)$/, loader: 'imports?jQuery=jquery,$=jquery,this=>window' }
     ]
   },
