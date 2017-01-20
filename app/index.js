@@ -24,7 +24,8 @@ const router = new VueRouter({
       }]
     },
     { path: '/courses/:id/newGroup', name: 'newGroup', component: require('./components/group/NewGroup.vue') },
-    { path: '/groups', name: 'groups', component: require('./components/group/ListGroup.vue') }
+    { path: '/groups', name: 'groups', component: require('./components/group/ListGroup.vue')},
+    { path: '/groups/:id', name: 'group', component: require('./components/group/Group.vue')}
   ],
   linkActiveClass: 'active'
 });

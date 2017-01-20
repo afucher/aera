@@ -19,14 +19,21 @@ export default {
         delCourse: ( {commit}, payload ) => {
                 commit(mut_types.DELETE_COURSE, payload)
                 course_srv.deleteCourse(payload)
+                        .then((a)=>console.log(a))
+                        .catch((err)=>commit(mut_types.CREATE_COURSE, payload))
         },
         createGroup: ( {commit} , payload ) => {
-                if(payload.start_hour.length == 5)
-                        payload.start_hour += ":00"
-                if(payload.end_hour.length == 5)
-                        payload.end_hour += ":00"
-                group_srv.createGroup(payload)
-                .then((c) => commit(mut_types.CREATE_GROUP, c))
+                let group = payload;
+                if(group.start_hour.length == 5)
+                        group.start_hour += ":00"
+                if(group.end_hour.length == 5)
+                        group.end_hour += ":00"
+                return new Promise((resolve,reject) => {
+                        group_srv.createGroup(group)
+                        .then((c) => commit(mut_types.CREATE_GROUP, c))
+                        .catch(({data})=>reject(data.message));
+                })
+                
                 
         },
         loadGroups: ( {commit, state} ) => {

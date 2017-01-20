@@ -32,7 +32,8 @@ module.exports = [
         path: '/courses/{id}',
         handler: (request, reply) => {
             CourseController.delete(request.params.id)
-                .then((course) => reply(course));
+                .then((course) => reply(course))
+                .catch((err) => reply(err));
         }
     }
 ];

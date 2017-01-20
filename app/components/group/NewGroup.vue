@@ -11,21 +11,23 @@
     </div>
     <div class="form-group">
         <label>Horário de início</label>
-        <el-time-select
-      
-      :picker-options="{ start: '00:00:00', end: '24:00:00' }"
+        <el-time-select      
+            :picker-options="{ start: '00:00', end: '24:00' }"
             v-model="course.start_hour">
         </el-time-select>
     </div>
     <div class="form-group">
         <label>Horário de término</label>
         <el-time-select
-        :picker-options="{ start: '00:00', step: '00:30', end: '24:00' }"
+            :picker-options="{ start: '00:00', end: '24:00' }"
             v-model="course.end_hour">
         </el-time-select>
     </div>
     <input type="text" v-model="course.start_hour">
         <button type="submit">Nova Turma</button>
+        <div  v-if="errorMessage" class="alert alert-danger alert-dismissible" role="alert">
+            <span>{{errorMessage}}</span>
+        </div>
     </form>
     
 </div>
@@ -46,12 +48,15 @@ export default {
                 start_hour: '',
                 end_hour: '',
                 course_id: this.$route.params.id
-            }
+            },
+            errorMessage:''
         }
     },
     methods: {
         createGroup(e) {
-            this.$store.dispatch('createGroup', this.course);
+            this.$store.dispatch('createGroup', this.course)
+                .then((a)=>console.log(a))
+                .catch((err) => this.errorMessage = err);
         }
     }
 }

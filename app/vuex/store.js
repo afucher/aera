@@ -35,8 +35,11 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        doneTodos: (state) => course_id => {
-            return state.groups.filter(group => group.course_id == course_id)
+        groupsFromCourse: (state) => course_id => {
+            return state.groups.filter(group => group.course_id == course_id);
+        },
+        group: (state) => group_id => {
+            return state.groups.filter(group => group.id == group_id)[0];
         }
     }
 })
