@@ -35,6 +35,26 @@ module.exports = [
         }
     },
     {
+        method: 'POST',
+        path: '/groups/{id}/addStudent',
+        handler: (request, reply) => {
+            let group_id = request.params.id;
+            let student_id = request.payload.student_id;
+            GroupController.addStudent(group_id, student_id)
+                .then(g => reply(g))
+                .catch(err=>reply(err));
+        }
+    },
+    {
+        method: 'GET',
+        path: '/groups/{id}/students',
+        handler: ({params}, reply) => {
+            GroupController.getStudents(params.id)
+                .then(g => reply(g))
+                .catch(err=>reply(err));
+        }
+    },
+    {
         method: 'DELETE',
         path: '/groups/{id}',
         handler: (request, reply) => {
