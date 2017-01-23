@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="group in groups">
-            {{group.start_date}}
+            <p>{{group.start_date}} - <router-link :to="{ name: 'group',params:{id:group.id}}">Detalhes</router-link></p>
         </div>
     </div>
 </template>
