@@ -1,4 +1,5 @@
 'use strict';
+const Boom = require('boom');
 const GroupController = require('../controllers/GroupController');
 const GroupValidation = require('../validation_schemas/Group');
 module.exports = [
@@ -41,8 +42,8 @@ module.exports = [
             let group_id = request.params.id;
             let student_id = request.payload.student_id;
             GroupController.addStudent(group_id, student_id)
-                .then(g => reply(g))
-                .catch(err=>reply(err));
+                .then(reply)
+                .catch(reply);
         }
     },
     {

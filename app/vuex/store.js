@@ -32,6 +32,11 @@ export default new Vuex.Store({
         },
         [types.CREATE_GROUP](state, payload) {
             state.groups.push(payload);
+        },
+        [types.ADD_STUDENT]({groups}, {group,student}) {
+            const grp_idx = groups.findIndex(el => el.id == group.id);
+            if (groups[grp_idx].Students.findIndex(el => el.id == student.id) < 0)
+                groups[grp_idx].Students.push(student);
         }
     },
     getters: {

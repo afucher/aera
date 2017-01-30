@@ -45,6 +45,13 @@ export default {
         delGroup: ( {commit}, payload ) => {
                 commit(mut_types.DELETE_COURSE, payload)
                 group_srv.deleteCourse(payload)
+        },
+        addStudentToGroup: ({commit}, payload) => {
+                let student = payload.student;
+                let student_id = student.id;
+                let group = payload.group;
+                group_srv.addStudent({group, student_id});
+                commit(mut_types.ADD_STUDENT, {group,student});
         }
 
 }

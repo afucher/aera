@@ -18,8 +18,8 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         models.Group.belongsTo(models.Course, {foreignKey: 'course_id'});
-        models.Group.belongsToMany(models.Student,{
-          through: models.StudentGroup,
+        models.Group.belongsToMany(models.Client,{
+          through: models.ClientGroup,
           foreignKey: 'group_id',
           as:'Students'
         });
