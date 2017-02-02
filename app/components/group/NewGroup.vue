@@ -25,9 +25,7 @@
     </div>
     <input type="text" v-model="course.start_hour">
         <button type="submit">Nova Turma</button>
-        <div  v-if="errorMessage" class="alert alert-danger alert-dismissible" role="alert">
-            <span>{{errorMessage}}</span>
-        </div>
+        <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
     </form>
     
 </div>
@@ -37,9 +35,10 @@
 import { mapActions } from 'vuex'
 import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
+import MyErrMsg from '../util/ErrorMessage.vue'
 
 export default {
-    components: {Datepicker},
+    components: {Datepicker, MyErrMsg},
     data: function(){
         return {
             course : {

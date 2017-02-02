@@ -12,6 +12,10 @@ export default class MyService {
         return this.resourceAll.get().then((d) => d.json());
     }
 
+    get(id) {
+        return this.resourceOne.get({id}).then(d => d.json());
+    }
+
     createGroup(group){
         return this.resourceAll.save(group).then((g) => g.json());
     }

@@ -4,7 +4,7 @@
         <p>Data de início: {{group.start_date}}</p>
         <p>Data de fim: {{group.end_date}}</p>
         <p>Das {{group.start_hour}} às {{group.end_hour}}</p>
-        <div v-if="group.Students.length > 0">
+        <div v-if="group.Students && group.Students.length > 0">
             <h2>Alunos matriculados:</h2>
             <div v-for="student in group.Students">
                 <p>{{student.name}}</p>
@@ -21,29 +21,30 @@
                 @select="handleSelect"
                 ></el-autocomplete>
             <button @click.prevent="matriculaAluno">Matricular</button>
+            <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
         </div>
     </div>
     
 </template>
 <script>
-
+import GroupService from '../../services/GroupService'
+import MyErrMsg from '../util/ErrorMessage.vue'
+const Service = new GroupService();
 export default {
         name: "Group",
         props: ['group_id'],
+        components: {MyErrMsg},
         data : function(){
             return {
                 selected_client_name: null,
-                selected_client_obj: null
-            }
-        },
-        computed: {
-            group() {
-                let group_id = this.group_id || this.$route.params.id;
-                return this.$store.getters.group(group_id);
+                selected_client_obj: null,
+                group: null,
+                errorMessage: null
             }
         },
         mounted(){
-            this.$store.dispatch("loadGroups")
+            let group_id = this.group_id || this.$route.params.id;
+            Service.get(group_id).then(g => this.group = g);
         },
         methods: {
             getData(obj){
@@ -61,10 +62,16 @@ export default {
                 this.selected_client_obj = item;
             },
             matriculaAluno(aluno) {
+                this.errorMessage = '';
                 this.$store.dispatch('addStudentToGroup',{
                     group: this.group,
                     student: this.selected_client_obj
-                }).then(this.resetSelecteds);
+                }).then(() => {
+                    this.group.Students.push(this.selected_client_obj);
+                    this.resetSelecteds();
+                }).catch((err) => {
+                    this.errorMessage = err.body.message;
+                });
                 
             },
             resetSelecteds() {

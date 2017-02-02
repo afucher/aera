@@ -23,11 +23,10 @@
             v-model="group.end_hour">
         </el-time-select>
     </div>
-    <input type="text" v-model="group.start_hour">
-        <button type="submit">Nova Turma</button>
-        <div  v-if="errorMessage" class="alert alert-danger alert-dismissible" role="alert">
-            <span>{{errorMessage}}</span>
-        </div>
+    <button type="submit">Nova Turma</button>
+    <div  v-if="errorMessage" class="alert alert-danger alert-dismissible" role="alert">
+        <span>{{errorMessage}}</span>
+    </div>
     </form>
     
 </div>

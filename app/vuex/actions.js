@@ -50,8 +50,8 @@ export default {
                 let student = payload.student;
                 let student_id = student.id;
                 let group = payload.group;
-                group_srv.addStudent({group, student_id});
-                commit(mut_types.ADD_STUDENT, {group,student});
+                return group_srv.addStudent({group, student_id});
+                //commit(mut_types.ADD_STUDENT, {group,student});
         }
 
 }
