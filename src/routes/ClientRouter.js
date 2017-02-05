@@ -21,9 +21,9 @@ module.exports = [
     {
         method: 'POST',
         path: '/clients',
-        handler: (request, reply) => {
-            /*ClientController.create({description:request.payload.description})
-                .then((client) => reply(client));*/
+        handler: ({payload}, reply) => {
+            ClientController.create(payload)
+                .then((client) => reply(client));
         }
     },
     {

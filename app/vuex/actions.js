@@ -1,8 +1,10 @@
 import CourseService from '../services/CourseService'
 import GroupService from '../services/GroupService'
+import ClientService from '../services/ClientService'
 import * as mut_types from './mutation-types';
 const course_srv = new CourseService();
 const group_srv = new GroupService();
+const client_srv = new ClientService();
 
 export default {
         createCourse: ( {commit} , payload ) => {
@@ -52,6 +54,16 @@ export default {
                 let group = payload.group;
                 return group_srv.addStudent({group, student_id});
                 //commit(mut_types.ADD_STUDENT, {group,student});
-        }
+        },
+        createClient: ( {commit} , payload ) => {
+                console.log(payload);
+                return new Promise((resolve,reject) => {
+                        client_srv.createClient(payload);
+                        //.then((c) => commit(mut_types.CREATE_GROUP, c))
+                        //.catch(({data})=>reject(data.message));
+                })
+                
+                
+        },
 
 }

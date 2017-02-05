@@ -13,7 +13,8 @@ export default class ClientService {
     }
 
     createClient(client){
-        return this.resourceAll.save(client).then((c) => c.json());
+        console.log(client);
+        return this.resourceAll.save(client).then((c) => c.json()).catch(console.log);
     }
 
 }

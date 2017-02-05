@@ -1,5 +1,6 @@
 <template>
     <div>
+        <router-link :to="{ name: 'newClient'}">Criar novo</router-link>
         <div v-for="client in clients">
             <p>{{client.name}}</p>
         </div>
