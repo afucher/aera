@@ -2,7 +2,9 @@
     <div>
         <AeraMenu></AeraMenu>
         <h4>{{ message }}</h4>
-        <router-view></router-view>
+        <div class="container">
+            <router-view></router-view>
+        </div>
     </div>
     
 </template>
