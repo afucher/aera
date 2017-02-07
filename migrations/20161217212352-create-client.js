@@ -20,6 +20,9 @@ module.exports = {
         type: Sequelize.STRING(100),
         unique: true
       },
+      phone: {
+        type: Sequelize.STRING(20)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
