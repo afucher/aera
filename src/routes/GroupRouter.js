@@ -1,6 +1,7 @@
 'use strict';
 const Boom = require('boom');
 const GroupController = require('../controllers/GroupController');
+const GroupStudentController = require('../controllers/GroupStudentController');
 const GroupValidation = require('../validation_schemas/Group');
 module.exports = [
     {
@@ -42,6 +43,18 @@ module.exports = [
             let group_id = request.params.id;
             let student_id = request.payload.student_id;
             GroupController.addStudent(group_id, student_id)
+                .then(reply)
+                .catch(reply);
+        }
+    },
+    {
+        method: 'POST',
+        path: '/groups/{id}/studentAttendance',
+        handler: (request, reply) => {
+            let group_id = request.params.id;
+            let student_id = request.payload.student_id;
+            let attendance = request.payload.attendance;
+            GroupStudentController.updateStudentAttendance(group_id, student_id, attendance)
                 .then(reply)
                 .catch(reply);
         }
