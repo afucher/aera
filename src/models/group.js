@@ -9,7 +9,12 @@ module.exports = function(sequelize, DataTypes) {
         return getDateWithoutTime(this.getDataValue(field))
       }
     },
-    end_date: DataTypes.DATEONLY,
+    end_date: {
+      type: DataTypes.DATEONLY,
+      get: function(field) {
+        return getDateWithoutTime(this.getDataValue(field))
+      }
+    },
     start_hour: DataTypes.TIME,
     end_hour: DataTypes.TIME,
     class_info: DataTypes.JSON
