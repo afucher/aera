@@ -15,11 +15,34 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <router-link :exact=true tag="li" :to="{ name: 'courses'}"><a>Cursos</a></router-link>
-            <router-link :exact=true tag="li" :to="{ name: 'groups'}"><a>Turmas</a></router-link>
-            <router-link :exact=true tag="li" :to="{ name: 'clients'}"><a>Clientes</a></router-link>
+            <template v-if="isAuthenticated">
+                <router-link :exact=true tag="li" :to="{ name: 'courses'}"><a>Cursos</a></router-link>
+                <router-link :exact=true tag="li" :to="{ name: 'groups'}"><a>Turmas</a></router-link>
+                <router-link :exact=true tag="li" :to="{ name: 'clients'}"><a>Clientes</a></router-link>
+            </template>
+            <router-link :exact=true tag="li" :to="{ name: 'login'}"><a>Login</a></router-link>
+            
+            <li v-if="isAuthenticated"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
     </nav>
 </template>
+<script>
+import Auth from '../services/AuthService.js'
+export default {
+    name: "Menu",
+    methods: {
+        logout(){
+            this.$store.dispatch('logout');
+            this.$router.push('/');
+        }
+    },
+    computed: {
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated;
+        }
+    }
+
+}
+</script>

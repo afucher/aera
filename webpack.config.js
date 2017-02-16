@@ -9,7 +9,7 @@ const config = {
     filename: 'build.js'
   },
   devServer:{
-    proxy: {'/api': 'http://localhost:3000'},
+    proxy: {'/api': 'http://localhost:3000/','/login': 'http://localhost:3000/','/logout': 'http://localhost:3000/'},
     hot: true
   },
   module: {

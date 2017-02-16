@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueResource from 'vue-resource'
-
+import createPersistedState from 'vuex-persistedstate'
 import actions from './actions'
 
 import * as types from './mutation-types'
@@ -13,7 +13,8 @@ export default new Vuex.Store({
     state: {
         message: "Seja bem-vindo",
         courses: [],
-        groups: []
+        groups: [],
+        user: null
     },
     actions,
     mutations: {
@@ -37,6 +38,12 @@ export default new Vuex.Store({
             const grp_idx = groups.findIndex(el => el.id == group.id);
             if (groups[grp_idx].Students.findIndex(el => el.id == student.id) < 0)
                 groups[grp_idx].Students.push(student);
+        },
+        [types.LOGIN](state, payload){
+            state.user = payload;
+        },
+        [types.LOGOUT](state){
+            state.user = null;
         }
     },
     getters: {
@@ -45,6 +52,8 @@ export default new Vuex.Store({
         },
         group: (state) => group_id => {
             return state.groups.filter(group => group.id == group_id)[0];
-        }
-    }
+        },
+        isAuthenticated: ({user}) => !(user == null)
+    },
+    plugins: [createPersistedState()]
 })
