@@ -62,16 +62,11 @@ server.register([require('inert'),require('hapi-auth-cookie'),{
                             username: username
                         }
                     })
+                    .then((user) => checkUser(user, password))
                     .then((user) => {
-                        if (user && user.get("password") == password) {
-                            request.cookieAuth.set({
-                                username: username
-                            });
-                            reply(user);
-                        } else {
-                            reply('wrong login');
-                        }
-                    });
+                        request.cookieAuth.set({username:username});
+                        reply(user);
+                    }).catch(reply);
             },
             auth: { mode: 'try' }
         }
@@ -95,3 +90,9 @@ server.register([require('inert'),require('hapi-auth-cookie'),{
     });
 });
 
+const checkUser = (user,password) => new Promise((resolve, reject) => {
+    if(!user) reject(false);
+    user.comparePassword(password, (err, same) => {
+        same ? resolve(user) : reject(false);
+    })
+});
