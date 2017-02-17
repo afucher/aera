@@ -20,7 +20,7 @@
                 <router-link :exact=true tag="li" :to="{ name: 'groups'}"><a>Turmas</a></router-link>
                 <router-link :exact=true tag="li" :to="{ name: 'clients'}"><a>Clientes</a></router-link>
             </template>
-            <router-link :exact=true tag="li" :to="{ name: 'login'}"><a>Login</a></router-link>
+            <router-link  v-if="!isAuthenticated" :exact=true tag="li" :to="{ name: 'login'}"><a>Login</a></router-link>
             
             <li v-if="isAuthenticated"><a href="#" @click.prevent="logout">Logout</a></li>
         </ul>
