@@ -1,6 +1,6 @@
 'use strict';
 const ClientController = require('../controllers/ClientController');
-
+const Boom = require('boom');
 module.exports = [
     {
         method: 'GET',
@@ -23,7 +23,11 @@ module.exports = [
         path: '/clients',
         handler: ({payload}, reply) => {
             ClientController.create(payload)
-                .then((client) => reply(client));
+                .then(reply)
+                .catch(err => {
+                    console.log(err.errors);
+                    reply(handleError(err));
+                });
         }
     },
     {
@@ -36,3 +40,14 @@ module.exports = [
         }
     }
 ];
+
+
+const handleError = (err) => {
+    let error = null;
+    switch(err.errors[0].type){
+        case 'unique violation':
+            error = Boom.badRequest(err.errors[0].message);
+            break;
+    }
+    return error;
+}

@@ -32,16 +32,19 @@ export default {
             client: {
                 name: '',
                 email: '',
-                cpf: ''
+                cpf: '',
+                phone:'',
+                address:''
             },
             errorMessage: ''
         }
     },
     methods: {
         createClient(e) {
-            this.$store.dispatch('createClient', this.client)
-                .then((a)=>console.log(a))
-                .catch((err) => this.errorMessage = err);
+            const that = this;
+            that.$store.dispatch('createClient', this.client)
+                .then(() => that.$router.push('/clients'))
+                .catch((err) => this.errorMessage = err.body.message);
         }
     }
 }

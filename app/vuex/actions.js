@@ -58,7 +58,9 @@ export default {
         },
         createClient: ( {commit} , payload ) => {
                 return new Promise((resolve,reject) => {
-                        client_srv.createClient(payload);
+                        client_srv.createClient(payload)
+                                .then(resolve)
+                                .catch(reject);
                 })
                 
                 
