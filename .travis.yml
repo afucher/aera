@@ -9,3 +9,7 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database aera_test;' -U postgres
