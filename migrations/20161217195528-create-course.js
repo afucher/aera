@@ -11,9 +11,12 @@ module.exports = {
       code: {
         type: Sequelize.STRING
       },
-      description: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      description: {
+        type: Sequelize.STRING
       },
       courseLoad: {
         type: Sequelize.INTEGER
