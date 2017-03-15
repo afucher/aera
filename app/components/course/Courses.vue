@@ -1,7 +1,6 @@
 <template>
     <div>
         <ListCourse></ListCourse>
-        <NewCourse></NewCourse>
     </div>
 </template>
 

@@ -67,7 +67,11 @@ export default {
         },
         login: ( {commit}, {username, password} ) => {
                 Auth.login(username, password)
-                        .then( user => {commit(mut_types.LOGIN, user)});
+                        .then( user => {
+                                commit(mut_types.LOGIN, user)
+                        })
+                        .catch(()=> commit(mut_types.LOGOUT) )
+                        
         },
         logout: ({commit}) => commit(mut_types.LOGOUT)
 

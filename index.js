@@ -2,6 +2,7 @@
 const Hapi = require('hapi');
 const Path = require('path');
 const User = require('./src/models').User;
+const Boom = require('boom');
 
 const CookieSecret = process.env.COOKIE || 'O*&DI@H*&dnq87921hdHD!@HD82feuiA';
 
@@ -91,8 +92,8 @@ server.register([require('inert'),require('hapi-auth-cookie'),{
 });
 
 const checkUser = (user,password) => new Promise((resolve, reject) => {
-    if(!user) reject(false);
+    if(!user) reject(Boom.unauthorized("Login failed"));
     user.comparePassword(password, (err, same) => {
-        same ? resolve(user) : reject(false);
+        same ? resolve(user) : reject(Boom.unauthorized("Login failed"));
     })
 });
