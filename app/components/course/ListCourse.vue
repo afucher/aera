@@ -7,7 +7,7 @@
             <router-link :to="{ name: 'courseGroups', 
                     params:{id: course.id}}">Turmas</router-link>
                     
-            <button @click="deleteCourse(course)">X</button>
+            <!--<button @click="deleteCourse(course)">X</button>-->
         </div>
         <router-view></router-view>
     </div>
