@@ -14,10 +14,8 @@ export default {
                 
         },
         loadCourses: ( {commit, state} ) => {
-                if (state.courses.length == 0){
-                        course_srv.getCourses()
-                        .then((courses) => commit('loadCourses', courses))
-                }
+                course_srv.getCourses()
+                .then((courses) => commit('loadCourses', courses))
         },
         delCourse: ( {commit}, payload ) => {
                 commit(mut_types.DELETE_COURSE, payload)
@@ -40,10 +38,8 @@ export default {
                 
         },
         loadGroups: ( {commit, state} ) => {
-                if (state.groups.length == 0){
-                        group_srv.getAll()
-                        .then((groups) => commit(mut_types.SET_GROUPS, groups))
-                }
+                group_srv.getAll()
+                .then((groups) => commit(mut_types.SET_GROUPS, groups))
         },
         delGroup: ( {commit}, payload ) => {
                 commit(mut_types.DELETE_COURSE, payload)

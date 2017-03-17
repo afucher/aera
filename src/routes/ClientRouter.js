@@ -7,7 +7,7 @@ module.exports = [
         path: '/clients',
         handler: (request, reply) => {
             ClientController.getAll()
-                .then(reply);
+                .then(courses => reply({data:courses.rows,count:courses.count}));
         }
     },
     {

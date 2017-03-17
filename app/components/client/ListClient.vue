@@ -1,20 +1,27 @@
 <template>
     <div>
         <router-link :to="{ name: 'newClient'}">Criar novo</router-link>
-        <div v-for="client in clients">
-            <p>{{client.name}}</p>
+        <div id="people">
+            <v-server-table url="/api/clients" :columns="columns" :options="options"></v-server-table>
         </div>
     </div>
 </template>
  
 <script>
 import ClientService from '../../services/ClientService'
+import edit from './editTable.vue'
     export default {
         name: "AeraListClient",
         data: function(){
             return {
                 clients: null,
-                service: new ClientService()
+                service: new ClientService(),
+                columns: ['name','email', 'edit'],
+                options : {
+                    templates : {
+                        edit
+                    }
+                }
             }
         },
         mounted() {
