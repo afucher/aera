@@ -58,8 +58,13 @@ export default {
                                 .then(resolve)
                                 .catch(reject);
                 })
-                
-                
+        },
+        updateClient: ( {commit} , payload ) => {
+                return new Promise((resolve,reject) => {
+                        client_srv.updateClient(payload)
+                                .then(resolve)
+                                .catch(reject);
+                })
         },
         login: ( {commit}, {username, password} ) => {
                 Auth.login(username, password)

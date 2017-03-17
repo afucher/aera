@@ -38,6 +38,17 @@ module.exports = [
                 .then((client) => reply(client))
                 .catch((err) => reply(err));
         }
+    },
+    {
+        method: 'PUT',
+        path: '/clients/{id}',
+        handler: (request, reply) => {
+            if(!request.params.id == request.payload.client.id)
+                reply(Boom.badData("Invalid ID"));
+            ClientController.update(request.payload.client)
+                .then((client) => reply(client))
+                .catch((err) => reply(err));
+        }
     }
 ];
 
