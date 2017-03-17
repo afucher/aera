@@ -6,7 +6,7 @@ module.exports = [
         method: 'GET',
         path: '/clients',
         handler: (request, reply) => {
-            ClientController.getAll()
+            ClientController.getAll({filter:request.query.query})
                 .then(courses => reply({data:courses.rows,count:courses.count}));
         }
     },
