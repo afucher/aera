@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="course in courses">
-            {{course.name}}
+            {{course.name}} - {{course.courseLoad}}h
             <router-link :to="{ name: 'newGroup', 
                     params:{id: course.id}}">Nova Turma</router-link>
             <router-link :to="{ name: 'courseGroups', 
