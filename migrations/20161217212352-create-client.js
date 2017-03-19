@@ -13,12 +13,10 @@ module.exports = {
         allowNull: false
       },
       cpf: {
-        type: Sequelize.STRING(11),
-        unique: true
+        type: Sequelize.STRING(11)
       },
       email: {
-        type: Sequelize.STRING(100),
-        unique: true
+        type: Sequelize.STRING(100)
       },
       phone: {
         type: Sequelize.STRING(20)

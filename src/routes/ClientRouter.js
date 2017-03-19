@@ -5,8 +5,13 @@ module.exports = [
     {
         method: 'GET',
         path: '/clients',
-        handler: (request, reply) => {
-            ClientController.getAll({filter:request.query.query})
+        handler: ({query}, reply) => {
+            let opt = {
+                filter: query.query,
+                limit : query.limit,
+                offset: query.limit * (query.page-1) || 0
+            }
+            ClientController.getAll(opt)
                 .then(courses => reply({data:courses.rows,count:courses.count}));
         }
     },

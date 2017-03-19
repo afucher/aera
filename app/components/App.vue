@@ -1,7 +1,6 @@
 <template>
     <div>
         <AeraMenu></AeraMenu>
-        <h4>{{ message }}</h4>
         <div class="container">
             <router-view></router-view>
         </div>

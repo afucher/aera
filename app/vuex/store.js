@@ -11,7 +11,6 @@ import * as types from './mutation-types'
 
 export default new Vuex.Store({
     state: {
-        message: "Seja bem-vindo",
         courses: [],
         groups: [],
         user: null

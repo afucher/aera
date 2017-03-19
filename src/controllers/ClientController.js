@@ -4,8 +4,8 @@ const Client = require('../models').Client;
 const ClientController = {};
 
 
-ClientController.getAll = ({filter}) => 
-    filter? Client.findAndCountAll({where:{name:{$ilike:filter+'%'}}}) : Client.findAndCountAll();
+ClientController.getAll = ({filter,limit,offset}) => 
+    filter? Client.findAndCountAll({where:{name:{$ilike:filter+'%'}},limit,offset}) : Client.findAndCountAll({limit,offset});
 ClientController.get = (id) => Client.findById(id);
 ClientController.create = (client) => Client.create(client);
 ClientController.delete = (id) => Client.destroy({where:{id:id}});
