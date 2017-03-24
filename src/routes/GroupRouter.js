@@ -3,6 +3,7 @@ const Boom = require('boom');
 const GroupController = require('../controllers/GroupController');
 const GroupStudentController = require('../controllers/GroupStudentController');
 const GroupValidation = require('../validation_schemas/Group');
+const PDFDocument = require('pdfkit');
 module.exports = [
     {
         method: 'GET',
@@ -74,6 +75,22 @@ module.exports = [
         handler: (request, reply) => {
             GroupController.delete(request.params.id)
                 .then((Group) => reply(Group));
+        }
+    },
+    {
+        method:'GET',
+        path: '/groups/{id}/list',
+        handler: (request, reply) => {
+            let doc = new PDFDocument();
+            let buffers = [];
+            doc.text(`Lista do Curso: ${request.params.id}`, 10, 10);
+            doc.on('data', buffers.push.bind(buffers) )
+            doc.on('end', ()=>{
+                const data = Buffer.concat(buffers);
+                reply(data).bytes(data.length).type('application/pdf')
+                .header("Content-Disposition", "attachment; filename=" + "meu.pdf");
+            })
+            doc.end();
         }
     }
 ];
