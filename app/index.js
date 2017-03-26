@@ -27,6 +27,7 @@ const router = new VueRouter({
     { path: '/groups', name: 'groups', component: require('./components/group/ListGroup.vue')},
     { path: '/groups/:id', name: 'group', component: require('./components/group/Group.vue')},
     { path: '/groups/:id/edit', name: 'groupEdit', component: require('./components/group/GroupEdit.vue')},
+    { path: '/groups/:id/list', name: 'groupList', component: require('./components/group/GetGroupList.vue')},
     { path: '/clients', name: 'clients', component: require('./components/client/ListClient.vue')},
     { path: '/clients/:id/edit', name: 'editClient', component: require('./components/client/EditClient.vue')},
     { path: '/clients/new', name: 'newClient', component: require('./components/client/NewClient.vue')},
