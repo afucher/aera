@@ -67,11 +67,14 @@ export default {
                 })
         },
         login: ( {commit}, {username, password} ) => {
-                Auth.login(username, password)
-                        .then( user => {
-                                commit(mut_types.LOGIN, user)
-                        })
-                        .catch(()=> commit(mut_types.LOGOUT) )
+                return new Promise((resolve, reject) => {
+                        Auth.login(username, password)
+                               .then( user => {
+                                        resolve(commit(mut_types.LOGIN, user));
+                                })
+                                .catch(()=> reject(commit(mut_types.LOGOUT) ) )
+                })
+ 
                         
         },
         logout: ({commit}) => commit(mut_types.LOGOUT)
