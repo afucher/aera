@@ -36,5 +36,5 @@ module.exports = function(sequelize, DataTypes) {
 };
 
 function getDateWithoutTime(date) {
-    return require('moment')(date).format('YYYY-MM-DD');
+    return require('moment')(date).format('DD/MM/YYYY');
 }

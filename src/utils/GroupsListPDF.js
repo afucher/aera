@@ -5,6 +5,8 @@ module.exports = (group) => {
         let doc = new PDFDocument();
         let buffers = [];
         doc.text(`Lista do Curso: ${group.Course.name}`);
+        doc.moveDown();
+        doc.text(`Data de início: ${group.start_date}`);
         group.Students.forEach(student => {
             doc.moveDown();
             doc.text(student.name);
