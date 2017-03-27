@@ -11,22 +11,17 @@
         </div>
         <div class="form-group">
             <label>Horário de início</label>
-            <input type="text" v-model="course.start_hour"
-                title="Formato 00:00" 
-                max-length="5" minlength="5" required>
-            <!--<el-time-select      
-                :picker-options="{ start: '00:00', end: '24:00' }"
-                v-model="course.start_hour">
-            </el-time-select>-->
+            <input name="start_hour" type="text" v-model="course.start_hour"
+                 v-validate="{ rules: { regex: /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/,required:true} }" 
+                 required>
+            <span v-show="errors.has('start_hour')" class="bg-danger">{{ errors.first('start_hour') }}</span>
         </div>
         <div class="form-group">
             <label>Horário de término</label>
-            <input type="text" v-model="course.end_hour"
-                pattern="[0-2][0-4]:[0-5][0-9]" title="Formato 00:00" required>
-            <!--<el-time-select
-                :picker-options="{ start: '00:00', end: '24:00' }"
-                v-model="course.end_hour">
-            </el-time-select>-->
+            <input name="end_hour" type="text" v-model="course.end_hour"
+                v-validate="{ rules: { regex: /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/,required:true} }"
+                required>
+            <span v-show="errors.has('end_hour')" class="bg-danger">{{ errors.first('end_hour') }}</span>
         </div>
         <button type="submit">Nova Turma</button>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
@@ -56,8 +51,8 @@ export default {
     },
     methods: {
         createGroup(e) {
-            validNewCourse(this.course);
-            return;
+            this.$validator.validateAll();
+            if(this.errors.any()) return;
             this.$store.dispatch('createGroup', this.course)
                 .then((a)=>console.log(a))
                 .catch((err) => this.errorMessage = err);
@@ -65,10 +60,5 @@ export default {
     }
 }
 
-function validNewCourse(course){
-    const validHourMinute = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/
-    validHourMinute.test(course.start_hour) ? console.log("valido") : console.log("invalido");
-    
-}
 
 </script>
