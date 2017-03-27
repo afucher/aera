@@ -1,6 +1,8 @@
 'use strict';
+const CreateGroupList = require('../utils/GroupsListPDF');
 const Group = require('../models').Group;
 const Client = require('../models').Client;
+const Course = require('../models').Course;
 const Boom = require('boom');
 const fields = ['id','start_date','end_date','start_hour','end_hour','course_id'];
 const getOneOptions = {
@@ -10,6 +12,17 @@ const getOneOptions = {
         }, attributes : ['id', 'name']
     },
     attributes : fields
+};
+const getGroupWithAllInfo = {
+    include: [{
+        model: Client, as: 'Students', through: {
+            attributes: []
+        }, attributes : ['id', 'name']
+    },{
+        model: Course, as: 'Course', attributes: ['name']
+    }],
+    attributes : fields,
+    order: [[{model: Client, as: 'Students'}, 'name']]
 };
 const getAllOptions = {attributes:fields};
 
@@ -43,4 +56,8 @@ GroupController.addStudent = (id, student_id) => {
 };
 
 GroupController.getStudents = (id) => Group.findById(id, includeStudents);
+GroupController.getGroupList = id => {
+    return Group.findById(id,getGroupWithAllInfo)
+        .then(CreateGroupList);
+}
 module.exports = GroupController;

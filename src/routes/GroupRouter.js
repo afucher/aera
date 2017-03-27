@@ -80,8 +80,13 @@ module.exports = [
     {
         method:'GET',
         path: '/groups/{id}/list',
-        handler: (request, reply) => {
-            let doc = new PDFDocument();
+        handler: ({params}, reply) => {
+            GroupController.getGroupList(params.id)
+                .then(({data,name}) => {
+                    reply(data).bytes(data.length).type('application/pdf')
+                        .header("Content-Disposition", "attachment; filename=" + name);
+                })
+            /*let doc = new PDFDocument();
             let buffers = [];
             doc.text(`Lista do Curso: ${request.params.id}`, 10, 10);
             doc.on('data', buffers.push.bind(buffers) )
@@ -90,7 +95,7 @@ module.exports = [
                 reply(data).bytes(data.length).type('application/pdf')
                 .header("Content-Disposition", "attachment; filename=" + "meu.pdf");
             })
-            doc.end();
+            doc.end();*/
         }
     }
 ];

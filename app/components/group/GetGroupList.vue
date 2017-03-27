@@ -1,12 +1,13 @@
 <template>
-    <button @click.prevent="download">Opa</button>
+    <button @click.prevent="download">Download Lista</button>
 </template>
 
 <script>
     export default {
+        props:['id'],
         methods: {
             download(){
-                this.$http.get('/api/groups/1/list').then(a=>{
+                this.$http.get(`/api/groups/${this.id}/list`).then(a=>{
                     let result = document.createElement('a');
                     let contentDisposition = a.headers.get('Content-Disposition') || '';
                     let filename = contentDisposition.split('filename=')[1] ;

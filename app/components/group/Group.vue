@@ -23,17 +23,21 @@
             <button @click.prevent="matriculaAluno">Matricular</button>
             <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
         </div>
+        <div>
+            <DownloadList :id="groupId"></DownloadList>
+        </div>
     </div>
     
 </template>
 <script>
 import GroupService from '../../services/GroupService'
 import MyErrMsg from '../util/ErrorMessage.vue'
+import DownloadList from './GetGroupList.vue'
 const Service = new GroupService();
 export default {
         name: "Group",
         props: ['group_id'],
-        components: {MyErrMsg},
+        components: {MyErrMsg,DownloadList},
         data : function(){
             return {
                 selected_client_name: null,
@@ -42,9 +46,14 @@ export default {
                 errorMessage: null
             }
         },
+        computed: {
+            groupId: function() {
+                return this.group_id || this.$route.params.id
+            }
+        },
         mounted(){
-            let group_id = this.group_id || this.$route.params.id;
-            Service.get(group_id).then(g => this.group = g);
+            //this.group_id = this.group_id || this.$route.params.id;
+            Service.get(this.groupId).then(g => this.group = g);
         },
         methods: {
             getData(obj){
