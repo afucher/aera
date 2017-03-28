@@ -10,7 +10,8 @@ const config = {
   },
   devServer:{
     proxy: {'/api': 'http://localhost:3000/','/login': 'http://localhost:3000/','/logout': 'http://localhost:3000/'},
-    hot: true
+    hot: true,
+    host: '0.0.0.0'
   },
   module: {
     loaders: [
