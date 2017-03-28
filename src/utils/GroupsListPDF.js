@@ -17,8 +17,6 @@ module.exports = (group) => {
                 data: Buffer.concat(buffers),
                 name: group.Course.name + '.pdf'
             });
-            /*reply(data).bytes(data.length).type('application/pdf')
-            .header("Content-Disposition", "attachment; filename=" + "meu.pdf");*/
         })
         doc.end();
     });

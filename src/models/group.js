@@ -2,18 +2,32 @@
 
 
 module.exports = function (sequelize, DataTypes) {
-  const dateOnlyField = {
-    type: DataTypes.DATEONLY,
-    get: function (field) {
-      return getDateWithoutTime(this.getDataValue(field))
-    }
-  };
   var Group = sequelize.define('Group', {
     course_id: DataTypes.INTEGER,
-    start_date: dateOnlyField,
-    end_date: dateOnlyField,
-    start_hour: DataTypes.TIME,
-    end_hour: DataTypes.TIME,
+    start_date: {
+      type: DataTypes.DATEONLY,
+      get: function (field) {
+        return getDateWithoutTime(this.getDataValue(field))
+      }
+    },
+    end_date: {
+      type: DataTypes.DATEONLY,
+      get: function (field) {
+        return getDateWithoutTime(this.getDataValue(field))
+      }
+    },
+    start_hour: {
+      type: DataTypes.TIME,
+      get: function (field) {
+        return this.getDataValue(field).substr(0,5)
+      }
+    },
+    end_hour: {
+      type: DataTypes.TIME,
+      get: function (field) {
+        return this.getDataValue(field).substr(0,5)
+      }
+    },
     class_info: DataTypes.JSON
   }, {
       classMethods: {
