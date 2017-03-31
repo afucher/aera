@@ -8,7 +8,7 @@ TeacherController.getAll = ({filter,limit,offset}) =>
     filter? Teacher.findAndCountAll({where:{name:{$ilike:filter+'%'},teacher:true},limit,offset}) : Teacher.findAndCountAll({where:{teacher:true},limit,offset});
 TeacherController.get = (id) => Teacher.findById(id);
 TeacherController.create = (id) => Teacher.update({teacher:true},updateOptions(id));
-TeacherController.update = (id) => Teacher.update({teacher:false},updateOptions(id));
+TeacherController.delete = (id) => Teacher.update({teacher:false},updateOptions(id));
 
 module.exports = TeacherController;
 

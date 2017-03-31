@@ -23,8 +23,8 @@ module.exports = [
     },{
         method: 'DELETE',
         path: '/teachers',
-        handler: ({payload}, reply) => {
-            TeacherController.delete(payload.id).then(reply);
+        handler: ({query}, reply) => {
+            TeacherController.delete(query.id).then(reply);
         }
     }
 ];

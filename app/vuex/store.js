@@ -13,6 +13,7 @@ export default new Vuex.Store({
     state: {
         courses: [],
         groups: [],
+        client: null,
         user: null
     },
     actions,
@@ -43,7 +44,22 @@ export default new Vuex.Store({
         },
         [types.LOGOUT](state){
             state.user = null;
+        },
+        [types.SET_CLIENT](state, client){
+            state.client = client;
+        },
+        [types.SET_TEACHER](state, id){
+            if (state.client && state.client.id == id){
+                state.client.teacher = true;
+            }
+        },
+        [types.UNSET_TEACHER](state, id){
+            if (state.client && state.client.id == id){
+                state.client.teacher = false;
+            }
         }
+        
+
     },
     getters: {
         groupsFromCourse: (state) => course_id => {

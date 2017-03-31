@@ -1,11 +1,13 @@
 import CourseService from '../services/CourseService'
 import GroupService from '../services/GroupService'
 import ClientService from '../services/ClientService'
+import TeacherService from '../services/TeacherService'
 import Auth from '../services/AuthService'
 import * as mut_types from './mutation-types';
 const course_srv = new CourseService();
 const group_srv = new GroupService();
 const client_srv = new ClientService();
+const teacherSrv = new TeacherService();
 
 export default {
         createCourse: ( {commit} , payload ) => {
@@ -77,6 +79,12 @@ export default {
  
                         
         },
-        logout: ({commit}) => commit(mut_types.LOGOUT)
+        logout: ({commit}) => commit(mut_types.LOGOUT),
+        setClient: ({commit},client) => commit(mut_types.SET_CLIENT, client),
+        toogleTeacher: ({commit}, {id, teacher}) => {
+                return teacher ?
+                                 teacherSrv.setTeacher(id).then(commit(mut_types.SET_TEACHER,id))
+                                 : teacherSrv.unsetTeacher(id).then(commit(mut_types.UNSET_TEACHER,id));
+        }
 
 }
