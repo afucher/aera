@@ -23,6 +23,14 @@
                 required>
             <span v-show="errors.has('end_hour')" class="bg-danger">{{ errors.first('end_hour') }}</span>
         </div>
+        <div class="form-group">
+            <label for="">Professor</label>
+            <select v-model="course.teacher_id">
+                <option v-for="teacher in teachers" v-bind:value="teacher.id">
+                    {{ teacher.name }}
+                </option>
+            </select>
+        </div>
         <button type="submit">Nova Turma</button>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
     </form>
@@ -30,6 +38,7 @@
 </template>
 
 <script>
+// 
 import { mapActions } from 'vuex'
 import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
@@ -44,10 +53,19 @@ export default {
                 end_date: '',
                 start_hour: '',
                 end_hour: '',
-                course_id: this.$route.params.id
+                course_id: this.$route.params.id,
+                teacher_id:0
             },
             errorMessage:''
         }
+    },
+    computed: {
+        teachers() {
+            return this.$store.state.teachers;
+        }
+    },
+    mounted(){
+        this.$store.dispatch('loadTeachers');
     },
     methods: {
         createGroup(e) {

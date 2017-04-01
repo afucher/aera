@@ -85,6 +85,11 @@ export default {
                 return teacher ?
                                  teacherSrv.setTeacher(id).then(commit(mut_types.SET_TEACHER,id))
                                  : teacherSrv.unsetTeacher(id).then(commit(mut_types.UNSET_TEACHER,id));
+        },
+        loadTeachers: ({commit}) => {
+                teacherSrv.getAll()
+                        .then(t => t.json())
+                        .then(t => commit(mut_types.LOAD_TEACHERS,t.data));
         }
 
 }

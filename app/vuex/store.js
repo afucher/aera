@@ -13,6 +13,7 @@ export default new Vuex.Store({
     state: {
         courses: [],
         groups: [],
+        teachers: [],
         client: null,
         user: null
     },
@@ -57,6 +58,9 @@ export default new Vuex.Store({
             if (state.client && state.client.id == id){
                 state.client.teacher = false;
             }
+        },
+        [types.LOAD_TEACHERS](state, teachers){
+            state.teachers = teachers;
         }
         
 

@@ -14,4 +14,8 @@ export default class TeacherService {
         return this.resourceAll.delete({id})
     }
 
+    getAll(){
+        return this.resourceAll.get();
+    }
+
 }

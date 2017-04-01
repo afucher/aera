@@ -4,6 +4,7 @@
 module.exports = function (sequelize, DataTypes) {
   var Group = sequelize.define('Group', {
     course_id: DataTypes.INTEGER,
+    teacher_id: DataTypes.INTEGER,
     start_date: {
       type: DataTypes.DATEONLY,
       get: function (field) {
@@ -39,7 +40,8 @@ module.exports = function (sequelize, DataTypes) {
             foreignKey: 'group_id',
             as: 'Students'
           });
-          models.Group.hasMany(models.Class, { foreignKey: 'group_id' });
+          models.Group.belongsTo(models.Client, { foreignKey: 'teacher_id',as:'Teacher' } );
+          //models.Group.hasMany(models.Class, { foreignKey: 'group_id' });
         }
       }
     });

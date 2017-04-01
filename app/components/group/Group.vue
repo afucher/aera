@@ -1,6 +1,7 @@
 <template>
     <div v-if="group">
         <h1>Informações da turma:</h1>
+        <p>Professor: {{group.Teacher.name}}</p>
         <p>Data de início: {{group.start_date}}</p>
         <p>Data de fim: {{group.end_date}}</p>
         <p>Das {{group.start_hour}} às {{group.end_hour}}</p>
