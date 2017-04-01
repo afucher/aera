@@ -24,12 +24,13 @@
             <span v-show="errors.has('end_hour')" class="bg-danger">{{ errors.first('end_hour') }}</span>
         </div>
         <div class="form-group">
-            <label for="">Professor</label>
-            <select v-model="course.teacher_id">
+            <label for="teacher">Professor</label>
+            <select name="teacher" v-model="course.teacher_id" v-validate data-vv-rules="required">
                 <option v-for="teacher in teachers" v-bind:value="teacher.id">
                     {{ teacher.name }}
                 </option>
             </select>
+            <span v-show="errors.has('teacher')" class="bg-danger">Favor selecionar um professor</span>
         </div>
         <button type="submit">Nova Turma</button>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
@@ -54,7 +55,7 @@ export default {
                 start_hour: '',
                 end_hour: '',
                 course_id: this.$route.params.id,
-                teacher_id:0
+                teacher_id:''
             },
             errorMessage:''
         }
@@ -71,9 +72,14 @@ export default {
         createGroup(e) {
             this.$validator.validateAll();
             if(this.errors.any()) return;
+            const that = this;
             this.$store.dispatch('createGroup', this.course)
-                .then((a)=>console.log(a))
-                .catch((err) => this.errorMessage = err);
+                .then((c)=>{
+                    that.$router.push({name:'group',params:{id:c.id}})
+                })
+                .catch((err) => {
+                    this.errorMessage = err;
+                });
         }
     }
 }

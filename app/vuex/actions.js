@@ -33,7 +33,10 @@ export default {
                         group.end_hour += ":00"
                 return new Promise((resolve,reject) => {
                         group_srv.createGroup(group)
-                        .then((c) => commit(mut_types.CREATE_GROUP, c))
+                        .then(g => {
+                                commit(mut_types.CREATE_GROUP, g),
+                                resolve(g);
+                        })
                         .catch(({data})=>reject(data.message));
                 })
                 
