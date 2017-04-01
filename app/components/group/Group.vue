@@ -1,9 +1,10 @@
 <template>
     <div v-if="group">
-        <h1>Informações da turma:</h1>
+        <h1>Curso {{group.Course.name}}</h1>
+        <h2>Informações da turma:</h2>
         <p>Professor: {{group.Teacher.name}}</p>
-        <p>Data de início: {{group.start_date}}</p>
-        <p>Data de fim: {{group.end_date}}</p>
+        <p>Data de início: {{group.start_date}} - Data de fim: {{group.end_date}}</p>
+        <p>{{group.classes}} aulas</p>
         <p>Das {{group.start_hour}} às {{group.end_hour}}</p>
         <div v-if="group.Students && group.Students.length > 0">
             <h2>Alunos matriculados:</h2>

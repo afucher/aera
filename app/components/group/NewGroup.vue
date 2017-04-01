@@ -32,6 +32,10 @@
             </select>
             <span v-show="errors.has('teacher')" class="bg-danger">Favor selecionar um professor</span>
         </div>
+        <div class="form-group">
+            <label for="classes">Nº de aulas</label>
+            <input type="number" name="classes" v-model="course.classes">
+        </div>
         <button type="submit">Nova Turma</button>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
     </form>
@@ -55,7 +59,8 @@ export default {
                 start_hour: '',
                 end_hour: '',
                 course_id: this.$route.params.id,
-                teacher_id:''
+                teacher_id:'',
+                classes:0
             },
             errorMessage:''
         }

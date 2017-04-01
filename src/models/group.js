@@ -5,6 +5,7 @@ module.exports = function (sequelize, DataTypes) {
   var Group = sequelize.define('Group', {
     course_id: DataTypes.INTEGER,
     teacher_id: DataTypes.INTEGER,
+    classes: DataTypes.INTEGER,
     start_date: {
       type: DataTypes.DATEONLY,
       get: function (field) {

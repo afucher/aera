@@ -4,14 +4,16 @@ const Group = require('../models').Group;
 const Client = require('../models').Client;
 const Course = require('../models').Course;
 const Boom = require('boom');
-const fields = ['id','start_date','end_date','start_hour','end_hour','course_id'];
+const fields = ['id','start_date','end_date','start_hour','end_hour','course_id','classes'];
 const teacher = {model: Client, as: 'Teacher', attributes: ['name']}
+const course = {model: Course, as: 'Course', attributes: ['name']}
 const getOneOptions = {
     include: [{
         model: Client, as: 'Students', through: {
             attributes: []
         }, attributes : ['id', 'name']
     },
+    course,
     teacher],
     attributes : fields
 };
@@ -20,9 +22,8 @@ const getGroupWithAllInfo = {
         model: Client, as: 'Students', through: {
             attributes: []
         }, attributes : ['id', 'name']
-    },{
-        model: Course, as: 'Course', attributes: ['name']
     },
+    course,
     teacher],
     attributes : fields,
     order: [[{model: Client, as: 'Students'}, 'name']]
