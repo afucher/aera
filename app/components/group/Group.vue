@@ -1,32 +1,45 @@
 <template>
     <div v-if="group">
-        <h1>Curso {{group.Course.name}}</h1>
-        <h2>Informações da turma:</h2>
-        <p>Professor: {{group.Teacher.name}}</p>
-        <p>Data de início: {{group.start_date}} - Data de fim: {{group.end_date}}</p>
-        <p>{{group.classes}} aulas</p>
-        <p>Das {{group.start_hour}} às {{group.end_hour}}</p>
-        <div v-if="group.Students && group.Students.length > 0">
-            <h2>Alunos matriculados:</h2>
-            <div v-for="student in group.Students">
-                <p>{{student.name}}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <h1>Curso {{group.Course.name}}</h1>
+                    <h2>Informações da turma:</h2>
+                    <p>Professor: {{group.Teacher.name}}</p>
+                    <p>Data de início: {{group.start_date}} - Data de fim: {{group.end_date}}</p>
+                    <p>{{group.classes}} aulas</p>
+                    <p>Das {{group.start_hour}} às {{group.end_hour}}</p>
+                </div>
+                <div>
+                    <h2>Matricular aluno:</h2>
+                    <el-autocomplete
+                        class="inline-input"
+                        v-model="selected_client_name"
+                        :fetch-suggestions="querySearch"
+                        placeholder="Please Input"
+                        :trigger-on-focus="false"
+                        @select="handleSelect"
+                        ></el-autocomplete>
+                    <button @click.prevent="matriculaAluno">Matricular</button>
+                    <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div v-if="group.Students && group.Students.length > 0">
+                    <h2>Alunos matriculados:</h2>
+                    <div v-for="student in group.Students" :key="student.id">
+                        {{student.name}} - presença: 
+                        <input type="number" :max="group.classes" min=0 v-model="student.ClientGroup.attendance">
+                        <button @click.prevent="updateAttendance(student.id)">Atualizar presença</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div>
-            <h2>Matricular aluno:</h2>
-            <el-autocomplete
-                class="inline-input"
-                v-model="selected_client_name"
-                :fetch-suggestions="querySearch"
-                placeholder="Please Input"
-                :trigger-on-focus="false"
-                @select="handleSelect"
-                ></el-autocomplete>
-            <button @click.prevent="matriculaAluno">Matricular</button>
-            <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
-        </div>
-        <div>
-            <DownloadList :id="groupId"></DownloadList>
+        <div class="row">
+
+            <div>
+                <DownloadList :id="groupId"></DownloadList>
+            </div>
         </div>
     </div>
     
@@ -77,7 +90,8 @@ export default {
                 this.$store.dispatch('addStudentToGroup',{
                     group: this.group,
                     student: this.selected_client_obj
-                }).then(() => {
+                }).then((att) => {
+                    this.selected_client_obj['ClientGroup'] = att[0];
                     this.group.Students.push(this.selected_client_obj);
                     this.resetSelecteds();
                 }).catch((err) => {
@@ -88,6 +102,9 @@ export default {
             resetSelecteds() {
                 this.selected_client_name = null,
                 this.selected_client_obj = null
+            },
+            updateAttendance(index) {
+                alert(index);
             }
         }
     }

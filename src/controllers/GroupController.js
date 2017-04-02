@@ -3,6 +3,7 @@ const CreateGroupList = require('../utils/GroupsListPDF');
 const Group = require('../models').Group;
 const Client = require('../models').Client;
 const Course = require('../models').Course;
+const ClientGroup = require('../models').ClientGroup;
 const Boom = require('boom');
 const fields = ['id','start_date','end_date','start_hour','end_hour','course_id','classes'];
 const teacher = {model: Client, as: 'Teacher', attributes: ['name']}
@@ -10,7 +11,7 @@ const course = {model: Course, as: 'Course', attributes: ['name']}
 const getOneOptions = {
     include: [{
         model: Client, as: 'Students', through: {
-            attributes: []
+            attributes: ['attendance']
         }, attributes : ['id', 'name']
     },
     course,
@@ -52,7 +53,12 @@ GroupController.addStudent = (id, student_id) => {
     return Group.findById(id)
         .then((g) => new Promise((resolve, reject) => {
             if(g){
-                g.addStudent(student_id).then(r => r.length > 0 ? resolve(r) : reject(Boom.badRequest(`Student ${student_id} already in Group`)) );
+                g.addStudent(student_id,{attendance:0})
+                    .then(r => {
+                        console.log(r);
+                        console.log(r[0]);
+                        r.length > 0 ? resolve(r[0]) : reject(Boom.badRequest(`Student ${student_id} already in Group`)) 
+                    });
             }else{
                 reject(Boom.notFound(`Group ${id} not Found`));
             }
