@@ -49,6 +49,7 @@ Vue.http.interceptors.push(function(request, next) {
   next(function(response) {
       if(response.status == 401){
           router.push('\login');
+          store.dispatch('logout');
       }
   });
 });
