@@ -28,4 +28,9 @@ export default class MyService {
         return Vue.http.post(`/api/groups/${group.id}/addStudent`,{student_id})
             .then(st => st.json());
     }
+
+    updateAttendance({group_id, student_id, attendance}) {
+        return Vue.http.post(`/api/groups/${group_id}/studentAttendance`,{student_id,attendance})
+            .then(st => st.json());
+    }
 }
