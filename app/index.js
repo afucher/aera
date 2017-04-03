@@ -48,7 +48,7 @@ Vue.http.interceptors.push(function(request, next) {
   // continue to next interceptor
   next(function(response) {
       if(response.status == 401){
-          console.log("teste");
+          router.push('\login');
       }
   });
 });
