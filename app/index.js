@@ -44,6 +44,15 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+Vue.http.interceptors.push(function(request, next) {
+  // continue to next interceptor
+  next(function(response) {
+      if(response.status == 401){
+          console.log("teste");
+      }
+  });
+});
+
 new Vue({
   el: '#app',
   router,
