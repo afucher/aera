@@ -1,7 +1,7 @@
 'use strict';
 const Boom = require('boom');
 const GroupController = require('../controllers/GroupController');
-const GroupStudentController = require('../controllers/GroupStudentController');
+const ClientGroupController = require('../controllers/ClientGroupController');
 const GroupValidation = require('../validation_schemas/Group');
 const PDFDocument = require('pdfkit');
 module.exports = [
@@ -55,7 +55,7 @@ module.exports = [
             let group_id = request.params.id;
             let student_id = request.payload.student_id;
             let attendance = request.payload.attendance;
-            GroupStudentController.updateStudentAttendance(group_id, student_id, attendance)
+            ClientGroupController.updateStudentAttendance(group_id, student_id, attendance)
                 .then(reply)
                 .catch(reply);
         }

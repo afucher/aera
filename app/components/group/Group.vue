@@ -30,7 +30,7 @@
                     <div v-for="student in group.Students" :key="student.id">
                         {{student.name}} - presença: 
                         <input type="number" :max="group.classes" min=0 v-model="student.ClientGroup.attendance">
-                        <button @click.prevent="updateAttendance(student.id)">Atualizar presença</button>
+                        <button @click.prevent="updateAttendance(student.id,student.ClientGroup.attendance)">Atualizar presença</button>
                     </div>
                 </div>
             </div>
@@ -103,8 +103,15 @@ export default {
                 this.selected_client_name = null,
                 this.selected_client_obj = null
             },
-            updateAttendance(index) {
-                alert(index);
+            updateAttendance(client_id, attendance) {
+                let data = {
+                    group_id : this.groupId,
+                    client_id,
+                    attendance
+                };
+                console.log(data);
+                this.$store.dispatch('setStudentAttendance',data);
+                //alert(index);
             }
         }
     }

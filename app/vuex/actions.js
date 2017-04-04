@@ -93,6 +93,9 @@ export default {
                 teacherSrv.getAll()
                         .then(t => t.json())
                         .then(t => commit(mut_types.LOAD_TEACHERS,t.data));
+        },
+        setStudentAttendance: ({commit},{group_id,client_id,attendance}) => {
+                return group_srv.updateAttendance({group_id, client_id, attendance});
         }
 
 }
