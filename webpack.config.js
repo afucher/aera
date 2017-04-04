@@ -43,7 +43,7 @@ const config = {
   plugins: []
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.FRONT === 'production') {
     config.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
             minimize: true
