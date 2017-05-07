@@ -18,7 +18,7 @@ lab.experiment('CourseController', () => {
     });
 
     lab.test('Should return 1 course', (done) => {
-        Course.create({ description: 'teste' }).then(() => {
+        Course.create({ name: 'teste' }).then(() => {
             CourseController.getAll()
                 .then((courses) => {
                     Code.expect(courses).to.have.length(1);
@@ -27,19 +27,19 @@ lab.experiment('CourseController', () => {
         });
     });
     lab.test('Should return specfic Course from :id', (done) => {
-        Course.create({ description: 'course2' }).then((c) => {
+        Course.create({ name: 'course2' }).then((c) => {
             CourseController.get(c.id)
                 .then((course) => {
-                    Code.expect(course.description).to.be.equal('course2');
+                    Code.expect(course.name).to.be.equal('course2');
                     done();
                 });
         });
     });
     lab.test('Should create a Course', (done) => {
-        CourseController.create({ description: 'course3' })
+        CourseController.create({ name: 'course3' })
             .then((course) => {
                 Course.findById(course.id).then((c) => {
-                    Code.expect(c.description).to.be.equal('course3');
+                    Code.expect(c.name).to.be.equal('course3');
                     done();
                 });
             });
