@@ -46,7 +46,10 @@ const config = {
 if (process.env.FRONT === 'production') {
     config.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
-            minimize: true
+            minimize: true,
+            compress:{
+              warnings: false
+            }
         })
     )
 }
