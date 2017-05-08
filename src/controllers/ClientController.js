@@ -18,6 +18,6 @@ const updateOptions = (id) => {
         where: {
             id
         },
-        fields:['name','email','cpf']
+        fields:['name','email','cpf','phone','cel_phone','com_phone','address1','address2','address3','zip_code','city','state','profession']
     }
 }
