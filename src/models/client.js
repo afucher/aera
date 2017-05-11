@@ -18,7 +18,9 @@ module.exports = function (sequelize, DataTypes) {
     edu_lvl: DataTypes.STRING,
     old_code: DataTypes.STRING(10),
     birth_date: DataTypes.DATEONLY(),
-    birth_hour: DataTypes.TIME()
+    birth_hour: DataTypes.TIME(),
+    birth_place: DataTypes.STRING(50),
+    note: DataTypes.TEXT()
   }, {
       classMethods: {
         associate: function (models) {

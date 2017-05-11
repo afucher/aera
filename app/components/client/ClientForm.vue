@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="formSubmit">
-        <div class="form-group">
+        <div class="form-group">    
                 <label>Nome</label>
                 <input v-validate="'required'" name="name" type="text" v-model="client.name" class="form-control">
                 <span v-show="errors.has('name')" class="bg-danger">{{ errors.first('name') }}</span>
@@ -45,7 +45,12 @@
                 <label>Tel. Comercial</label>
                 <input type="text" v-model="client.com_phone" class="form-control">
             </div>
+            <div class="form-group">
+                <label>Observação</label>
+                <textarea  v-model="client.note" class="form-control"/>
+            </div>
         <button type="submit" class="btn btn-default">Salvar</button>
+        <button @click.prevent="cancel" class="btn btn-default">Cancelar</button>
     </form>
 </template>
 <script>
@@ -63,6 +68,9 @@ export default {
                     this.$emit("formSubmit", this.client);
                 })
                 .catch(()=>{});
+        },
+        cancel(){
+            this.$emit("formCancel");
         }
     }
 }

@@ -2,7 +2,7 @@
     <div>
         <BtnMakeTeacher v-if="!client.teacher" :id="client.id"></BtnMakeTeacher>
         <BtnUnsetTeacher v-if="client.teacher" :id="client.id"></BtnUnsetTeacher>
-        <ClientForm :client="client" v-on:formSubmit="updateClient"></ClientForm>
+        <ClientForm :client="client" v-on:formSubmit="updateClient" v-on:formCancel="cancel"></ClientForm>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
     </div>
 </template>
@@ -32,6 +32,9 @@ export default {
             this.$store.dispatch('updateClient', this.client)
                 .then(() => this.$router.push('/clients'))
                 .catch((err) => this.errorMessage = err.body.message);
+        },
+        cancel() {
+            this.$router.go(-1);
         }
     }
 }
