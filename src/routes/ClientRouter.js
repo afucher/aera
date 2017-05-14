@@ -30,7 +30,6 @@ module.exports = [
             ClientController.create(payload)
                 .then(reply)
                 .catch(err => {
-                    console.log(err.errors);
                     reply(handleError(err));
                 });
         }

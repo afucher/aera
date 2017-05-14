@@ -1,7 +1,5 @@
 <template>
     <div>
-        <BtnMakeTeacher v-if="!client.teacher" :id="client.id"></BtnMakeTeacher>
-        <BtnUnsetTeacher v-if="client.teacher" :id="client.id"></BtnUnsetTeacher>
         <ClientForm :client="client" v-on:formSubmit="updateClient" v-on:formCancel="cancel"></ClientForm>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
     </div>
@@ -9,12 +7,10 @@
 
 <script>
 import ClientService from '../../services/ClientService'
-import BtnMakeTeacher from '../teacher/BtnMakeTeacher.vue'
-import BtnUnsetTeacher from '../teacher/BtnUnsetTeacher.vue'
 import ClientForm from './ClientForm.vue'
 const cliSrv = new ClientService();
 export default {
-    components: {BtnMakeTeacher,BtnUnsetTeacher,ClientForm},
+    components: {ClientForm},
     data: function(){
         return {
             client: {},

@@ -49,6 +49,10 @@
                 <label>Observação</label>
                 <textarea  v-model="client.note" class="form-control"/>
             </div>
+            <div class="form-group">
+                <label>Professor</label>
+                <input type="checkbox" v-model="client.teacher" class="form-control"/>
+            </div>
         <button type="submit" class="btn btn-default">Salvar</button>
         <button @click.prevent="cancel" class="btn btn-default">Cancelar</button>
     </form>
