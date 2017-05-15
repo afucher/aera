@@ -12,6 +12,10 @@ export default class MyService {
         return this.resourceAll.get().then((d) => d.json());
     }
 
+    getCourse(id) {
+        return this.resourceOne.get({id}).then((d) => d.json());
+    }
+
     putCourses(){
         return this.resource.put();
     }

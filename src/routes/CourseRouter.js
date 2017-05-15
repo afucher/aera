@@ -23,7 +23,7 @@ module.exports = [
         method: 'POST',
         path: '/courses',
         handler: (request, reply) => {
-            CourseController.create({description:request.payload.description})
+            CourseController.create(request.payload)
                 .then((course) => reply(course));
         }
     },

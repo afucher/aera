@@ -2,12 +2,12 @@
     <div>
         <div v-for="course in courses">
             {{course.name}} - {{course.courseLoad}}h
+            <router-link :to="{ name: 'editCourse', 
+                    params:{id: course.id}}">Editar</router-link>
             <router-link :to="{ name: 'newGroup', 
                     params:{id: course.id}}">Nova Turma</router-link>
             <router-link :to="{ name: 'courseGroups', 
                     params:{id: course.id}}">Turmas</router-link>
-                    
-            <!--<button @click="deleteCourse(course)">X</button>-->
         </div>
         <router-view></router-view>
     </div>
