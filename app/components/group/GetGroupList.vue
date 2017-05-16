@@ -7,7 +7,7 @@
         props:['id'],
         methods: {
             download(){
-                this.$http.get(`/api/groups/${this.id}/list`).then(a=>{
+                this.$http.get(`/api/groups/${this.id}/list`,{responseType:'blob'}).then(a=>{
                     let result = document.createElement('a');
                     let contentDisposition = a.headers.get('Content-Disposition') || '';
                     let filename = contentDisposition.split('filename=')[1] ;
@@ -22,6 +22,7 @@
                         result.click();
                         return result;
                     })
+                    .catch(console.log);
                 })
             }
         }
