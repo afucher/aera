@@ -103,10 +103,10 @@ export default {
                 this.selected_client_name = null,
                 this.selected_client_obj = null
             },
-            updateAttendance(client_id, attendance) {
+            updateAttendance(student_id, attendance) {
                 let data = {
                     group_id : this.groupId,
-                    client_id,
+                    student_id,
                     attendance
                 };
                 console.log(data);
