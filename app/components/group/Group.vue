@@ -4,6 +4,7 @@
             <div class="col-md-6">
                 <div>
                     <h1>Curso {{group.Course.name}}</h1>
+                     <router-link class="small" :to="{ name: 'groupEdit', params: { id: group.id }}">Editar</router-link>
                     <h2>Informações da turma:</h2>
                     <p>Professor: {{group.Teacher.name}}</p>
                     <p>Data de início: {{group.start_date}} - Data de fim: {{group.end_date}}</p>
