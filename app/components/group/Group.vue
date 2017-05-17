@@ -109,9 +109,7 @@ export default {
                     student_id,
                     attendance
                 };
-                console.log(data);
                 this.$store.dispatch('setStudentAttendance',data);
-                //alert(index);
             }
         }
     }

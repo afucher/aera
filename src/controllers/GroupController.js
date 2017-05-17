@@ -55,8 +55,6 @@ GroupController.addStudent = (id, student_id) => {
             if(g){
                 g.addStudent(student_id,{attendance:0})
                     .then(r => {
-                        console.log(r);
-                        console.log(r[0]);
                         r.length > 0 ? resolve(r[0]) : reject(Boom.badRequest(`Student ${student_id} already in Group`)) 
                     });
             }else{

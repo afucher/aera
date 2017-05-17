@@ -11,14 +11,3 @@ const schema = Joi.object().keys({
 });
 
 module.exports = schema;
-
-/*
-Joi.validate({ 
-    course_id: 12312412,
-    start_date: new Date(),
-    end_date: new Date(),
-    start_hour: '24:00:00',
-    end_hour: '25:00:00',
- }, schema, {abortEarly:false},function (err, value) { 
-     err ? console.log(err) :  console.log(value);
-  });*/
