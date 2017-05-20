@@ -35,7 +35,6 @@
             <label for="classes">Nº de aulas</label>
             <input type="number" name="classes" v-model="group.classes">
         </div>
-        <button type="submit">Nova Turma</button>
         <div  v-if="errorMessage" class="alert alert-danger alert-dismissible" role="alert">
             <span>{{errorMessage}}</span>
         </div>

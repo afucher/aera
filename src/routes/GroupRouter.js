@@ -22,6 +22,14 @@ module.exports = [
         }
     },
     {
+        method: 'PUT',
+        path: '/groups/{id}',
+        handler: ({payload}, reply) => {
+            GroupController.update(payload)
+                .then((group) => reply(group));
+        }
+    },
+    {
         method: 'POST',
         path: '/groups',
         handler: ({payload}, reply) => {

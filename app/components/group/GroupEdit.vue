@@ -1,6 +1,7 @@
 <template>
     <div>
-        <GroupForm :group="group" :teachers="teachers"></GroupForm>
+        <GroupForm :group="group" :teachers="teachers"
+            v-on:formSubmit="updateGroup"></GroupForm>
     </div>
 </template>
 <script>
@@ -28,30 +29,10 @@ export default {
             this.$store.dispatch("loadGroups")
         },
         methods: {
-            getData(obj){
-                this.selected_client = obj;
-            },
-            querySearch(queryString, cb) {
-                this.$http.get('/api/autocomplete/client?q=' + queryString)
-                .then(r => r.json())
-                .then(r => r.map(item => {
-                    item.value = item.name;
-                    return item
-                })).then(cb);
-            },
-            handleSelect(item) {
-                this.selected_client_obj = item;
-            },
-            matriculaAluno(aluno) {
-                this.$store.dispatch('addStudentToGroup',{
-                    group: this.group,
-                    student: this.selected_client_obj
-                }).then(this.resetSelecteds);
-                
-            },
-            resetSelecteds() {
-                this.selected_client_name = null,
-                this.selected_client_obj = null
+            updateGroup(group){
+                this.$store.dispatch("updateGroup",group)
+                    .then(() => this.$router.push('/groups/'+group.id))
+                    .catch((err) => this.errorMessage = err.body.message);
             }
         }
     }

@@ -5,6 +5,7 @@ const Client = require('../models').Client;
 const Course = require('../models').Course;
 const ClientGroup = require('../models').ClientGroup;
 const Boom = require('boom');
+const moment = require('moment');
 const fields = ['id','start_date','end_date','start_hour','end_hour','course_id','classes','teacher_id','classes'];
 const teacher = {model: Client, as: 'Teacher', attributes: ['name']}
 const course = {model: Course, as: 'Course', attributes: ['name']}
@@ -40,13 +41,24 @@ const updateOptions  = (id) => {
     }
 }
 
+const adjustGroup = group => {
+    console.log(group.start_hour);
+    if(group.start_hour.length == 5)
+            group.start_hour += ":00"
+    if(group.end_hour.length == 5)
+            group.end_hour += ":00"
+    group.start_date = moment(group.start_date, "DD/MM/YYYY",true).format();
+    group.end_date = moment(group.end_date, "DD/MM/YYYY",true).format();
+    return Promise.resolve(group);
+};
+
 const GroupController = {};
 
 GroupController.getAll = () => Group.findAll(getAllOptions);
 GroupController.get = (id) => Group.findById(id, getOneOptions);
-GroupController.create = (group) => Group.create(group);
+GroupController.create = (group) => adjustGroup(group).then(g => Group.create(g));
 GroupController.delete = (id) => Group.destroy({ where: { id: id } });
-GroupController.update = (group) => Group.update(group,updateOptions(group.id));
+GroupController.update = (group) => adjustGroup(group).then(g => Group.update(g,updateOptions(g.id)));
 
 
 GroupController.addStudent = (id, student_id) => {

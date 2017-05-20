@@ -27,10 +27,6 @@ export default {
         },
         createGroup: ( {commit} , payload ) => {
                 let group = payload;
-                if(group.start_hour.length == 5)
-                        group.start_hour += ":00"
-                if(group.end_hour.length == 5)
-                        group.end_hour += ":00"
                 return new Promise((resolve,reject) => {
                         group_srv.createGroup(group)
                         .then(g => {
@@ -39,8 +35,17 @@ export default {
                         })
                         .catch(({data})=>reject(data.message));
                 })
-                
-                
+        },
+        updateGroup: ( {commit} , payload ) => {
+                let group = payload;
+                return new Promise((resolve,reject) => {
+                        group_srv.updateGroup(group)
+                        .then(g => {
+                                //commit(mut_types.CREATE_GROUP, g),
+                                resolve(g);
+                        })
+                        .catch(({data})=>reject(data.message));
+                })      
         },
         loadGroups: ( {commit, state} ) => {
                 group_srv.getAll()

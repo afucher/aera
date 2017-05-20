@@ -24,6 +24,10 @@ export default class MyService {
         return this.resourceOne.delete({id:group.id}).then((g)=>g.json());
     }
 
+    updateGroup(group){
+        return this.resourceOne.update({id:group.id},group).then(g=>g.json());
+    }
+
     addStudent({group, student_id}) {
         return Vue.http.post(`/api/groups/${group.id}/addStudent`,{student_id})
             .then(st => st.json());
