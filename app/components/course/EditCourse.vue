@@ -19,12 +19,12 @@ export default {
     mounted() {
         courseSrv.getCourse(this.$route.params.id).then(c => {
             this.course = c;
-            //this.$store.dispatch('setClient', c);
         });
     },
     methods: {
         editCourse(course) {
-            //this.$store.dispatch('createCourse', course);
+            this.$store.dispatch('updateCourse', this.course)
+                //.catch((err) => this.errorMessage = err.body.message);
         }
     }
 }

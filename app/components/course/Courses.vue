@@ -1,5 +1,6 @@
 <template>
     <div>
+        <router-link :to="{ name: 'newCourse'}">Novo</router-link>
         <ListCourse></ListCourse>
     </div>
 </template>

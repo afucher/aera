@@ -35,5 +35,14 @@ module.exports = [
                 .then((course) => reply(course))
                 .catch((err) => reply(err));
         }
+    },
+    {
+        method: 'PUT',
+        path: '/courses',
+        handler: (request, reply) => {
+            CourseController.update(request.payload)
+                .then(reply)
+                .catch(reply);
+        }
     }
 ];

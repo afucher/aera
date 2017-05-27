@@ -16,8 +16,8 @@ export default class MyService {
         return this.resourceOne.get({id}).then((d) => d.json());
     }
 
-    putCourses(){
-        return this.resource.put();
+    updateCourse(course){
+        return this.resourceAll.update(course).then(c=>c.json());
     }
 
     createCourse(course){

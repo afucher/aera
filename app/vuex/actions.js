@@ -25,6 +25,14 @@ export default {
                         .then((a)=>console.log(a))
                         .catch((err)=>commit(mut_types.CREATE_COURSE, payload))
         },
+        updateCourse: ( {commit} , payload ) => {
+                let course = payload;
+                return new Promise((resolve,reject) => {
+                        course_srv.updateCourse(course)
+                        .then(resolve)
+                        .catch(({data})=>reject(data.message));
+                })      
+        },
         createGroup: ( {commit} , payload ) => {
                 let group = payload;
                 return new Promise((resolve,reject) => {
