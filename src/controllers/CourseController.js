@@ -29,5 +29,6 @@ CourseController.update = course => {
             return Course.update(course, opt);
         });
 }
+CourseController.hasGroup = id => Group.findOne({where:{course_id:id}}).then(group => Promise.resolve(group?true:false));
 
 module.exports = CourseController;

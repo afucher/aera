@@ -2,10 +2,15 @@
 
 import Vue from 'vue';
 
+
+const customActions = {
+    hasGroup: { method: 'GET', url: '/api/courses{/id}/hasGroup' }
+  }
+
 export default class MyService {
     constructor(){
         this.resourceAll = Vue.resource('/api/courses');
-        this.resourceOne = Vue.resource('/api/courses{/id}');
+        this.resourceOne = Vue.resource('/api/courses{/id}',{}, customActions);
     }
     
     getCourses() {
@@ -26,5 +31,9 @@ export default class MyService {
 
     deleteCourse(course){
         return this.resourceOne.delete({id:course.id}).then((c)=>c.json());
+    }
+
+    hasGroup(id){
+        return this.resourceOne.hasGroup({id}).then(res => res.json());
     }
 }

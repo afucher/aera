@@ -20,6 +20,14 @@ module.exports = [
         }
     },
     {
+        method: 'GET',
+        path: '/courses/{id}/hasGroup',
+        handler: (request, reply) => {
+            CourseController.hasGroup(request.params.id)
+                .then(reply);
+        }
+    },
+    {
         method: 'POST',
         path: '/courses',
         handler: (request, reply) => {

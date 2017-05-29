@@ -12,7 +12,7 @@
         </div>
         <div class="form-group">    
             <label>Carga Horária</label>
-            <input v-validate="'required'" name="courseLoad" type="number" v-model="course.courseLoad" class="form-control" min="0">
+            <input :disabled="hasGroup" v-validate="'required'" name="courseLoad" type="number" v-model="course.courseLoad" class="form-control" min="0">
             <span v-show="errors.has('courseLoad')" class="bg-danger">{{ errors.first('courseLoad') }}</span>
         </div>
         <button type="submit" class="btn btn-default">Salvar</button>
@@ -21,7 +21,7 @@
 </template>
 <script>
 export default {
-    props: ['course'],
+    props: ['course','hasGroup'],
     data: function(){
         return {
             errorMessage: ''

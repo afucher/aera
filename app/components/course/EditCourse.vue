@@ -1,6 +1,6 @@
 <template>
 <div>
-    <CourseForm :course="course" v-on:formSubmit="editCourse"></CourseForm>
+    <CourseForm :hasGroup="hasGroup" :course="course" v-on:formSubmit="editCourse"></CourseForm>
 </div>
 </template>
 
@@ -13,12 +13,16 @@ export default {
     components:{CourseForm},
     data: function(){
         return {
-            course : {}
+            course : {},
+            hasGroup: false
         }
     },
     mounted() {
         courseSrv.getCourse(this.$route.params.id).then(c => {
             this.course = c;
+        });
+        courseSrv.hasGroup(this.$route.params.id).then(has => {
+            this.hasGroup = has;
         });
     },
     methods: {
