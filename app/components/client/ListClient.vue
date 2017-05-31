@@ -14,8 +14,6 @@ import edit from './editTable.vue'
         name: "AeraListClient",
         data: function(){
             return {
-                clients: null,
-                service: new ClientService(),
                 columns: ['name','email', 'edit'],
                 options : {
                     templates : {
@@ -23,9 +21,6 @@ import edit from './editTable.vue'
                     }
                 }
             }
-        },
-        mounted() {
-            this.service.getClients().then(c => this.clients = c);
         }
     }
 </script>
