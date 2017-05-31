@@ -1,7 +1,7 @@
 <template>
     <div>
-        <ClientForm :v-if="client" :client="client" v-on:formSubmit="updateClient" v-on:formCancel="cancel"></ClientForm>
-        <span :v-if="!client"> Carregando... </span>
+        <ClientForm v-if="client" :client="client" v-on:formSubmit="updateClient" v-on:formCancel="cancel"></ClientForm>
+        <span v-if="!client"> Carregando... </span>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
     </div>
 </template>
