@@ -1,5 +1,5 @@
 <template>
-    <a class="fa fa-edit" :href="'#/clients/' +  data.id + '/edit'">Edit</a>
+     <router-link :to="{ name: 'editClient', params: { id: data.id }  }">Edit</router-link>
 </template>
 <script>
     export default {
