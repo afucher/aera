@@ -61,6 +61,20 @@
                 <input type="text" v-model="client.com_phone" class="form-control">
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-xs-4">
+                <label for="profession">Profissão</label>
+                <input class="form-control" type="text" v-model="client.profession">
+            </div>
+            <div class="form-group col-xs-4">
+                <label for="">Grau de Escolaridade</label>
+                <input class="form-control" type="text" v-model="client.edu_lvl">
+            </div>
+            <div class="form-group col-xs-4">
+                <label for="">Código antigo</label>
+                <input class="form-control" type="text" v-model="client.old_code">
+            </div>
+        </div>
         <div class="form-group">
             <label>Observação</label>
             <textarea rows="3" v-model="client.note" class="form-control"/>
