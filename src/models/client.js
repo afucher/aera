@@ -17,7 +17,12 @@ module.exports = function (sequelize, DataTypes) {
     profession: DataTypes.STRING,
     edu_lvl: DataTypes.STRING,
     old_code: DataTypes.STRING(10),
-    birth_date: DataTypes.DATEONLY(),
+    birth_date: {
+      type: DataTypes.DATEONLY(),
+      get: function (field) {
+        return getDateWithoutTime(this.getDataValue(field))
+      }
+    },
     birth_hour: DataTypes.TIME(),
     birth_place: DataTypes.STRING(50),
     note: DataTypes.TEXT()
@@ -35,3 +40,7 @@ module.exports = function (sequelize, DataTypes) {
     });
   return Client;
 };
+
+function getDateWithoutTime(date) {
+  return date ? require('moment')(date).format('DD/MM/YYYY') : date;
+}
