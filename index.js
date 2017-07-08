@@ -91,6 +91,8 @@ server.register([require('inert'),require('hapi-auth-cookie'),{
     });
 });
 
+module.exports = server;
+
 const checkUser = (user,password) => new Promise((resolve, reject) => {
     if(!user) reject(Boom.unauthorized("Login failed"));
     user.comparePassword(password, (err, same) => {
