@@ -1,0 +1,19 @@
+version: "2"
+services:
+  aera:
+    depends_on:
+      - "db"
+    build: .
+    links:
+      - "db"
+    ports:
+      - "3000:3000"
+    environment:
+      DB_URL: postgres://postgres:postgres@db:5432/aera_development
+    command: bash -c "npm run create_db && node index.js"
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=aera_development
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

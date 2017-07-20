@@ -11,6 +11,9 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-EXPOSE 8080
+EXPOSE 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "build" ]
+CMD [ "npm", "run", "create_db"]
+CMD [ "node", "_random/createUser.js"]
+CMD [ "node", "index.js"]
