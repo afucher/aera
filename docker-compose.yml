@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     environment:
       DB_URL: postgres://postgres:postgres@db:5432/aera_development
-    command: bash -c "npm run create_db && node index.js"
+    command: bash -c "npm run create_db && npm run build && node index.js"
   db:
     image: postgres
     environment:
