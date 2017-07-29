@@ -1,8 +1,9 @@
-version: "2"
+version: "2.1"
 services:
   aera:
     depends_on:
-      - "db"
+      db:
+        condition: service_healthy
     build: .
     links:
       - "db"
@@ -13,7 +14,7 @@ services:
       ENV: test
     command: bash -c "npm run test"
   db:
-    image: library/postgres
+    image: healthcheck/postgres
     environment:
       - POSTGRES_DB=aera_test
       - POSTGRES_USER=postgres
