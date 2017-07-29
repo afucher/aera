@@ -12,7 +12,7 @@ services:
     environment:
       DB_URL: postgres://postgres:postgres@db:5432/aera_test
       ENV: test
-    command: bash -c "npm run test"
+    command: bash -c "npm run create_db && node_modules/lab/bin/lab -v -I 'Reflect,core,_babelPolyfill,regeneratorRuntime,__core-js_shared__'"
   db:
     image: healthcheck/postgres
     environment:
