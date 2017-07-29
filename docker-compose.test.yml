@@ -1,0 +1,20 @@
+version: "2"
+services:
+  aera:
+    depends_on:
+      - "db"
+    build: .
+    links:
+      - "db"
+    ports:
+      - "3000:3000"
+    environment:
+      DB_URL: postgres://postgres:postgres@db:5432/aera_test
+      ENV: test
+    command: bash -c "npm run test"
+  db:
+    image: library/postgres
+    environment:
+      - POSTGRES_DB=aera_test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

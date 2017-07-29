@@ -14,7 +14,8 @@
     "database": "aera_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "logging" : false
+    "logging" : false,
+    "use_env_variable": "DB_URL"
   },
   "production": {
     "username": "postgres",
