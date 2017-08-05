@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "create_db": "cross-env NODE_ENV=development sequelize db:migrate",
+    "create_db": "sequelize db:migrate",
     "erase_db": "cross-env NODE_ENV=development sequelize db:migrate:undo:all",
     "reset_db": "run-s  erase_db create_db",
     "dev_front": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",

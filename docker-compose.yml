@@ -11,6 +11,7 @@ services:
       - "3000:3000"
     environment:
       DB_URL: postgres://postgres:postgres@db:5432/aera_development
+      NODE_ENV: development
     command: bash -c "npm run create_db && node index.js"
   db:
     image: healthcheck/postgres
