@@ -6,7 +6,6 @@
 
 <script>
 import CourseForm from './CourseForm.vue'
-import { mapActions } from 'vuex'
 export default {
     components:{CourseForm},
     data: function(){

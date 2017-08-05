@@ -25,7 +25,7 @@
         <div class="form-group">
             <label for="teacher">Professor</label>
             <select name="teacher" v-model="group.teacher_id" v-validate data-vv-rules="required">
-                <option v-for="teacher in teachers" v-bind:value="teacher.id">
+                <option v-for="teacher in teachers" v-bind:value="teacher.id" v-bind:key="teacher.id">
                     {{ teacher.name }}
                 </option>
             </select>

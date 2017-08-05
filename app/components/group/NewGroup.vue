@@ -44,8 +44,6 @@
 
 <script>
 // 
-import { mapActions } from 'vuex'
-import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
 import MyErrMsg from '../util/ErrorMessage.vue'
 
