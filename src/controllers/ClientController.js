@@ -1,5 +1,6 @@
 'use strict';
 const Client = require('../models').Client;
+const Group = require('../models').Group;
 const moment = require('moment');
 
 const ClientController = {};
@@ -19,6 +20,17 @@ ClientController.get = (id) => Client.findById(id);
 ClientController.create = (client) => Client.create(client);
 ClientController.delete = (id) => Client.destroy({where:{id:id}});
 ClientController.update = (client) => adjust(client).then(Client.update(client,updateOptions(client.id)));
+ClientController.getAllGroups = async id => {
+    try {
+        let options = {
+            include: {model:Group, as: "Groups"}
+        };
+        let client = await Client.findById(id,options);
+        return client;
+    } catch (error) {
+        return error;
+    }
+}
 
 module.exports = ClientController;
 
