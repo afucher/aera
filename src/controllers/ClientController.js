@@ -23,7 +23,8 @@ ClientController.update = (client) => adjust(client).then(Client.update(client,u
 ClientController.getAllGroups = async id => {
     try {
         let options = {
-            include: {model:Group, as: "Groups"}
+            include: {model:Group, as: "Groups"},
+            attributes: getAllFields
         };
         let client = await Client.findById(id,options);
         return client;

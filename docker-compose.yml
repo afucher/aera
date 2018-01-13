@@ -19,3 +19,5 @@ services:
       - POSTGRES_DB=aera_development
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./database:/var/lib/postgresql/data

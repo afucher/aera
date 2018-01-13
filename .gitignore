@@ -3,3 +3,4 @@ _random
 node_modules
 app/build
 npm-debug.log
+database

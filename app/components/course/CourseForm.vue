@@ -29,11 +29,9 @@ export default {
     },
     methods: {
         formSubmit(){
-            this.$validator.validateAll()
-                .then(()=>{
-                    this.$emit("formSubmit", this.course);
-                })
-                .catch(()=>{});
+            this.$validator.validateAll();
+            if(this.errors.any()) return;
+            this.$emit("formSubmit", this.course);
         },
         cancel(){
             this.$emit("formCancel");

@@ -11,8 +11,11 @@ const teacherSrv = new TeacherService();
 
 export default {
         createCourse: ( {commit} , payload ) => {
-                course_srv.createCourse(payload)
-                .then((c) => commit(mut_types.CREATE_COURSE, c))
+                return new Promise((resolve,reject) => {
+                        course_srv.createCourse(payload)
+                        .then(resolve)
+                        .catch(({data})=>reject(data.message));
+                })
                 
         },
         loadCourses: ( {commit, state} ) => {

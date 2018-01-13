@@ -2,10 +2,14 @@
 
 import Vue from 'vue';
 
+const customActions = {
+    getGroups: { method: 'GET', url: '/api/clients{/id}/groups' }
+  }
+
 export default class ClientService {
     constructor(){
         this.resourceAll = Vue.resource('/api/clients');
-        this.resourceOne = Vue.resource('/api/clients{/id}');
+        this.resourceOne = Vue.resource('/api/clients{/id}', {} , customActions);
     }
     
     getClients() {
@@ -22,6 +26,10 @@ export default class ClientService {
     
     updateClient(client){
         return this.resourceOne.update({id:client.id},{client}).then(c => c.json());
+    }
+
+    getGroups( id ){
+        return this.resourceOne.getGroups({id}).then(res => res.json());
     }
 
 }

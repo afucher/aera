@@ -53,6 +53,14 @@ module.exports = [
                 .then((client) => reply(client))
                 .catch((err) => reply(err));
         }
+    },
+    {
+        method: 'GET',
+        path: '/clients/{id}/groups',
+        handler: async (request, reply) => {
+            let groups = await ClientController.getAllGroups(request.params.id);
+            reply(groups);
+        }
     }
 ];
 
