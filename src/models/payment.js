@@ -14,17 +14,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
-    dueDate: {
+    due_date: {
       type: DataTypes.DATEONLY,
       get: function (field) {
         return getDateWithoutTime(this.getDataValue(field))
-      }
-    }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        models.Payment.belongsTo(models.Client, { foreignKey: 'client_id' });
-        // associations can be defined here
       }
     }
   });
