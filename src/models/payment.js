@@ -3,9 +3,8 @@
 
 module.exports = function (sequelize, DataTypes) {
   var Payment = sequelize.define('Payment', {
-    id: {
+    clientGroup_id: {
       type: DataTypes.INTEGER,
-      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
     value: DataTypes.DECIMAL(10,2),
@@ -18,6 +17,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       get: function (field) {
         return getDateWithoutTime(this.getDataValue(field))
+      }
+    }
+  },{
+    classMethods: {
+      associate: function (models) {
+        // associations can be defined here
+        models.Payment.belongsTo(models.ClientGroup, { foreignKey: 'clientGroup_id' });
       }
     }
   });

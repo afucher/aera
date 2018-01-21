@@ -2,11 +2,9 @@
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Payments', {
-      id: {
-        type: Sequelize.UUID,
-        default: Sequelize.UUIDV4,
-        allowNull: false,
-        primaryKey: true
+      clientGroup_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       value: {
         type: Sequelize.DECIMAL(10,2),
@@ -41,7 +39,7 @@ module.exports = {
         indexes: [
             {
                 unique: true,
-                fields: ['id', 'installment']
+                fields: ['clientGroup_id', 'installment']
             }
         ]
     });
