@@ -51,6 +51,7 @@ module.exports = [
         handler: (request, reply) => {
             let group_id = request.params.id;
             let student_id = request.payload.student_id;
+            console.log("router",student_id);
             GroupController.addStudent(group_id, student_id)
                 .then(reply)
                 .catch(reply);
@@ -104,6 +105,17 @@ module.exports = [
                 .header("Content-Disposition", "attachment; filename=" + "meu.pdf");
             })
             doc.end();*/
+        }
+    },
+    {
+        method: 'POST',
+        path: '/groups/{id}/createInstallments',
+        handler: (request, reply) => {
+            let group_id = request.params.id;
+            let installments = request.payload.installments;
+            GroupController.createPayments(group_id,installments)
+                .then(reply)
+                .catch(reply);
         }
     }
 ];

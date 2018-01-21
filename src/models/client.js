@@ -33,7 +33,8 @@ module.exports = function (sequelize, DataTypes) {
           models.Client.belongsToMany(models.Group, {
             through: models.ClientGroup,
             foreignKey: 'client_id',
-            as: 'Groups'
+            as: 'Groups',
+            primaryKeyDeleted: false
           });
         }
       }

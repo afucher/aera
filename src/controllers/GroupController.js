@@ -4,6 +4,7 @@ const Group = require('../models').Group;
 const Client = require('../models').Client;
 const Course = require('../models').Course;
 const ClientGroup = require('../models').ClientGroup;
+const Payment = require('../models').Payment;
 const Boom = require('boom');
 const moment = require('moment');
 const fields = ['id','start_date','end_date','start_hour','end_hour','course_id','classes','teacher_id','classes'];
@@ -62,6 +63,7 @@ GroupController.update = (group) => adjustGroup(group).then(g => Group.update(g,
 
 
 GroupController.addStudent = (id, student_id) => {
+    console.log(student_id);
     return Group.findById(id)
         .then((g) => new Promise((resolve, reject) => {
             if(g){
@@ -80,4 +82,33 @@ GroupController.getGroupList = id => {
     return Group.findById(id,getGroupWithAllInfo)
         .then(CreateGroupList);
 }
+
+GroupController.createPayments = async (id, installments) => {
+    try{
+        installments = Number(installments);
+        let groups = await Group.findById(id,{ include: {
+            model: Client, as: 'Students', through: {
+                attributes: ['id']
+            }, attributes : ['id']
+        }});
+        groups.Students.forEach(student => {
+            Array(installments).fill().map((x,i)=>i+1).forEach(async installment => {
+                let payment = {
+                    clientGroup_id: student.ClientGroup.id,
+                    installment
+                };
+                let defaults = {
+                    value: 240.00,
+                    due_date: new Date(),
+                };
+                console.log(payment);
+                await Payment.findOrCreate({where:payment,defaults});
+            })
+        });
+        return groups;
+    }catch (error) {
+        return error;
+    }
+}
+
 module.exports = GroupController;
