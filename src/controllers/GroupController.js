@@ -63,7 +63,6 @@ GroupController.update = (group) => adjustGroup(group).then(g => Group.update(g,
 
 
 GroupController.addStudent = (id, student_id) => {
-    console.log(student_id);
     return Group.findById(id)
         .then((g) => new Promise((resolve, reject) => {
             if(g){
@@ -91,22 +90,33 @@ GroupController.createPayments = async (id, installments) => {
                 attributes: ['id']
             }, attributes : ['id']
         }});
+        let createdPayments = [];
         groups.Students.forEach(student => {
             Array(installments).fill().map((x,i)=>i+1).forEach(async installment => {
-                let payment = {
+                let header = {
                     clientGroup_id: student.ClientGroup.id,
                     installment
                 };
-                let defaults = {
-                    value: 240.00,
-                    due_date: new Date(),
-                };
-                console.log(payment);
-                await Payment.findOrCreate({where:payment,defaults});
-            })
+                try{
+                    let payment = await Payment.findOne({where:header});
+                    if(!payment){
+                        let paymentToCreate = {
+                            clientGroup_id: header.clientGroup_id,
+                            installment: header.installment,
+                            value: 240.00,
+                            due_date: new Date()
+                        };
+                        let created = await Payment.create(paymentToCreate);
+                    }
+                }catch (error) {
+                    console.log(error);
+                    return error;
+                }
+            });
         });
-        return groups;
+        return createdPayments;
     }catch (error) {
+        console.log(error);
         return error;
     }
 }
