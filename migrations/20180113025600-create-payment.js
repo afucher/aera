@@ -4,7 +4,8 @@ module.exports = {
     return queryInterface.createTable('Payments', {
       clientGroup_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
       },
       value: {
         type: Sequelize.DECIMAL(10,2),
