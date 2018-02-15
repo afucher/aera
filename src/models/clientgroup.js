@@ -14,6 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         models.ClientGroup.hasMany(models.Payment, {foreignKey: 'clientGroup_id', sourceKey: 'id'})
+        models.ClientGroup.belongsTo(models.Client, {foreignKey: 'client_id'})
       }
     }
   });
