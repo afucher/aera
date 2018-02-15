@@ -33,6 +33,7 @@ const router = new VueRouter({
     { path: '/clients', name: 'clients', component: require('./components/client/ListClient.vue')},
     { path: '/clients/:id/edit', name: 'editClient', component: require('./components/client/EditClient.vue')},
     { path: '/clients/new', name: 'newClient', component: require('./components/client/NewClient.vue')},
+    { path: '/payments', name: 'payments', component: require('./components/payment/ListPayment.vue')},
     { path: '/login', name: 'login', component: require('./components/auth/Login.vue')},
   ],
   linkActiveClass: 'active'
