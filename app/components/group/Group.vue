@@ -42,6 +42,13 @@
                 <DownloadList :id="groupId"></DownloadList>
             </div>
         </div>
+        <div class="row">
+
+            <div>
+                <button @click="$modal.show('hello-world')">Gerar parcelas</button>
+                <ModalPayment></ModalPayment>
+            </div>
+        </div>
     </div>
     
 </template>
@@ -49,11 +56,12 @@
 import GroupService from '../../services/GroupService'
 import MyErrMsg from '../util/ErrorMessage.vue'
 import DownloadList from './GetGroupList.vue'
+import ModalPayment from '../payment/ModalPayment.vue'
 const Service = new GroupService();
 export default {
         name: "Group",
         props: ['group_id'],
-        components: {MyErrMsg,DownloadList},
+        components: {MyErrMsg,DownloadList,ModalPayment},
         data : function(){
             return {
                 selected_client_name: null,

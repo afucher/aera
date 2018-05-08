@@ -5,11 +5,13 @@ import store from './vuex/store'
 
 import App from './components/App.vue'
 import ElementUI from 'element-ui'
+import VModal from 'vue-js-modal'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'element-ui/lib/theme-default/index.css'
 
+Vue.use(VModal)
 Vue.use(ElementUI)
 
 
