@@ -46,7 +46,7 @@
 
             <div>
                 <button @click="$modal.show('hello-world')">Gerar parcelas</button>
-                <ModalPayment></ModalPayment>
+                <ModalPayment v-on:save="createInstallments"></ModalPayment>
             </div>
         </div>
     </div>
@@ -119,6 +119,13 @@ export default {
                     attendance
                 };
                 this.$store.dispatch('setStudentAttendance',data);
+            },
+            createInstallments(payment) {
+                let data = {
+                    group_id : this.groupId,
+                    payment
+                };
+                this.$store.dispatch('createInstallments',data);
             }
         }
     }

@@ -111,9 +111,8 @@ module.exports = [
         method: 'POST',
         path: '/groups/{id}/createInstallments',
         handler: (request, reply) => {
-            let group_id = request.params.id;
-            let installments = request.payload.installments;
-            GroupController.createPayments(group_id,installments)
+            const group_id = request.params.id;
+            return GroupController.createPayments(group_id,request.payload)
                 .then(reply)
                 .catch(reply);
         }
