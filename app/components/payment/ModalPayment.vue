@@ -1,31 +1,16 @@
 <template>
     <modal name="hello-world">
-        <form @submit.prevent="formSubmit">
-        <div class="form-group">
-            <label>Número de parcelas</label>
-            <input type="number" v-model="payment.start_date"/>
-        </div>
-        <div class="form-group">
-            <label>Valor</label>
-            <input type="number" v-model="payment.start_date"/>
-        </div>
-        <div class="form-group">
-            <label>Data de vencimento</label>
-            <input type="text" v-model="payment.end_date"/>
-        </div>
-        <div  v-if="errorMessage" class="alert alert-danger alert-dismissible" role="alert">
-            <span>{{errorMessage}}</span>
-        </div>
-        <button type="submit" class="btn btn-default">Salvar</button>
-        <button @click.prevent="hide" class="btn btn-default">Cancelar</button>
-    </form>
-
+        <PaymentForm :payment="payment"
+            v-on:formCancel="hide()"
+            v-on:formSubmit="save"></PaymentForm>
     </modal>
 </template>
 
 <script>
+import PaymentForm from './PaymentForm.vue'
 export default {
     name:"ModalPayment",
+    components: {PaymentForm},
     data: function() {
         return {
             payment: {}
@@ -34,6 +19,10 @@ export default {
     methods: {
         show () {
             this.$modal.show('hello-world');
+        },
+        save ( payment ) {
+            debugger;
+            this.$emit("save", payment);
         },
         hide () {
             this.$modal.hide('hello-world');

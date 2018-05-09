@@ -82,9 +82,9 @@ GroupController.getGroupList = id => {
         .then(CreateGroupList);
 }
 
-GroupController.createPayments = async (id, installments) => {
+GroupController.createPayments = async (id, payment_info) => {
     try{
-        installments = Number(installments);
+        const installments = Number(payment_info.installments);
         let groups = await Group.findById(id,{ include: {
             model: Client, as: 'Students', through: {
                 attributes: ['id']
@@ -103,8 +103,8 @@ GroupController.createPayments = async (id, installments) => {
                         let paymentToCreate = {
                             clientGroup_id: header.clientGroup_id,
                             installment: header.installment,
-                            value: 240.00,
-                            due_date: new Date()
+                            value: payment_info.value,
+                            due_date: payment_info.due_date
                         };
                         let created = await Payment.create(paymentToCreate);
                     }

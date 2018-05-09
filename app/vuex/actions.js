@@ -112,6 +112,9 @@ export default {
         },
         setStudentAttendance: ({commit},{group_id,student_id,attendance}) => {
                 return group_srv.updateAttendance({group_id, student_id, attendance});
+        },
+        createInstallments: ({commit},{group_id,payment}) => {
+                return group_srv.createInstallments({group_id, payment});
         }
 
 }
