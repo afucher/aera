@@ -21,7 +21,6 @@ export default {
             this.$modal.show('hello-world');
         },
         save ( payment ) {
-            debugger;
             this.$emit("save", payment);
         },
         hide () {
