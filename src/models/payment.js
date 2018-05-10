@@ -24,6 +24,13 @@ module.exports = function (sequelize, DataTypes) {
       associate: function (models) {
         // associations can be defined here
         models.Payment.belongsTo(models.ClientGroup, { foreignKey: 'clientGroup_id' });
+        models.Payment.belongsTo(models.Group,{
+          through: models.ClientGroup,
+          foreignKey: 'clientGroup_id',
+          otherKey: 'id',
+          as: 'Group',
+          primaryKeyDeleted: false
+        });
       }
     }
   });

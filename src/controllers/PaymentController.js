@@ -2,6 +2,9 @@
 const Payment = require('../models').Payment;
 const ClientGroup = require('../models').ClientGroup;
 const Client = require('../models').Client;
+const Group = require('../models').Group;
+const Course = require('../models').Course;
+const paymentPDF = require('../utils/PaymentsListPDF');
 const PaymentController = {};
 const clientInfo = {model: ClientGroup,attributes:['client_id'],include:{model:Client,attributes:['id','name']}}
 const normalizePaymentObject = (payment) => {
@@ -33,6 +36,22 @@ PaymentController.getFromGroup = (group_id) => Payment.findAll({
 });
 PaymentController.create = (payment) => Payment.create(payment);
 PaymentController.delete = (id) => Payment.destroy({where:{id:id}});
+
+PaymentController.generateReceiptForStudent = async (student_id, month) => {
+    let cli = await Client.findById(student_id,{
+        include: [{
+            model: Payment, as: 'Payments', through: {
+                attributes: ['id']
+            },
+            include: [{
+                model: Group,
+                as: 'Group',
+                include : [{model: Course }]
+            }]
+        }],attributes:['name']
+    });
+    return paymentPDF(cli);
+}
 
 
 module.exports = PaymentController;

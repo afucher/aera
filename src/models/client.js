@@ -36,6 +36,13 @@ module.exports = function (sequelize, DataTypes) {
             as: 'Groups',
             primaryKeyDeleted: false
           });
+          models.Client.belongsToMany(models.Payment, {
+            through: models.ClientGroup,
+            foreignKey: 'client_id',
+            otherKey: 'id',
+            as: 'Payments',
+            primaryKeyDeleted: false
+          });
         }
       }
     });

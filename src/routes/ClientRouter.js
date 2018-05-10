@@ -1,5 +1,6 @@
 'use strict';
 const ClientController = require('../controllers/ClientController');
+const PaymentController = require('../controllers/PaymentController');
 const Boom = require('boom');
 module.exports = [
     {
@@ -60,6 +61,17 @@ module.exports = [
         handler: async (request, reply) => {
             let groups = await ClientController.getAllGroups(request.params.id);
             reply(groups);
+        }
+    },
+    {
+        method:'GET',
+        path: '/clients/{id}/receipt',
+        handler: ({params}, reply) => {
+            PaymentController.generateReceiptForStudent( params.id )
+                .then(({data,name}) => {
+                    reply(data).bytes(data.length).type('application/pdf')
+                        .header("Content-Disposition", "attachment; filename=" + name);
+                })
         }
     }
 ];

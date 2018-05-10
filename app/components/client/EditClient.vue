@@ -3,15 +3,21 @@
         <ClientForm v-if="client" :client="client" v-on:formSubmit="updateClient" v-on:formCancel="cancel"></ClientForm>
         <span v-if="!client"> Carregando... </span>
         <MyErrMsg :errorMessage="errorMessage"></MyErrMsg>
+        <div class="row">
+            <div>
+                <GetPaymentStudent :id="clientID"></GetPaymentStudent>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import ClientService from '../../services/ClientService'
 import ClientForm from './ClientForm.vue'
+import GetPaymentStudent from '../payment/GetPaymentStudent.vue'
 const cliSrv = new ClientService();
 export default {
-    components: {ClientForm},
+    components: {ClientForm,GetPaymentStudent},
     data: function(){
         return {
             client: null,
@@ -23,6 +29,11 @@ export default {
             this.client = c;
             this.$store.dispatch('setClient', c);
         });
+    },
+    computed : {
+        clientID() {
+            return this.$route.params.id
+        }
     },
     methods: {
         updateClient(e) {
