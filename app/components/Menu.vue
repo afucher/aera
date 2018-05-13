@@ -19,6 +19,7 @@
                 <router-link :exact=true tag="li" :to="{ name: 'courses'}"><a>Cursos</a></router-link>
                 <router-link :exact=true tag="li" :to="{ name: 'groups'}"><a>Turmas</a></router-link>
                 <router-link :exact=true tag="li" :to="{ name: 'clients'}"><a>Clientes</a></router-link>
+                <router-link :exact=true tag="li" :to="{ name: 'payments'}"><a>Pagamentos</a></router-link>
             </template>
             <router-link  v-if="!isAuthenticated" :exact=true tag="li" :to="{ name: 'login'}"><a>Login</a></router-link>
             
