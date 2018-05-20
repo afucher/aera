@@ -21,13 +21,15 @@ module.exports = function (sequelize, DataTypes) {
     start_hour: {
       type: DataTypes.TIME,
       get: function (field) {
-        return this.getDataValue(field).substr(0,5)
+        let value = this.getDataValue(field)
+        return value ? value.substr(0,5) : value;
       }
     },
     end_hour: {
       type: DataTypes.TIME,
       get: function (field) {
-        return this.getDataValue(field).substr(0,5)
+        let value = this.getDataValue(field)
+        return value ? value.substr(0,5) : value;
       }
     },
     class_info: DataTypes.JSON

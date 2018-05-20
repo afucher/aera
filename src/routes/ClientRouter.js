@@ -66,12 +66,13 @@ module.exports = [
     {
         method:'GET',
         path: '/clients/{id}/receipt',
-        handler: ({params}, reply) => {
-            PaymentController.generateReceiptForStudent( params.id )
+        handler: ({params,query}, reply) => {
+            PaymentController.generateReceiptForStudent( params.id , query.month )
                 .then(({data,name}) => {
                     reply(data).bytes(data.length).type('application/pdf')
                         .header("Content-Disposition", "attachment; filename=" + name);
                 })
+                .catch(reply)
         }
     }
 ];
