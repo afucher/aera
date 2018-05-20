@@ -7,10 +7,12 @@ const Course = require('../models').Course;
 const ClientController = require('./ClientController');
 const paymentPDF = require('../utils/PaymentsListPDF');
 const PaymentController = {};
-const clientInfo = {model: ClientGroup,attributes:['client_id'],include:{model:Client,attributes:['id','name']}}
+const clientInfo = {model: ClientGroup,attributes:['client_id'],include:[{model:Client,attributes:['id','name']},
+                                                                        {model:Group,attributes:['id'], include:{model:Course}}]}
 const normalizePaymentObject = (payment) => {
     payment['client_id'] = payment.ClientGroup.Client.id;
     payment['name'] = payment.ClientGroup.Client.name;
+    payment['course'] = payment.ClientGroup.Group.Course.name;    
     delete payment.ClientGroup;
     return payment;
 }
@@ -25,8 +27,8 @@ const normalizeAllPayments = (payments) => {
     .then(normalizeAllPayments)*/
 
 PaymentController.getAll = ({filter,limit,offset}) => 
-    filter? 
-    Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
+    //filter? 
+    //Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
     Payment.findAndCountAll({limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments);
 PaymentController.get = (id) => Payment.findById(id);
 PaymentController.getFromClient = (client_id) => Payment.findAll({

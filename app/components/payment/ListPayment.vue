@@ -12,7 +12,7 @@ import pay from './ModalConfirmPay.vue'
         name: "AeraListPayment",
         data: function(){
             return {
-                columns: ['name','value','due_date','paid','installment','pay'],
+                columns: ['name','value','course','due_date','paid','installment','pay'],
                 options: {
                     responseAdapter : function(data) {
                         data.data = data.data.map(payment => {
