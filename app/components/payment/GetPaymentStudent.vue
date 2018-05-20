@@ -1,13 +1,28 @@
 <template>
-    <button @click.prevent="download">Gerar recibo</button>
+    <div>
+        <modal name="select-month">
+            <input type="text" v-model="month"/>
+            <button @click.prevent="download">Download</button>
+        </modal>
+        <button @click.prevent="selectMonth">Gerar recibo</button>
+    </div>
 </template>
 
 <script>
     export default {
         props:['id'],
+        data: function() {
+            return {
+                month : 1
+            }
+        },
         methods: {
+            selectMonth(){
+                this.$modal.show('select-month');
+            },
             download(){
-                this.$http.get(`/api/clients/${this.id}/receipt`,{responseType:'blob'}).then(a=>{
+                this.$modal.hide('select-month');
+                this.$http.get(`/api/clients/${this.id}/receipt?month=${this.month}`,{responseType:'blob'}).then(a=>{
                     let result = document.createElement('a');
                     document.body.appendChild(result);
                     let contentDisposition = a.headers.get('Content-Disposition') || '';

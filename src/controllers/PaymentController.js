@@ -4,6 +4,7 @@ const ClientGroup = require('../models').ClientGroup;
 const Client = require('../models').Client;
 const Group = require('../models').Group;
 const Course = require('../models').Course;
+const ClientController = require('./ClientController');
 const paymentPDF = require('../utils/PaymentsListPDF');
 const PaymentController = {};
 const clientInfo = {model: ClientGroup,attributes:['client_id'],include:{model:Client,attributes:['id','name']}}
@@ -38,18 +39,20 @@ PaymentController.create = (payment) => Payment.create(payment);
 PaymentController.delete = (id) => Payment.destroy({where:{id:id}});
 
 PaymentController.generateReceiptForStudent = async (student_id, month) => {
-    let cli = await Client.findById(student_id,{
-        include: [{
-            model: Payment, as: 'Payments', through: {
-                attributes: ['id']
-            },
-            include: [{
-                model: Group,
-                as: 'Group',
-                include : [{model: Course }]
-            }]
-        }],attributes:['name']
+    let cli = await ClientController.getWithPayments(student_id,month)
+    if (!cli) throw require('boom').notFound(`No Payments for this month`);;
+    cli = cli.get({plain:true})
+    let clientPayments = cli.ClientGroups.map( cg => {
+        let aux = cg.Payments.map( p => {
+            p.Group = cg.Group
+            return p;
+        });
+        return aux;
+        
     });
+    cli.Payments = require('lodash').cloneDeep([].concat(...clientPayments));
+    delete cli.ClientGroups;
+    delete cli.Group;
     return paymentPDF(cli);
 }
 

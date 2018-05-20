@@ -1,6 +1,9 @@
 'use strict';
 const Client = require('../models').Client;
 const Group = require('../models').Group;
+const Course = require('../models').Course;
+const Payment = require('../models').Payment;
+const ClientGroup = require('../models').ClientGroup;
 const moment = require('moment');
 
 const ClientController = {};
@@ -32,6 +35,47 @@ ClientController.getAllGroups = async id => {
         return error;
     }
 }
+ClientController.getWithPayments2 = id => {
+    return Client.findById(id,{
+        include: [{
+            model: Payment, as: 'Payments', through: {
+                attributes: ['id'],
+                include: [{
+                    model: Group,
+                    as: 'Group',
+                    include : [{model: Course }]
+                }]
+            }
+            
+        }],attributes:['name']
+    });
+}
+
+ClientController.getWithPayments = (id,month) => {
+    let where = {paid : false};
+    if(month){
+        let dateRange = getMonthDateRange(month);
+        where["due_date"] = {
+            $gte : dateRange.start.format('YYYY-MM-DD'),
+            $lte : dateRange.end.format('YYYY-MM-DD')
+        };
+    }
+    return Client.findById(id,{
+        include: [{
+            model: ClientGroup,
+            attributes: ['group_id','client_id','id'],
+            include : [{
+                model : Payment,
+                where
+            },{
+                model : Group,
+                include: Course,
+                attributes: ['course_id']
+            }]
+        }],
+        attributes: ['name']
+    });
+}
 
 module.exports = ClientController;
 
@@ -43,4 +87,20 @@ const updateOptions = (id) => {
         fields:['name','email','cpf','phone','cel_phone','com_phone','address1','address2','address3','zip_code','city','state','profession','teacher',
                 'edu_lvl','birth_date','birth_hour','birth_place']
     }
+}
+
+const getMonthDateRange = (month) => {
+    // month in moment is 0 based, so 9 is actually october, subtract 1 to compensate
+    // array is 'year', 'month', 'day', etc
+    var startDate = moment().utc().month(month-1).startOf('month');
+
+    // Clone the value before .endOf()
+    var endDate = moment(startDate).endOf('month');
+
+    // just for demonstration:
+    console.log(startDate.toDate());
+    console.log(endDate.toDate());
+
+    // make sure to call toDate() for plain JavaScript date type
+    return { start: startDate, end: endDate };
 }
