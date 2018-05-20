@@ -53,6 +53,18 @@ module.exports = [
                 .then((payment) => reply(payment))
                 .catch((err) => reply(err));
         }
+    },
+    {
+        method: 'POST',
+        path: '/payments/{id}/{installment}/pay',
+        handler: async ({params}, reply) => {
+            try{
+                let payment = await PaymentController.pay(params.id, params.installment);
+                reply(payment);
+            }catch(e) {
+                reply(e);
+            }
+        }
     }
 ];
 

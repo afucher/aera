@@ -7,12 +7,12 @@
 </template>
  
 <script>
-//import PaymentService from '../../services/PaymentService'
+import pay from './ModalConfirmPay.vue'
     export default {
         name: "AeraListPayment",
         data: function(){
             return {
-                columns: ['name','value','paid','installment'],
+                columns: ['name','value','due_date','paid','installment','pay'],
                 options: {
                     responseAdapter : function(data) {
                         data.data = data.data.map(payment => {
@@ -25,6 +25,9 @@
                         installment: 'Parcela',
                         paid: 'Status',
                         value: 'Valor'
+                    },
+                    templates : {
+                        pay
                     }
                 }
             }
