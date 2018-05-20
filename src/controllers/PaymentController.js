@@ -40,7 +40,7 @@ PaymentController.delete = (id) => Payment.destroy({where:{id:id}});
 
 PaymentController.generateReceiptForStudent = async (student_id, month) => {
     let cli = await ClientController.getWithPayments(student_id,month)
-    if (!cli) throw require('boom').notFound(`No Payments for this month`);;
+    if (!cli) throw require('boom').notFound(`No Payments for this month`);
     cli = cli.get({plain:true})
     let clientPayments = cli.ClientGroups.map( cg => {
         let aux = cg.Payments.map( p => {
@@ -54,6 +54,16 @@ PaymentController.generateReceiptForStudent = async (student_id, month) => {
     delete cli.ClientGroups;
     delete cli.Group;
     return paymentPDF(cli);
+}
+
+PaymentController.pay = async (clientGroup_id, installment) => {
+    try{
+        let payment = await Payment.findOne( {where:{clientGroup_id, installment}} );
+        if ( !payment ) throw require('boom').notFound(`No payment found`);
+        await payment.update({paid:true});
+    }catch (e) {
+        throw e;
+    }
 }
 
 
