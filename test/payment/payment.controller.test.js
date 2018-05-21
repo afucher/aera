@@ -19,7 +19,31 @@ const mountGroup = course_id => {
 
 
 lab.experiment('PaymentController', () => {
-    lab.test('Should make a payment paied', async () => {
+    lab.afterEach(done => {
+        Payment.destroy({truncate:true, cascade: true}).then(done);
+    });
+
+    lab.test('Should return a single payment', async () => {
+        try {
+            let payment = await Payment.create({
+                clientGroup_id: 1,
+                installment: 1,
+                value: 10.50,
+                due_date: new Date(2018,5-1,2)
+            });
+                let result = await PaymentController.get(payment.clientGroup_id, payment.installment);
+                Code.expect(result.paid).to.be.an.boolean().and.be.false();
+                Code.expect(result.clientGroup_id).to.be.equals(payment.clientGroup_id);
+                Code.expect(result.installment).to.be.equals(payment.installment);
+                Code.expect(result.value).to.be.equals(payment.value);
+                Code.expect(result.due_date).to.be.equals(payment.due_date);
+            
+        } catch (error) {
+            throw error;
+        }
+    });
+
+    lab.test('Should pay a payment', async () => {
         try {
             let payment = await Payment.create({
                 clientGroup_id: 1,

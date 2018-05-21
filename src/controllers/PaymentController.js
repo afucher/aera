@@ -30,7 +30,7 @@ PaymentController.getAll = ({filter,limit,offset}) =>
     //filter? 
     //Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
     Payment.findAndCountAll({limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments);
-PaymentController.get = (id) => Payment.findById(id);
+PaymentController.get = (clientGroup_id, installment) => Payment.findOne( {where:{clientGroup_id, installment}} );
 PaymentController.getFromClient = (client_id) => Payment.findAll({
     include: {model:ClientGroup, where:{client_id}, attributes: []}
 });
