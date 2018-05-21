@@ -8,4 +8,7 @@ export default class PaymentService {
     pay({clientGroup_id, installment}) {
         return Vue.http.post(`/api/payments/${clientGroup_id}/${installment}/pay`)
     }
+    get({clientGroup_id, installment}) {
+        return Vue.http.get(`/api/payments/${clientGroup_id}/${installment}`)
+    }
 }
