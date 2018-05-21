@@ -17,10 +17,11 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/payments/{id}',
-        handler: (request, reply) => {
-            PaymentController.get(request.params.id)
-                .then((payment) => reply(payment));
+        path: '/payments/{id}/{installment}',
+        handler: ({params}, reply) => {
+            PaymentController.get(params.id, params.installment)
+                .then(reply)
+                .catch(reply);
         }
     },
     {
