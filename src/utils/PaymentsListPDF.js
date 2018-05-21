@@ -1,6 +1,8 @@
 'use strict';
 const PDFDocument = require('pdfkit');
 const alignRight = {align:'right'};
+const {formatToBRL} = require('./index.js');
+
 module.exports = (student) => {
     return new Promise((resolve, reject) => {
         let doc = new PDFDocument();
@@ -34,13 +36,17 @@ const drawReceipt = (doc, student, due_date) => {
     doc.text(`Pagador: ${student.name}`);
     doc.text(`Vencimento: ${due_date}`);
     student.Payments.forEach(payment => {
+        let value = formatToBRL(payment.value);
         doc.moveDown();
-        doc.text(`${payment.Group.Course.name} - ${payment.value}`, alignRight);
+        doc.text(`${payment.Group.Course.name} - ${value}`, alignRight);
         total += parseFloat(payment.value);
     })
     doc.moveDown();
-    doc.text(`Sub-Total ${total}`,alignRight);
-    doc.text(`Desconto ${' '.repeat(10)}`,alignRight);
+    doc.text(`Sub-Total ${formatToBRL(total)}`,alignRight);
+    doc.moveDown();
+    doc.text(`Desconto R$ ${'_'.repeat(10)}`,alignRight);
+    doc.moveDown();
+    doc.text(`Total R$ ${'_'.repeat(10)}`,alignRight);
 }
     
 
