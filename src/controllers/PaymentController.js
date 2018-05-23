@@ -26,10 +26,20 @@ const normalizeAllPayments = (payments) => {
 /*Payment.findAndCountAll({ include:{model: ClientGroup,attributes:['client_id'],include:{model:Client,attributes:['id','name']}}})
     .then(normalizeAllPayments)*/
 
-PaymentController.getAll = ({filter,limit,offset}) => 
-    //filter? 
-    //Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
-    Payment.findAndCountAll({limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments);
+PaymentController.getAll = ({filter,limit,offset, onlyPending}) => {
+//filter? 
+//Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
+
+    let opt = {
+        limit,
+        offset,
+        order:'due_date',
+        include:clientInfo
+    };
+    onlyPending = onlyPending == 'true'
+    if(onlyPending) opt['where'] = {paid:false};
+    return Payment.findAndCountAll(opt).then(normalizeAllPayments);
+}
 PaymentController.get = (clientGroup_id, installment) => Payment.findOne( {where:{clientGroup_id, installment}} );
 PaymentController.getFromClient = (client_id) => Payment.findAll({
     include: {model:ClientGroup, where:{client_id}, attributes: []}

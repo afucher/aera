@@ -9,7 +9,8 @@ module.exports = [
             let opt = {
                 filter: query.query,
                 limit : query.limit,
-                offset: query.limit * (query.page-1) || 0
+                offset: query.limit * (query.page-1) || 0,
+                onlyPending: query.onlyPending
             }
             PaymentController.getAll(opt)
                 .then(payment => reply({data:payment.rows,count:payment.count}));
