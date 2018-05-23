@@ -1,6 +1,7 @@
 <template>
     <div>
         <div id="payment">
+            <input type="checkbox" v-model="onlyPending"  @change="filterPay()">Apenas pendentes</input>
             <v-server-table url="/api/payments" :columns="columns" :options="options" ></v-server-table>
         </div>
     </div>
@@ -8,6 +9,7 @@
  
 <script>
 import pay from './ModalConfirmPay.vue'
+import {Event} from 'vue-tables-2';
     export default {
         name: "AeraListPayment",
         data: function(){
@@ -28,8 +30,16 @@ import pay from './ModalConfirmPay.vue'
                     },
                     templates : {
                         pay
-                    }
-                }
+                    },
+                    customFilters: ['onlyPending'],
+                    initFilters:{onlyPending:true}
+                },
+                onlyPending: true
+            }
+        },
+        methods: {
+            filterPay(){
+                Event.$emit('vue-tables.filter::onlyPending', this.onlyPending);
             }
         }
     }
