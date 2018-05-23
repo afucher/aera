@@ -23,7 +23,7 @@ export default new Vuex.Store({
             state.courses.push(payload);
         },
         loadCourses(state, payload) {
-            state.courses = payload;
+            state.courses = payload.rows;
         },
         [types.DELETE_COURSE]({courses}, payload) {
             courses.splice(courses.findIndex((el) => el.id == payload.id), 1);

@@ -5,8 +5,13 @@ module.exports = [
     {
         method: 'GET',
         path: '/courses',
-        handler: (request, reply) => {
-            CourseController.getAll()
+        handler: ({query}, reply) => {
+            let opt = query.query ? {
+                filter: query.query,
+                limit : query.limit,
+                offset: query.limit * (query.page-1) || 0
+            } : {};
+            CourseController.getAll(opt)
                 .then(reply);
                 //.then(reply);
         }
