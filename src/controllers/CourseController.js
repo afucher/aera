@@ -18,7 +18,17 @@ const updOptWithoutGroup  = (id) => {
     return opt;
 }
 
-CourseController.getAll = () => Course.findAll();
+CourseController.getAll = ({filter,limit,offset, onlyPending}) => {
+
+        //filter? 
+        //Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
+            let opt = filter ? {} : {
+                limit,
+                offset
+            };
+            return Course.findAndCountAll(opt);
+
+}
 CourseController.get = (id) => Course.findById(id);
 CourseController.create = (course) => Course.create(course);
 CourseController.delete = (id) => Course.destroy({where:{id:id}});
