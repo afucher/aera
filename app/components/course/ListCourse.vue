@@ -1,33 +1,22 @@
 <template>
     <div>
-        <div v-for="course in courses">
-            {{course.name}} - {{course.courseLoad}}h
-            <router-link :to="{ name: 'editCourse', 
-                    params:{id: course.id}}">Editar</router-link>
-            <router-link :to="{ name: 'newGroup', 
-                    params:{id: course.id}}">Nova Turma</router-link>
-            <router-link :to="{ name: 'courseGroups', 
-                    params:{id: course.id}}">Turmas</router-link>
-        </div>
+        <v-server-table url="/api/courses" :columns="columns" :options="options"></v-server-table>
         <router-view></router-view>
     </div>
 </template>
  
 <script>
-import { DELETE_COURSE } from '../../vuex/mutation-types'
-import {mapState} from 'vuex'
+import newGroup from './table-templates/newGroupAction.vue'
     export default {
         name: "AeraListCourse",
-        computed: {
-         ...mapState([
-            'courses',
-        ])},
-        mounted() {
-            this.$store.dispatch('loadCourses');
-        },
-        methods: {
-            deleteCourse(course) {
-                this.$store.dispatch(DELETE_COURSE, course)
+        data: function(){
+            return {
+                columns: ['name','courseLoad','newGroup'],
+                options: {
+                    templates: {
+                        newGroup
+                    }
+                }
             }
         }
         
