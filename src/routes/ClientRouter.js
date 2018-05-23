@@ -13,7 +13,7 @@ module.exports = [
                 offset: query.limit * (query.page-1) || 0
             }
             ClientController.getAll(opt)
-                .then(courses => reply({data:courses.rows,count:courses.count}));
+                .then(clients => reply({data:clients.rows,count:clients.count}));
         }
     },
     {

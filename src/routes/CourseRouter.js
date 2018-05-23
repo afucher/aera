@@ -12,7 +12,7 @@ module.exports = [
                 offset: query.limit * (query.page-1) || 0
             } : {};
             CourseController.getAll(opt)
-                .then(reply);
+                .then(courses => reply({data:courses.rows,count:courses.count}));
                 //.then(reply);
         }
     },
