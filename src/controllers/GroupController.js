@@ -31,7 +31,12 @@ const getGroupWithAllInfo = {
     attributes : fields,
     order: [[{model: Client, as: 'Students'}, 'name']]
 };
-const getAllOptions = {attributes:fields};
+const getAllOptions = {
+    attributes:fields,
+    include: {
+        model: Course
+    }
+};
 
 const updateOptions  = (id) => {
     return {
@@ -53,9 +58,29 @@ const adjustGroup = group => {
     return Promise.resolve(group);
 };
 
-const GroupController = {};
+const normalizeGroupObject = (group) => {
+    group['name'] = group.Course.name;
+    delete group.Course;
+    return group;
+}
 
-GroupController.getAll = () => Group.findAll(getAllOptions);
+const normalizeAllGroup = (groups) => {
+    groups.rows = groups.rows.map(item => item.toJSON())
+                            .map(normalizeGroupObject);
+    return groups;
+}
+
+const GroupController = {};
+GroupController.getAll = ({filter,limit,offset}) => {
+    let opt = getAllOptions;    
+    if (filter){
+        opt['filter'] = filter;
+        opt['limit'] = limit;
+        opt['offset'] = offset;
+    };
+    return Group.findAndCountAll(opt).then(normalizeAllGroup);
+}
+
 GroupController.get = (id) => Group.findById(id, getOneOptions);
 GroupController.create = (group) => adjustGroup(group).then(g => Group.create(g));
 GroupController.delete = (id) => Group.destroy({ where: { id: id } });

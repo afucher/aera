@@ -8,9 +8,14 @@ module.exports = [
     {
         method: 'GET',
         path: '/groups',
-        handler: (request, reply) => {
-            GroupController.getAll()
-                .then(reply);
+        handler: ({query}, reply) => {
+            let opt = query.query ? {
+                filter: query.query,
+                limit : query.limit,
+                offset: query.limit * (query.page-1) || 0
+            } : {};
+            GroupController.getAll(opt)
+                .then(groups => reply({data:groups.rows,count:groups.count}));
         }
     },
     {
