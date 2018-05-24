@@ -1,23 +1,20 @@
 <template>
     <div>
-        <router-link :to="{ name: 'courses'}">X</router-link>
-        <h2>Data de início das turmas</h2>
-        <div v-for="group in groups">
-            <p>Início em: {{group.start_date}} - <router-link :to="{ name: 'group',params:{id:group.id}}">Detalhes</router-link></p>
-        </div>
+        <h2>Turmas <router-link :to="{ name: 'courses'}">[x]</router-link></h2>
+        
+        <ListGroup :course="course"></ListGroup>
     </div>
 </template>
 
 <script>
+import ListGroup from './ListGroup.vue'
     export default {
         name: "CourseGroups",
+        components: {ListGroup},
         computed: {
-            groups() {
-                return this.$store.getters.groupsFromCourse(this.$route.params.id)
+            course() {
+                return this.$route.params.id
             }
-        },
-        mounted(){
-            this.$store.dispatch("loadGroups")
         }
     }
 </script>

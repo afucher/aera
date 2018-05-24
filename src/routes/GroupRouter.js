@@ -14,6 +14,7 @@ module.exports = [
                 limit : query.limit,
                 offset: query.limit * (query.page-1) || 0
             } : {};
+            if(query.course) opt['course'] = query.course;
             GroupController.getAll(opt)
                 .then(groups => reply({data:groups.rows,count:groups.count}));
         }

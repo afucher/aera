@@ -31,11 +31,14 @@ const getGroupWithAllInfo = {
     attributes : fields,
     order: [[{model: Client, as: 'Students'}, 'name']]
 };
-const getAllOptions = {
-    attributes:fields,
-    include: {
-        model: Course
-    }
+const getAllOptions = course_id => {
+    let opt = {
+        attributes:fields,
+        include: {
+            model: Course
+        }};
+    if(course_id) opt['where'] = {course_id};
+    return opt;
 };
 
 const updateOptions  = (id) => {
@@ -71,8 +74,8 @@ const normalizeAllGroup = (groups) => {
 }
 
 const GroupController = {};
-GroupController.getAll = ({filter,limit,offset}) => {
-    let opt = getAllOptions;    
+GroupController.getAll = ({filter,limit,offset,course}) => {
+    let opt = getAllOptions(course);    
     if (filter){
         opt['filter'] = filter;
         opt['limit'] = limit;
