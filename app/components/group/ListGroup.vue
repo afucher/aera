@@ -1,22 +1,18 @@
 <template>
     <div>
-        <div v-for="group in groups">
-            <p>{{group.start_date}} - <router-link :to="{ name: 'group',params:{id:group.id}}">Detalhes</router-link></p>
-        </div>
+        <v-server-table url="/api/groups" :columns="columns" ></v-server-table>
+        <router-view></router-view>
     </div>
 </template>
  
 <script>
-import {SET_GROUPS} from '../../vuex/mutation-types'
-import {mapState} from 'vuex'
-    export default {
-        name: "AeraListGroup",
-        computed: {
-         ...mapState([
-            'groups',
-        ])},
-        mounted() {
-            this.$store.dispatch('loadGroups')
+export default {
+    name: "AeraListGroup",
+    data: function(){
+        return {
+            columns: ['name','start_date','end_date']
         }
     }
+    
+}
 </script>
