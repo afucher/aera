@@ -6,16 +6,18 @@
  
 <script>
 import {Event} from 'vue-tables-2';
+import view from './table-templates/ViewGroupAction.vue'
 export default {
     name: "AeraListGroup",
     props: ['course'],
     data: function(){
         let course_id = this.course;
         return {
-            columns: ['name','start_date','end_date'],
+            columns: ['name','start_date','end_date','view'],
             options: {
                 customFilters: ['course'],
-                initFilters: {course:course_id}
+                initFilters: {course:course_id},
+                templates: {view}
             }
         }
     },
