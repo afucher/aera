@@ -7,7 +7,7 @@
         </div>
         <div class="form-group">    
             <label>Valor</label>
-            <input v-validate="'required'" name="value" type="number" v-model="payment.value" class="form-control">
+            <input v-validate="'required'" name="value" type="number" step="0.01" v-model="payment.value" class="form-control">
             <span v-show="errors.has('value')" class="bg-danger">{{ errors.first('value') }}</span>
         </div>
         <div class="form-group">
