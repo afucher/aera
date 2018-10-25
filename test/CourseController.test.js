@@ -5,13 +5,13 @@ const Code = require('code');
 const Assert = require('assert');
 const CourseController = require('../src/controllers/CourseController');
 const Course = require('../src/models').Course;
-
+const defaultOptionsToGetAll = {filter:null,limit:1000,offset:0, onlyPending:false};
 lab.experiment('CourseController', () => {
     lab.test('Should not return courses', (done) => {
 
-        CourseController.getAll()
+        CourseController.getAll(defaultOptionsToGetAll)
             .then((courses) => {
-                Code.expect(courses).to.be.empty();
+                Code.expect(courses.rows).to.be.empty();
                 done();
             });
 
@@ -19,9 +19,9 @@ lab.experiment('CourseController', () => {
 
     lab.test('Should return 1 course', (done) => {
         Course.create({ name: 'teste' }).then(() => {
-            CourseController.getAll()
+            CourseController.getAll(defaultOptionsToGetAll)
                 .then((courses) => {
-                    Code.expect(courses).to.have.length(1);
+                    Code.expect(courses.rows).to.have.length(1);
                     done();
                 });
         });

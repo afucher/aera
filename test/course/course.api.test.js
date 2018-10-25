@@ -30,8 +30,9 @@ lab.experiment('CourseAPI', () => {
         Server.inject(options, response => {
             let result = response.result;
             expect(response.statusCode).to.equal(200);
-            expect(result).to.be.an.array();
-            expect(result).to.be.empty();
+            expect(result.data).to.be.an.array();
+            expect(result.data).to.be.empty();
+            expect(result.count).to.be.equal(0);
             done();
         })
     });
@@ -51,8 +52,8 @@ lab.experiment('CourseAPI', () => {
             Server.inject(options, response => {
                 let result = response.result;
                 expect(response.statusCode).to.equal(200);
-                expect(result).to.be.an.array();
-                expect(result.length).to.be.equal(2);
+                expect(result.data).to.be.an.array();
+                expect(result.count).to.be.equal(2);
                 done();
             })
         })
