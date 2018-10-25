@@ -82,7 +82,7 @@ GroupController.getAll = ({filter,limit,offset,course}) => {
         opt['offset'] = offset;
     };
     return Group.findAndCountAll(opt).then(normalizeAllGroup);
-}
+};
 
 GroupController.get = (id) => Group.findById(id, getOneOptions);
 GroupController.create = (group) => adjustGroup(group).then(g => Group.create(g));
@@ -102,6 +102,12 @@ GroupController.addStudent = (id, student_id) => {
                 reject(Boom.notFound(`Group ${id} not Found`));
             }
         }));
+};
+
+GroupController.unenroll = async (group_id, client_id) => {
+    let group = await Group.findById(group_id);
+    let client = await Client.findById(client_id);
+    return group.removeStudent(client);
 };
 
 GroupController.getStudents = (id) => Group.findById(id, includeStudents);
