@@ -57,10 +57,21 @@ module.exports = [
         handler: (request, reply) => {
             let group_id = request.params.id;
             let student_id = request.payload.student_id;
-            console.log("router",student_id);
             GroupController.addStudent(group_id, student_id)
                 .then(reply)
                 .catch(reply);
+        }
+    },
+    {
+        method: 'POST',
+        path: '/groups/{id}/unenroll',
+        handler: (request, reply) => {
+            let group_id = request.params.id;
+            let student_id = request.payload.student_id;
+            GroupController.unenroll(group_id, student_id)
+                .then(reply)
+                .catch(reply);
+
         }
     },
     {

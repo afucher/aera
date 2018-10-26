@@ -40,6 +40,11 @@ export default new Vuex.Store({
             if (groups[grp_idx].Students.findIndex(el => el.id == student.id) < 0)
                 groups[grp_idx].Students.push(student);
         },
+        [types.UNENROLL_STUDENT]({groups}, {group,student}) {
+            const grp_idx = groups.findIndex(el => el.id == group.id);
+            if (groups[grp_idx].Students.findIndex(el => el.id == student.id) < 0)
+                groups[grp_idx].Students.push(student);
+        },
         [types.LOGIN](state, payload){
             state.user = payload;
         },

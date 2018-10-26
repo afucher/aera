@@ -32,6 +32,8 @@
                         {{student.name}} - presença: 
                         <input type="number" :max="group.classes" min=0 v-model="student.ClientGroup.attendance">
                         <button @click.prevent="updateAttendance(student.id,student.ClientGroup.attendance)">Atualizar presença</button>
+                        <button @click.prevent="$modal.show('confirm-unenroll')">Desmatricular</button>
+                        <ModalUnenroll  v-on:confirm="unenrollStudent(student)"/>
                     </div>
                 </div>
             </div>
@@ -57,11 +59,12 @@ import GroupService from '../../services/GroupService'
 import MyErrMsg from '../util/ErrorMessage.vue'
 import DownloadList from './GetGroupList.vue'
 import ModalPayment from '../payment/ModalPayment.vue'
+import ModalUnenroll from './ModalConfirmUnenroll.vue'
 const Service = new GroupService();
 export default {
         name: "Group",
         props: ['group_id'],
-        components: {MyErrMsg,DownloadList,ModalPayment},
+        components: {MyErrMsg,DownloadList,ModalPayment,ModalUnenroll},
         data : function(){
             return {
                 selected_client_name: null,
@@ -107,6 +110,19 @@ export default {
                     this.errorMessage = err.body.message;
                 });
                 
+            },
+            unenrollStudent(student) {
+                this.errorMessage = '';
+                this.$store.dispatch('unenrollStudent',{
+                    group: this.group,
+                    student: student
+                }).then((att) => {
+                    debugger;
+                    const index = this.group.Students.findIndex(s => s.id == student.id);
+                    this.group.Students.splice(index, 1);
+                }).catch((err) => {
+                    this.errorMessage = err.body.message;
+                });
             },
             resetSelecteds() {
                 this.selected_client_name = null,

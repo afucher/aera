@@ -71,7 +71,12 @@ export default {
                 let student_id = student.id;
                 let group = payload.group;
                 return group_srv.addStudent({group, student_id});
-                //commit(mut_types.ADD_STUDENT, {group,student});
+        },
+        unenrollStudent: ({commit}, payload) => {
+                let student = payload.student;
+                let student_id = student.id;
+                let group = payload.group;
+                return group_srv.unenrollStudent({group, student_id});
         },
         createClient: ( {commit} , payload ) => {
                 return new Promise((resolve,reject) => {
