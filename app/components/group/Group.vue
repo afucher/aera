@@ -32,8 +32,7 @@
                         {{student.name}} - presença: 
                         <input type="number" :max="group.classes" min=0 v-model="student.ClientGroup.attendance">
                         <button @click.prevent="updateAttendance(student.id,student.ClientGroup.attendance)">Atualizar presença</button>
-                        <button @click.prevent="$modal.show('confirm-unenroll')">Desmatricular</button>
-                        <ModalUnenroll  v-on:confirm="unenrollStudent(student)"/>
+                        <button @click.prevent="confirmUnenroll(student)">Desmatricular</button>
                     </div>
                 </div>
             </div>
@@ -51,6 +50,7 @@
                 <ModalPayment v-on:save="createInstallments"></ModalPayment>
             </div>
         </div>
+        <ModalUnenroll @confirm="unenrollStudent"/>
     </div>
     
 </template>
@@ -111,13 +111,15 @@ export default {
                 });
                 
             },
+            confirmUnenroll(student) {
+                this.$modal.show('confirm-unenroll',{student:student});
+            },
             unenrollStudent(student) {
                 this.errorMessage = '';
                 this.$store.dispatch('unenrollStudent',{
                     group: this.group,
                     student: student
                 }).then((att) => {
-                    debugger;
                     const index = this.group.Students.findIndex(s => s.id == student.id);
                     this.group.Students.splice(index, 1);
                 }).catch((err) => {
