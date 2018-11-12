@@ -16,8 +16,8 @@ Vue.use(Vuex);
 Vue.use(VeeValidate);
 
 Vue.component('MyErrMsg', MyErrMsg);
-Vue.use(ClientTable, {}, false);
-Vue.use(ServerTable, {}, false);
+Vue.use(ClientTable, {}, false, "bootstrap4");
+Vue.use(ServerTable, {}, false, "bootstrap4");
 
 Validator.extend('cpf', {
     getMessage: (field) => `CPF Inválido`,

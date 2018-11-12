@@ -18,16 +18,17 @@ export default {
     },
     methods: {
         createCourse(course) {
-            this.$validator.validateAll();
-            if(this.errors.any()) return;
-            const that = this;
-            this.$store.dispatch('createCourse', this.course)
-                .then((c)=>{
-                    that.$router.push({name:'courses'})
-                })
-                .catch((err) => {
-                    this.errorMessage = err;
-                });
+            this.$validator.validateAll().then((result) => {
+                if(!result) return;
+                const that = this;
+                this.$store.dispatch('createCourse', this.course)
+                    .then((c)=>{
+                        that.$router.push({name:'courses'})
+                    })
+                    .catch((err) => {
+                        this.errorMessage = err;
+                    });
+            });
         }
     }
 }

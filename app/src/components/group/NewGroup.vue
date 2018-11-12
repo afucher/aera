@@ -26,7 +26,7 @@
         <div class="form-group">
             <label for="teacher">Professor</label>
             <select name="teacher" v-model="course.teacher_id" v-validate data-vv-rules="required">
-                <option v-for="teacher in teachers" v-bind:value="teacher.id">
+                <option v-for="teacher in teachers" v-bind:value="teacher.id" v-bind:key="teacher.id">
                     {{ teacher.name }}
                 </option>
             </select>
@@ -72,17 +72,18 @@ export default {
         this.$store.dispatch('loadTeachers');
     },
     methods: {
-        createGroup(e) {
-            this.$validator.validateAll();
-            if(this.errors.any()) return;
-            const that = this;
-            this.$store.dispatch('createGroup', this.course)
-                .then((c)=>{
-                    that.$router.push({name:'group',params:{id:c.id}})
-                })
-                .catch((err) => {
-                    this.errorMessage = err;
-                });
+        createGroup() {
+            this.$validator.validateAll().then((result) => {
+                if(!result) return;
+                const that = this;
+                this.$store.dispatch('createGroup', this.course)
+                    .then((c)=>{
+                        that.$router.push({name:'group',params:{id:c.id}})
+                    })
+                    .catch((err) => {
+                        this.errorMessage = err;
+                    });
+            });
         }
     }
 }

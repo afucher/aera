@@ -2,5 +2,6 @@
 _random
 node_modules
 app/build
+app/dist
 npm-debug.log
 database
