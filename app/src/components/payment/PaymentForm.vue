@@ -31,9 +31,9 @@ export default {
     },
     methods: {
         formSubmit(){
-            this.$validator.validateAll();
-            if(this.errors.any()) return;
-            this.$emit("formSubmit", this.payment);
+            this.$validator.validateAll().then((result) => {
+                if(result) this.$emit("formSubmit", this.payment);
+            });
         },
         cancel(){
             this.$emit("formCancel");

@@ -52,11 +52,9 @@ export default {
     },
     methods: {
         formSubmit(){
-            this.$validator.validateAll()
-                .then(()=>{
-                    this.$emit("formSubmit", this.group);
-                })
-                .catch(()=>{});
+            this.$validator.validateAll().then((result) => {
+                if(result) this.$emit("formSubmit", this.group);
+            })
         },
         cancel(){
             this.$emit("formCancel");
