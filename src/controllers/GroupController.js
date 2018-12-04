@@ -74,13 +74,19 @@ const normalizeAllGroup = (groups) => {
 }
 
 const GroupController = {};
-GroupController.getAll = ({filter,limit,offset,course}) => {
+GroupController.getAll = ({filter,limit,offset,course,allGroups}) => {
     let opt = getAllOptions(course);    
     if (filter){
         opt['filter'] = filter;
         opt['limit'] = limit;
         opt['offset'] = offset;
     };
+
+    if(!allGroups){
+        if(!opt['where']) opt['where'] = {};
+        opt['where']['end_date'] = {$gte: new Date()};
+    } 
+
     return Group.findAndCountAll(opt).then(normalizeAllGroup);
 };
 

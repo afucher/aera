@@ -20,7 +20,10 @@ const mountGroup = course_id => {
 }
 
 lab.experiment('GroupController', () => {
-    
+    lab.afterEach(async () => {
+        await Course.destroy({truncate:true, cascade: true});
+        await Group.destroy({truncate:true, cascade: true});
+    });
     lab.test('Should unenroll a client', async () => {
             let course = await Course.create({ name: 'teste' });
             let group = await Group.create(mountGroup(course.id));
@@ -32,6 +35,85 @@ lab.experiment('GroupController', () => {
             let result = await ClientGroup.findAll({where:{client_id:client.id}});
 
             Code.expect(result.length).to.be.equals(0);
+
+    });
+
+    lab.test('Should return only current groups when not specified course and allGroups option', async () => {
+        let course = await Course.create({ name: 'teste'});
+
+        let currentGroup = mountGroup(course.id);
+        currentGroup.end_date = "01/01/2222";
+        
+        let pastGroup = mountGroup(course.id);
+        pastGroup.end_date = "01/01/2000";
+
+        await Group.create(currentGroup);
+        await Group.create(pastGroup);
+        
+        let options = {};
+        let result = await GroupController.getAll(options);
+
+        Code.expect(result.rows.length).to.be.equals(1);
+    });
+    lab.test('Should return only current groups when not specified', async () => {
+        let course = await Course.create({ name: 'teste'});
+
+        let currentGroup = mountGroup(course.id);
+        currentGroup.end_date = "01/01/2222";
+        
+        let pastGroup = mountGroup(course.id);
+        pastGroup.end_date = "01/01/2000";
+
+        await Group.create(currentGroup);
+        await Group.create(pastGroup);
+        
+        let options = {
+            course : course.id
+        };
+        let result = await GroupController.getAll(options);
+
+        Code.expect(result.rows.length).to.be.equals(1);
+    });
+    lab.test('Should return only current groups', async () => {
+        let course = await Course.create({ name: 'teste'});
+
+        let currentGroup = mountGroup(course.id);
+        currentGroup.end_date = "01/01/2222";
+        
+        let pastGroup = mountGroup(course.id);
+        pastGroup.end_date = "01/01/2000";
+
+        await Group.create(currentGroup);
+        await Group.create(pastGroup);
+        
+        let options = {
+            course : course.id,
+            allGroups : false
+        };
+        let result = await GroupController.getAll(options);
+
+        Code.expect(result.rows.length).to.be.equals(1);
+    });
+
+    lab.test('Should return all groups', async () => {
+        let course = await Course.create({ name: 'teste'});
+
+        let currentGroup = mountGroup(course.id);
+        currentGroup.end_date = "01/01/2222";
+        
+        let pastGroup = mountGroup(course.id);
+        currentGroup.end_date = "01/01/2000";
+
+        await Group.create(currentGroup);
+        await Group.create(pastGroup);
+        
+        let options = {
+            course : course.id,
+            allGroups : true
+        };
+        let result = await GroupController.getAll(options);
+
+        Code.expect(result.rows.length).to.be.equals(2);
 
     });
 });
