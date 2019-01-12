@@ -96,10 +96,6 @@ const getMonthDateRange = (month) => {
     // Clone the value before .endOf()
     var endDate = moment(startDate).endOf('month');
 
-    // just for demonstration:
-    console.log(startDate.toDate());
-    console.log(endDate.toDate());
-
     // make sure to call toDate() for plain JavaScript date type
     return { start: startDate, end: endDate };
 }
