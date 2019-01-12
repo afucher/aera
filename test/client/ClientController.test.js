@@ -166,6 +166,32 @@ lab.experiment('ClientController', () => {
         }
     });
 
+    lab.test('Should return client with all finished groups and number of classes', async () => {
+        let client = await Client.create({name:"Client1"});
+        let course1 = await Course.create({name:"Course1", description:"Description",courseLoad:20});
+        let course2 = await Course.create({name:"Course2", description:"Description",courseLoad:20});
+        
+        const finishedGroup = mountGroup(course1.id);
+        let group1 = await Group.create(finishedGroup);
+        
+        let currentGroup = mountGroup(course2.id);
+        const tomorrow = new Date(new Date() + 1);
+        currentGroup.end_date = `${tomorrow.getDay()}/${tomorrow.getMonth()+1}/${tomorrow.getFullYear()}`;
+        let group2 = await Group.create(currentGroup);
+
+        await ClientGroup.create({client_id: 99,group_id:99});
+        await ClientGroup.create({client_id: 98,group_id:98});
+
+        await ClientGroup.create({client_id: client.id,group_id: group1.id, attendance: 4});
+        await ClientGroup.create({client_id: client.id,group_id: group2.id, attendance: 3});
+
+        let clientWithGroups = await ClientController.getFinishedGroupsWithAttendance(client.id)
+
+        Code.expect(clientWithGroups.ClientGroups).to.be.an.array().and.have.length(1);
+        Code.expect(clientWithGroups.ClientGroups[0].Group.Course.name).to.be.equals("Course1");
+        Code.expect(clientWithGroups.ClientGroups[0].attendance).to.be.equals(4);
+    });
+
 });
 
 

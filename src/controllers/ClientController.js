@@ -76,6 +76,30 @@ ClientController.getWithPayments = (id,month) => {
     });
 }
 
+ClientController.getFinishedGroupsWithAttendance = id => {
+    const where = {
+        end_date : {
+            $lte : moment().format('YYYY-MM-DD')
+        }
+    };
+
+    return Client.findById(id,{
+        include: [{
+            model: ClientGroup,
+            attributes: ['group_id','client_id','id','attendance'],
+            include: [
+                {
+                    model : Group,
+                    include: Course,
+                    attributes: ['course_id'],
+                    where
+                }
+            ],
+        }],
+        attributes: ['name']
+    });
+}
+
 module.exports = ClientController;
 
 const updateOptions = (id) => {
