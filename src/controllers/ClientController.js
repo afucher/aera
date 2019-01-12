@@ -56,7 +56,6 @@ ClientController.getWithPayments = (id,month) => {
     if(month){
         let dateRange = getMonthDateRange(month);
         where["due_date"] = {
-            $gte : dateRange.start.format('YYYY-MM-DD'),
             $lte : dateRange.end.format('YYYY-MM-DD')
         };
     }

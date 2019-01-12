@@ -103,26 +103,32 @@ lab.experiment('ClientController', () => {
 
             let clientGroup1 = await ClientGroup.create({client_id: client.id,group_id: group1.id});
             let clientGroup2 = await ClientGroup.create({client_id: client.id,group_id: group2.id});
+            
+            let month5 = new Date();
+            month5.setMonth(5-1);
+
+            let month6 = new Date();
+            month6.setMonth(6-1);
 
             await Payment.create({
                 clientGroup_id: clientGroup1.id,
                 installment: 1,
                 value: 10.50,
-                due_date: new Date(2018,5-1,2)
+                due_date: month5
             });
 
             await Payment.create({
                 clientGroup_id: clientGroup1.id,
                 installment: 2,
                 value: 10.50,
-                due_date: new Date(2018,6-1,2)
+                due_date: month6,
             });
 
             await Payment.create({
                 clientGroup_id: clientGroup2.id,
                 installment: 1,
                 value: 10.50,
-                due_date: new Date(2018,6-1,2),
+                due_date: month6,
             });
 
             let clientWithPayments = await ClientController.getWithPayments(client.id,5)
