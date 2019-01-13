@@ -175,8 +175,9 @@ lab.experiment('ClientController', () => {
         let group1 = await Group.create(finishedGroup);
         
         let currentGroup = mountGroup(course2.id);
-        const tomorrow = new Date(new Date() + 1);
-        currentGroup.end_date = `${tomorrow.getDay()}/${tomorrow.getMonth()+1}/${tomorrow.getFullYear()}`;
+        const tomorrow = new Date();
+        tomorrow.setDate(new Date().getDate() + 1);
+        currentGroup.end_date = `${tomorrow.getMonth()+1}/${tomorrow.getDate()}/${tomorrow.getFullYear()}`;
         let group2 = await Group.create(currentGroup);
 
         await ClientGroup.create({client_id: 99,group_id:99});
@@ -190,6 +191,7 @@ lab.experiment('ClientController', () => {
         Code.expect(clientWithGroups.ClientGroups).to.be.an.array().and.have.length(1);
         Code.expect(clientWithGroups.ClientGroups[0].Group.Course.name).to.be.equals("Course1");
         Code.expect(clientWithGroups.ClientGroups[0].attendance).to.be.equals(4);
+        Code.expect(clientWithGroups.ClientGroups[0].Group.classes).to.be.equals(4);
     });
 
 });

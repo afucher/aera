@@ -6,6 +6,7 @@
         <div class="row">
             <div>
                 <GetPaymentStudent :id="clientID"></GetPaymentStudent>
+                <GetStudentCertification :id="clientID"></GetStudentCertification>
             </div>
         </div>
     </div>
@@ -15,9 +16,10 @@
 import ClientService from '../../services/ClientService'
 import ClientForm from './ClientForm.vue'
 import GetPaymentStudent from '../payment/GetPaymentStudent.vue'
+import GetStudentCertification from './GetStudentCertification.vue'
 const cliSrv = new ClientService();
 export default {
-    components: {ClientForm,GetPaymentStudent},
+    components: {ClientForm,GetPaymentStudent, GetStudentCertification},
     data: function(){
         return {
             client: null,

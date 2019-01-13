@@ -5,6 +5,7 @@ const Course = require('../models').Course;
 const Payment = require('../models').Payment;
 const ClientGroup = require('../models').ClientGroup;
 const moment = require('moment');
+const certificationPDF = require('../utils/CertificationPDF');
 
 const ClientController = {};
 const getAllFields = ['id','name','email','cpf'];
@@ -91,13 +92,17 @@ ClientController.getFinishedGroupsWithAttendance = id => {
                 {
                     model : Group,
                     include: Course,
-                    attributes: ['course_id'],
+                    attributes: ['course_id','classes'],
                     where
                 }
             ],
         }],
         attributes: ['name']
     });
+}
+
+ClientController.generateCertification = id => {
+    return ClientController.getFinishedGroupsWithAttendance(id).then(certificationPDF)
 }
 
 module.exports = ClientController;

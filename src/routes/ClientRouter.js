@@ -74,6 +74,18 @@ module.exports = [
                 })
                 .catch(reply)
         }
+    },
+    {
+        method:'GET',
+        path: '/clients/{id}/certification',
+        handler: ({params}, reply) => {
+            ClientController.generateCertification( params.id)
+                .then(({data,name}) => {
+                    reply(data).bytes(data.length).type('application/pdf')
+                        .header("Content-Disposition", "attachment; filename=" + name);
+                })
+                .catch(reply)
+        }
     }
 ];
 
