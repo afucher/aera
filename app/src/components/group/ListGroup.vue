@@ -1,5 +1,6 @@
 <template>
     <div>
+        <input type="checkbox" v-model="allGroups"  @change="toggleAllGroups()">Todas as turmas</input>
         <v-server-table url="/api/groups" :columns="columns" :options="options"></v-server-table>
     </div>
 </template>
@@ -15,17 +16,23 @@ export default {
         return {
             columns: ['name','start_date','end_date','view'],
             options: {
-                customFilters: ['course'],
-                initFilters: {course:course_id},
+                customFilters: ['course','allGroups'],
+                initFilters: {course:course_id, allGroups:false},
                 templates: {view}
-            }
+            },
+            allGroups: false
         }
     },
     watch: {
         course: function(){
             Event.$emit('vue-tables.filter::course', this.course);
         }
-    } 
-    
+    } ,
+    methods: {
+        toggleAllGroups(){
+            Event.$emit('vue-tables.filter::allGroups', this.allGroups);
+        }
+    }
+
 }
 </script>
