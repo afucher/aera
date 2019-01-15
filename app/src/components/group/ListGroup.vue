@@ -16,6 +16,12 @@ export default {
         return {
             columns: ['name','start_date','end_date','view'],
             options: {
+                headings: {
+                        name: 'Nome',
+                        start_date: 'Data de início',
+                        end_date: 'Data de fim',
+                        view: 'Ação'
+                    },
                 customFilters: ['course','allGroups'],
                 initFilters: {course:course_id, allGroups:false},
                 templates: {view}

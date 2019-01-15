@@ -15,7 +15,14 @@ import listGroup from './table-templates/listGroupAction.vue'
         data: function(){
             return {
                 columns: ['name','courseLoad','listGroup','newGroup'],
+                
                 options: {
+                    headings: {
+                        name: 'Nome',
+                        courseLoad: 'Carga Horária',
+                        listGroup: 'Ver Turmas',
+                        newGroup: 'Ação'
+                    },
                     templates: {
                         newGroup,
                         listGroup

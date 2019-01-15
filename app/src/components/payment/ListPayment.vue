@@ -26,7 +26,11 @@ import {Event} from 'vue-tables-2';
                     headings: {
                         installment: 'Parcela',
                         paid: 'Status',
-                        value: 'Valor'
+                        value: 'Valor',
+                        due_date: 'Vencimento',
+                        pay: 'Ação',
+                        course: 'Curso',
+                        name: 'Nome'
                     },
                     templates : {
                         pay
