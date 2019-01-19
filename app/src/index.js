@@ -76,5 +76,6 @@ const app = new Vue({
   router,
   el: '#app',
   template: '',
+  store,
   components: { App }
   }).$mount('#app')

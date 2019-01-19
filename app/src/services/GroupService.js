@@ -14,7 +14,7 @@ export default class MyService {
     }
     
     getAll() {
-        return this.resourceAll.get().then(console.log);
+        return this.resourceAll.get("",{params:{allGroups:true}}).then(returnData);
     }
 
     get(id) {
@@ -22,7 +22,8 @@ export default class MyService {
     }
 
     createGroup(group){
-        return this.resourceAll.post(group).then(returnData);
+        return axios.post('/api/groups',group)
+        .then(returnData);
     }
 
     deleteGroup(group){
@@ -30,7 +31,7 @@ export default class MyService {
     }
 
     updateGroup(group){
-        return this.resourceOne.put(`/${group.id}`,group).then(returnData);
+        return this.resourceAll.put(`/${group.id}`,group).then(returnData);
     }
 
     addStudent({group, student_id}) {

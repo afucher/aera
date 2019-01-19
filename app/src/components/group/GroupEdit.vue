@@ -5,27 +5,29 @@
     </div>
 </template>
 <script>
+import GroupService from '../../services/GroupService'
 import Datepicker from 'vuejs-datepicker'
 import GroupForm from './GroupForm.vue'
+const groupSrv = new GroupService();
 export default {
         name: "GroupEdit",
         props: ['group_id'],
         components: {Datepicker,GroupForm},
         data: function(){
             return {
+                group: {},
                 errorMessage: ''
             }
         },
         computed: {
-            group(){
-                let group_id = this.group_id || this.$route.params.id;
-                return this.$store.getters.group(group_id);
-            },
             teachers() {
                 return this.$store.state.teachers;
             }
         },
         mounted(){
+            groupSrv.get(this.$route.params.id).then(g => {
+                this.group = g;
+            });
             this.$store.dispatch("loadGroups")
         },
         methods: {

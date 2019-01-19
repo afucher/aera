@@ -41,10 +41,10 @@ export default {
                 return new Promise((resolve,reject) => {
                         group_srv.createGroup(group)
                         .then(g => {
-                                commit(mut_types.CREATE_GROUP, g),
+                                //commit(mut_types.CREATE_GROUP, g),
                                 resolve(g);
                         })
-                        .catch(({data})=>reject(data.message));
+                        .catch(reject);
                 })
         },
         updateGroup: ( {commit} , payload ) => {
@@ -55,7 +55,7 @@ export default {
                                 //commit(mut_types.CREATE_GROUP, g),
                                 resolve(g);
                         })
-                        .catch(({data})=>reject(data.message));
+                        .catch(reject);
                 })      
         },
         loadGroups: ( {commit, state} ) => {
