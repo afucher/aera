@@ -11,7 +11,7 @@ module.exports = client => {
         doc.text('Cursos:')
         client.ClientGroups.forEach(group => {
             doc.moveDown();
-            doc.text(`${group.Group.Course.name} - Presença: ${group.attendance}/${group.Group.classes}`);
+            doc.text(`${group.Group.Course.name} - ${group.Group.start_date} - ${group.Group.end_date} - Presença: ${group.attendance}/${group.Group.classes}`);
         })
         doc.on('data', buffers.push.bind(buffers) )
         doc.on('end', ()=>{
