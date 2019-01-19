@@ -14,8 +14,8 @@ const mountGroup = course_id => {
     return {
         course_id,
         classes: 4,
-        start_date: "01/01/2017",
-        end_date: "01/02/2017",
+        start_date: "2017-01-01",
+        end_date: "2017-02-01",
         start_hour: "20:00",
         end_hour: "22:00"
     }
@@ -23,6 +23,9 @@ const mountGroup = course_id => {
 
 
 lab.experiment('ClientController', () => {
+    lab.beforeEach(async () => {
+        await Group.destroy({truncate:true, cascade: true});
+    })
     lab.test('Should return all groups from client', async () => {
         try {
             let client = await Client.create({name:"Client1"});
@@ -190,8 +193,11 @@ lab.experiment('ClientController', () => {
 
         Code.expect(clientWithGroups.ClientGroups).to.be.an.array().and.have.length(1);
         Code.expect(clientWithGroups.ClientGroups[0].Group.Course.name).to.be.equals("Course1");
+        Code.expect(clientWithGroups.ClientGroups[0].Group.Course.courseLoad).to.be.equals(20);
         Code.expect(clientWithGroups.ClientGroups[0].attendance).to.be.equals(4);
         Code.expect(clientWithGroups.ClientGroups[0].Group.classes).to.be.equals(4);
+        Code.expect(clientWithGroups.ClientGroups[0].Group.start_date).to.be.equals("01/01/2017");
+        Code.expect(clientWithGroups.ClientGroups[0].Group.end_date).to.be.equals("01/02/2017");
     });
 
 });

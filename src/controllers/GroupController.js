@@ -51,7 +51,6 @@ const updateOptions  = (id) => {
 }
 
 const adjustGroup = group => {
-    console.log(group.start_hour);
     if(group.start_hour.length == 5)
             group.start_hour += ":00"
     if(group.end_hour.length == 5)

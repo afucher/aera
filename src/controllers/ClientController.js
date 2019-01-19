@@ -92,7 +92,7 @@ ClientController.getFinishedGroupsWithAttendance = id => {
                 {
                     model : Group,
                     include: Course,
-                    attributes: ['course_id','classes'],
+                    attributes: ['course_id','classes','start_date','end_date'],
                     where
                 }
             ],
