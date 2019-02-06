@@ -5,4 +5,8 @@ const formatToBRL = value => {
     return `R$ ${value.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.")}`;
 }
 
-module.exports = {formatToBRL};
+const attendanceToPercentage = (attendance, total) => {
+    return `${Math.round(attendance*100/total)}`;
+}
+
+module.exports = {formatToBRL,attendanceToPercentage};
