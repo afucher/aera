@@ -5,7 +5,8 @@ const {formatToBRL} = require('./index.js');
 
 module.exports = (student) => {
     return new Promise((resolve, reject) => {
-        let doc = new PDFDocument();
+        let doc = new PDFDocument({size: 'A4'});
+        doc.font('Courier');
         let buffers = [];
         let due_date = student.Payments.reduce( (prev, curr) => {
             return prev.due_date < curr.due_date ?
