@@ -9,7 +9,7 @@ module.exports = (group) => {
         doc.text(' '.repeat(20),{continued:true});
         doc.text('Data: __/__/____')
         doc.moveDown();
-        doc.text(`Professor: ${group.Teacher.name}`);
+        doc.text(`Professor(a): ${group.Teacher.name}`);
         doc.moveDown();
         doc.text(`Data de início: ${group.start_date}`);
         doc.text('-'.repeat(65));
