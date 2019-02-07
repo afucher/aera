@@ -83,6 +83,19 @@ server.register([require('inert'),require('hapi-auth-cookie'),{
         }
     });
 
+    server.route({
+        method: ['GET'],
+        path: '/',
+        config: {
+            handler: {
+                file: function (request) {
+                    return 'index.html';
+                }
+            },
+            auth: {mode:'try'}
+        }
+    });
+
     server.start((err) => {
 
         if (err) {
