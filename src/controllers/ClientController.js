@@ -113,7 +113,7 @@ const updateOptions = (id) => {
             id
         },
         fields:['name','email','cpf','phone','cel_phone','com_phone','address1','address2','address3','zip_code','city','state','profession','teacher',
-                'edu_lvl','birth_date','birth_hour','birth_place']
+                'edu_lvl','birth_date','birth_hour','birth_place','note']
     }
 }
 
