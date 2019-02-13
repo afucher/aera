@@ -11,4 +11,7 @@ export default class PaymentService {
     get({clientGroup_id, installment}) {
         return Vue.http.get(`/api/payments/${clientGroup_id}/${installment}`)
     }
+    getTotals(startMonth) {
+        return Vue.http.get(`/api/payments/totals?startMonth=${startMonth}`)
+    }
 }

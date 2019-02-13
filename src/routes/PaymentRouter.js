@@ -67,6 +67,18 @@ module.exports = [
                 reply(e);
             }
         }
+    },
+    {
+        method: 'GET',
+        path: '/payments/totals',
+        handler: async ({query}, reply) => {
+            try{
+                let result = await PaymentController.getTotalPaymentsForMonths(parseInt(query.startMonth), 3)
+                reply(result);
+            }catch(e) {
+                reply(e);
+            }
+        }
     }
 ];
 

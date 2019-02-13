@@ -37,6 +37,7 @@ const router = new VueRouter({
     { path: '/clients/new', name: 'newClient', component: require('./components/client/NewClient.vue').default},
     { path: '/payments', name: 'payments', component: require('./components/payment/ListPayment.vue').default},
     { path: '/login', name: 'login', component: require('./components/auth/Login.vue').default},
+    { path: '/dashboard', name: 'dashboard', component: require('./components/dashboard/Dashboard.vue').default},
   ],
   linkActiveClass: 'active'
 });

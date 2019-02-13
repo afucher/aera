@@ -6,6 +6,7 @@ const Payment = require('../models').Payment;
 const ClientGroup = require('../models').ClientGroup;
 const moment = require('moment');
 const certificationPDF = require('../utils/CertificationPDF');
+const getMonthDateRange = require('../utils').getMonthDateRange;
 
 const ClientController = {};
 const getAllFields = ['id','name','email','cpf'];
@@ -115,16 +116,4 @@ const updateOptions = (id) => {
         fields:['name','email','cpf','phone','cel_phone','com_phone','address1','address2','address3','zip_code','city','state','profession','teacher',
                 'edu_lvl','birth_date','birth_hour','birth_place','note']
     }
-}
-
-const getMonthDateRange = (month) => {
-    // month in moment is 0 based, so 9 is actually october, subtract 1 to compensate
-    // array is 'year', 'month', 'day', etc
-    var startDate = moment().utc().month(month-1).startOf('month');
-
-    // Clone the value before .endOf()
-    var endDate = moment(startDate).endOf('month');
-
-    // make sure to call toDate() for plain JavaScript date type
-    return { start: startDate, end: endDate };
 }

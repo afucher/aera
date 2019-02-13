@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment');
 const Payment = require('../models').Payment;
 const ClientGroup = require('../models').ClientGroup;
 const Client = require('../models').Client;
@@ -6,6 +7,7 @@ const Group = require('../models').Group;
 const Course = require('../models').Course;
 const ClientController = require('./ClientController');
 const paymentPDF = require('../utils/PaymentsListPDF');
+const getMonthDateRange = require('../utils').getMonthDateRange;
 const PaymentController = {};
 const clientInfo = {model: ClientGroup,attributes:['client_id'],include:[{model:Client,attributes:['id','name']},
                                                                         {model:Group,attributes:['id'], include:{model:Course}}]}
@@ -77,6 +79,34 @@ PaymentController.pay = async (clientGroup_id, installment) => {
         throw e;
     }
 }
+
+
+PaymentController.getTotalPaymentsForMonths = async (startMonth, months) => {
+    let result = [
+        {unpaid:0, paid:0},
+        {unpaid:0, paid:0},
+        {unpaid:0, paid:0}
+    ]
+    const {start: startDate} = getMonthDateRange(startMonth);
+    const {end: endDate} = getMonthDateRange(startMonth+months-1);
+    const where = {
+        "due_date": {
+            $gte : startDate.format('YYYY-MM-DD'),
+            $lte : endDate.format('YYYY-MM-DD')
+        }
+    };
+    const payments = await Payment.findAll({
+        where
+    });
+    return payments.reduce((prev, curr) => {
+        let paymentMonth = moment(curr.due_date, "DD/MM/YYYY").month();
+        console.log(paymentMonth);
+        curr.paid ? prev[paymentMonth].paid += parseFloat(curr.value) : prev[paymentMonth].unpaid += parseFloat(curr.value);
+        return prev;
+    },result);
+
+}
+
 
 
 module.exports = PaymentController;

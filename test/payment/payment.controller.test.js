@@ -65,6 +65,45 @@ lab.experiment('PaymentController', () => {
         }
     });
 
+    lab.test('Should return total of paid and unpaid payments for months', async () => {
+        try {
+            const JANUARY = 1;
+            const MARCH = 3;
+
+            await Payment.create({
+                clientGroup_id: 1,
+                installment: 1,
+                value: 10.50,
+                due_date: new Date(2019,JANUARY-1,2)
+            });
+            await Payment.create({
+                clientGroup_id: 2,
+                installment: 1,
+                value: 1.35,
+                paid: true,
+                due_date: new Date(2019,MARCH-1,2)
+            });
+            await Payment.create({
+                clientGroup_id: 3,
+                installment: 1,
+                value: 2.74,
+                paid: true,
+                due_date: new Date(2019,MARCH-1,2)
+            });
+            let result = await PaymentController.getTotalPaymentsForMonths(JANUARY, 3);
+            Code.expect(result).to.have.length(3);
+            Code.expect(result[0].unpaid).to.be.equals(10.50);
+            Code.expect(result[0].paid).to.be.equals(0);
+            Code.expect(result[1].unpaid).to.be.equals(0);
+            Code.expect(result[1].paid).to.be.equals(0);
+            Code.expect(result[2].unpaid).to.be.equals(0);
+            Code.expect(result[2].paid).to.be.equals(4.09);
+            
+        } catch (error) {
+            throw error;
+        }
+    });
+
 });
 
 
