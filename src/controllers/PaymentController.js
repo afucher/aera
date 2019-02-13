@@ -95,13 +95,13 @@ PaymentController.getTotalPaymentsForMonths = async (startMonth, months) => {
             $lte : endDate.format('YYYY-MM-DD')
         }
     };
+
     const payments = await Payment.findAll({
         where
     });
     return payments.reduce((prev, curr) => {
-        let paymentMonth = moment(curr.due_date, "DD/MM/YYYY").month();
-        console.log(paymentMonth);
-        curr.paid ? prev[paymentMonth].paid += parseFloat(curr.value) : prev[paymentMonth].unpaid += parseFloat(curr.value);
+        let indexOfMonth = moment(curr.due_date, "DD/MM/YYYY").month() - startMonth + 1;
+        curr.paid ? prev[indexOfMonth].paid += parseFloat(curr.value) : prev[indexOfMonth].unpaid += parseFloat(curr.value);
         return prev;
     },result);
 

@@ -37,7 +37,7 @@ export default {
         let realizado = [];
         let planejado = [];
         let dataMonth3 = [];
-        service.getTotals(month).then(({body}) => {
+        service.getTotals(month+1).then(({body}) => {
             realizado.push(body[0].paid);
             realizado.push(body[1].paid);
             realizado.push(body[2].paid);
