@@ -13,22 +13,6 @@ export default {
       }
   },
   mounted () {
-    const month = new Date().getMonth()
-    this.chartData = {
-        labels: [monthStr[month],monthStr[month+1],monthStr[month+2]],
-        datasets: [
-        {
-            label: 'Realizado',
-            backgroundColor: '#00FF00',
-            data: [600, 490, 830]
-        }, {
-            label: 'Planejado',
-            backgroundColor: '#0000FF',
-            data: [600, 700, 900]
-        }
-        ]
-    }
-    this.renderChart(this.chartData, this.options)
     this.fetchData();
   },
   methods:{
