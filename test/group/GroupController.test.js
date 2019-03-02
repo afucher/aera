@@ -38,6 +38,24 @@ lab.experiment('GroupController', () => {
 
     });
 
+    lab.test('Should update number of classes from group', async () => {
+        let course = await Course.create({ name: 'teste' });
+        let group = await Group.create(mountGroup(course.id));
+        let client = await Client.create({name:"Client1"});
+        await group.addStudent(client);
+
+
+        let groupWithNewNumberOfClasses = mountGroup(course.id);
+        groupWithNewNumberOfClasses.classes = 8;
+        groupWithNewNumberOfClasses['id'] = group.id;
+        await GroupController.update(groupWithNewNumberOfClasses)
+
+        let result = await Group.findById(group.id);
+
+        Code.expect(result.classes).to.be.equals(8);
+
+});
+
     lab.test('Should return only current groups when not specified course and allGroups option', async () => {
         let course = await Course.create({ name: 'teste'});
 

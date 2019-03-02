@@ -46,7 +46,7 @@ const updateOptions  = (id) => {
         where: {
             id
         },
-        fields:['start_date','end_date','start_hour','end_hour']
+        fields:['start_date','end_date','start_hour','end_hour', 'classes']
     }
 }
 
