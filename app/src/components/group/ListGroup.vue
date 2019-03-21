@@ -14,10 +14,11 @@ export default {
     data: function(){
         let course_id = this.course;
         return {
-            columns: ['name','start_date','end_date','view'],
+            columns: ['name','teacher','start_date','end_date','view'],
             options: {
                 headings: {
                         name: 'Nome',
+                        teacher: 'Professor',
                         start_date: 'Data de início',
                         end_date: 'Data de fim',
                         view: 'Ação'

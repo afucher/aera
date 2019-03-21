@@ -134,4 +134,24 @@ lab.experiment('GroupController', () => {
         Code.expect(result.rows.length).to.be.equals(2);
 
     });
+
+    lab.test('Should return groups with teacher name', async () => {
+        let teacher = await Client.create({name: "Teacher 1", teacher: true});
+        let course = await Course.create({ name: 'teste'});
+
+        let group = mountGroup(course.id);
+        group.teacher_id = teacher.id;
+        
+    
+        await Group.create(group);
+        
+        let options = {
+            course : course.id,
+            allGroups : true
+        };
+        let result = await GroupController.getAll(options);
+
+        Code.expect(result.rows[0].teacher).to.be.equals("Teacher 1");
+
+    });
 });

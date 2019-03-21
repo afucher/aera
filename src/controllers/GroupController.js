@@ -34,9 +34,11 @@ const getGroupWithAllInfo = {
 const getAllOptions = course_id => {
     let opt = {
         attributes:fields,
-        include: {
-            model: Course
-        }};
+        include: [{
+                model: Course
+            },
+            teacher
+        ]};
     if(course_id) opt['where'] = {course_id};
     return opt;
 };
@@ -62,6 +64,7 @@ const adjustGroup = group => {
 
 const normalizeGroupObject = (group) => {
     group['name'] = group.Course.name;
+    group['teacher'] = group.Teacher ? group.Teacher.name : "";
     delete group.Course;
     return group;
 }
