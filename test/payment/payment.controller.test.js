@@ -4,7 +4,7 @@ const lab = exports.lab = Lab.script();
 const Code = require('code');
 const Assert = require('assert');
 const PaymentController = require('../../src/controllers/PaymentController');
-const Payment = require('../../src/models').Payment;
+const {Payment, Course, Group, Client, ClientGroup} = require('../../src/models');
 
 const mountGroup = course_id => {
     return {

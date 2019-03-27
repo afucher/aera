@@ -10,7 +10,8 @@ module.exports = [
                 filter: query.query,
                 limit : query.limit,
                 offset: query.limit * (query.page-1) || 0,
-                onlyPending: query.onlyPending
+                onlyPending: query.onlyPending,
+                groupId: query.groupId
             }
             PaymentController.getAll(opt)
                 .then(payment => reply({data:payment.rows,count:payment.count}));

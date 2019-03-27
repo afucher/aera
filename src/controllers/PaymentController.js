@@ -9,8 +9,12 @@ const ClientController = require('./ClientController');
 const paymentPDF = require('../utils/PaymentsListPDF');
 const getMonthDateRange = require('../utils').getMonthDateRange;
 const PaymentController = {};
-const clientInfo = {model: ClientGroup,attributes:['client_id'],include:[{model:Client,attributes:['id','name']},
-                                                                        {model:Group,attributes:['id'], include:{model:Course}}]}
+const groupInfo = groupId => {
+    if(groupId) return {model:Group,attributes:['id'],where:{id:groupId}, include:{model:Course}};
+    return {model:Group,attributes:['id'], include:{model:Course}}
+}
+const clientInfo = groupId => {return {model: ClientGroup,attributes:['client_id'],include:[{model:Client,attributes:['id','name']},
+                                                                        groupInfo(groupId)]}}
 const normalizePaymentObject = (payment) => {
     payment['client_id'] = payment.ClientGroup.Client.id;
     payment['name'] = payment.ClientGroup.Client.name;
@@ -28,7 +32,7 @@ const normalizeAllPayments = (payments) => {
 /*Payment.findAndCountAll({ include:{model: ClientGroup,attributes:['client_id'],include:{model:Client,attributes:['id','name']}}})
     .then(normalizeAllPayments)*/
 
-PaymentController.getAll = ({filter,limit,offset, onlyPending}) => {
+PaymentController.getAll = ({filter,limit,offset, onlyPending,groupId}) => {
 //filter? 
 //Payment.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'due_date',include:clientInfo}).then(normalizeAllPayments) : 
 
@@ -36,10 +40,14 @@ PaymentController.getAll = ({filter,limit,offset, onlyPending}) => {
         limit,
         offset,
         order:'due_date',
-        include:clientInfo
+        include:[clientInfo(groupId)],
+        where: {}
     };
     onlyPending = onlyPending == 'true'
-    if(onlyPending) opt['where'] = {paid:false};
+    if(onlyPending) opt.where['paid'] = false;
+    if(groupId) {
+        // opt.include.push({model: ClientGroup, include: {model: Group, where: {id: groupId}}});
+    }
     return Payment.findAndCountAll(opt).then(normalizeAllPayments);
 }
 PaymentController.get = (clientGroup_id, installment) => Payment.findOne( {where:{clientGroup_id, installment}} );

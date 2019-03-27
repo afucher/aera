@@ -12,7 +12,9 @@ import pay from './ModalConfirmPay.vue'
 import {Event} from 'vue-tables-2';
     export default {
         name: "AeraListPayment",
+        props: ['groupId'],
         data: function(){
+            let groupId = groupId;
             return {
                 columns: ['name','value','course','due_date','paid','installment','pay'],
                 options: {
@@ -35,8 +37,8 @@ import {Event} from 'vue-tables-2';
                     templates : {
                         pay
                     },
-                    customFilters: ['onlyPending'],
-                    initFilters:{onlyPending:true}
+                    customFilters: ['onlyPending','groupId'],
+                    initFilters:{groupId:groupId,onlyPending:true}
                 },
                 onlyPending: true
             }
