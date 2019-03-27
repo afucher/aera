@@ -20,7 +20,9 @@ export default {
             options: {
                 responseAdapter : function(data) {
                             data.data = data.data.map(group => {
-                                group['weekDay'] = weekDays[new Date(group.start_date).getDay()];
+                                const dateArray = group.start_date.split("/");
+                                const dateInFormatMMDDYYYY = `${dateArray[1]}/${dateArray[0]}/${dateArray[2]}`;
+                                group['weekDay'] = weekDays[new Date(dateInFormatMMDDYYYY).getDay()];
                                 return group;
                             })
                             return data;
