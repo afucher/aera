@@ -14,7 +14,7 @@ import {Event} from 'vue-tables-2';
         name: "AeraListPayment",
         props: ['groupId'],
         data: function(){
-            let groupId = groupId;
+            let groupId = this.groupId;
             return {
                 columns: ['name','value','course','due_date','paid','installment','pay'],
                 options: {

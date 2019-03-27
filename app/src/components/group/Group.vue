@@ -50,6 +50,9 @@
                 <ModalPayment v-on:save="createInstallments"></ModalPayment>
             </div>
         </div>
+        <div class="row">
+            <ListPayment :groupId="groupId"></ListPayment>
+        </div>
         <ModalUnenroll @confirm="unenrollStudent"/>
     </div>
     
@@ -60,11 +63,12 @@ import MyErrMsg from '../util/ErrorMessage.vue'
 import DownloadList from './GetGroupList.vue'
 import ModalPayment from '../payment/ModalPayment.vue'
 import ModalUnenroll from './ModalConfirmUnenroll.vue'
+import ListPayment from '../payment/ListPayment.vue'
 const Service = new GroupService();
 export default {
         name: "Group",
         props: ['group_id'],
-        components: {MyErrMsg,DownloadList,ModalPayment,ModalUnenroll},
+        components: {MyErrMsg,DownloadList,ModalPayment,ModalUnenroll,ListPayment},
         data : function(){
             return {
                 selected_client_name: null,
