@@ -13,6 +13,8 @@
 
 <script>
 import PaymentService from '../../services/PaymentService'
+import EventBus from '../util/EventBus.js'
+
 let service = new PaymentService();
 export default {
     name:"ModalConfirmPay",
@@ -29,7 +31,12 @@ export default {
         },
         pay ( ) {
             service.pay(this.data)
-                .then(this.hide());
+                .then(() => {
+                    setTimeout(() => {
+                        EventBus.$emit('refresh-table');
+                    }, 250);
+                    this.hide();
+                });
         },
         hide () {
             this.$modal.hide(this.modalName);
