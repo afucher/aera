@@ -39,7 +39,11 @@ PaymentController.getAll = ({filter,limit,offset, onlyPending,groupId}) => {
     let opt = {
         limit,
         offset,
-        order:'due_date',
+        order:[
+            ['due_date'],
+            ['installment'],
+            [ClientGroup, Client, 'name']
+        ],
         include:[clientInfo(groupId)],
         where: {}
     };
