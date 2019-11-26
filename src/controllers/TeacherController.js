@@ -6,7 +6,7 @@ const TeacherController = {};
 
 TeacherController.getAll = ({filter,limit,offset}) => 
     filter? Teacher.findAndCountAll({where:{name:{$ilike:filter+'%'},teacher:true},limit,offset}) : Teacher.findAndCountAll({where:{teacher:true},limit,offset});
-TeacherController.get = (id) => Teacher.findById(id);
+TeacherController.get = (id) => Teacher.findByPk(id);
 TeacherController.create = (id) => Teacher.update({teacher:true},updateOptions(id));
 TeacherController.delete = (id) => Teacher.update({teacher:false},updateOptions(id));
 

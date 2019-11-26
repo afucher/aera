@@ -8,7 +8,7 @@ ClientGroupController.updateStudentAttendance = (group_id, client_id, attendance
         group_id,
         client_id
     };
-    return ClientGroup.find({where}).then(cg => cg.update({attendance : attendance}));
+    return ClientGroup.findOne({where}).then(cg => cg.update({attendance : attendance}));
 };
 
 module.exports = ClientGroupController;

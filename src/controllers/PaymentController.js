@@ -13,7 +13,7 @@ const groupInfo = groupId => {
     if(groupId) return {model:Group,attributes:['id'],where:{id:groupId}, include:{model:Course}};
     return {model:Group,attributes:['id'], include:{model:Course}}
 }
-const clientInfo = groupId => {return {model: ClientGroup,attributes:['client_id'],include:[{model:Client,attributes:['id','name']},
+const clientInfo = groupId => {return {model: ClientGroup,attributes:['client_id'],required:true,include:[{model:Client,attributes:['id','name'],required:true},
                                                                         groupInfo(groupId)]}}
 const normalizePaymentObject = (payment) => {
     payment['client_id'] = payment.ClientGroup.Client.id;

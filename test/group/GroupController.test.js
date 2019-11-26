@@ -50,7 +50,7 @@ lab.experiment('GroupController', () => {
         groupWithNewNumberOfClasses['id'] = group.id;
         await GroupController.update(groupWithNewNumberOfClasses)
 
-        let result = await Group.findById(group.id);
+        let result = await Group.findByPk(group.id);
 
         Code.expect(result.classes).to.be.equals(8);
 

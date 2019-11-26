@@ -38,7 +38,7 @@ lab.experiment('CourseController', () => {
     lab.test('Should create a Course', (done) => {
         CourseController.create({ name: 'course3' })
             .then((course) => {
-                Course.findById(course.id).then((c) => {
+                Course.findByPk(course.id).then((c) => {
                     Code.expect(c.name).to.be.equal('course3');
                     done();
                 });
@@ -51,7 +51,7 @@ lab.experiment('CourseController', () => {
                 course_id = course.id;
                 return CourseController.delete(course_id);
             })
-            .then(Course.findById(course_id))
+            .then(Course.findByPk(course_id))
             .then((deleted_courses) => {
                 Code.expect(deleted_courses).to.equal(1);
                 done();

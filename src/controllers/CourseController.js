@@ -29,7 +29,7 @@ CourseController.getAll = ({filter,limit,offset, onlyPending}) => {
             return Course.findAndCountAll(opt);
 
 };
-CourseController.get = (id) => Course.findById(id);
+CourseController.get = (id) => Course.findByPk(id);
 CourseController.create = (course) => Course.create(course);
 CourseController.delete = (id) => Course.destroy({where:{id:id}});
 CourseController.update = course => {

@@ -33,24 +33,22 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     class_info: DataTypes.JSON
-  }, {
-      classMethods: {
-        associate: function (models) {
-          // associations can be defined here
-          models.Group.belongsTo(models.Course, { foreignKey: 'course_id' });
-          models.Group.belongsToMany(models.Client, {
-            through: models.ClientGroup,
-            foreignKey: 'group_id',
-            as: 'Students'
-          });
-          models.Group.belongsTo(models.Client, { foreignKey: 'teacher_id',as:'Teacher' } );
-          //models.Group.hasMany(models.Class, { foreignKey: 'group_id' });
-        }
-      }
+  });
+
+  Group.associate = function (models) {
+    // associations can be defined here
+    models.Group.belongsTo(models.Course, { foreignKey: 'course_id' });
+    models.Group.belongsToMany(models.Client, {
+      through: models.ClientGroup,
+      foreignKey: 'group_id',
+      as: 'Students'
     });
+    models.Group.belongsTo(models.Client, { foreignKey: 'teacher_id',as:'Teacher' } );
+    //models.Group.hasMany(models.Class, { foreignKey: 'group_id' });
+  }
   return Group;
 };
 
 function getDateWithoutTime(date) {
-  return require('moment')(date).format('DD/MM/YYYY');
+  return require('moment')(date,'YYYY-MM-DD').format('DD/MM/YYYY');
 }

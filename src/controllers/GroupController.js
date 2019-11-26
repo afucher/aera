@@ -92,14 +92,14 @@ GroupController.getAll = ({filter,limit,offset,course,allGroups}) => {
     return Group.findAndCountAll(opt).then(normalizeAllGroup);
 };
 
-GroupController.get = (id) => Group.findById(id, getOneOptions);
+GroupController.get = (id) => Group.findByPk(id, getOneOptions);
 GroupController.create = (group) => adjustGroup(group).then(g => Group.create(g));
 GroupController.delete = (id) => Group.destroy({ where: { id: id } });
 GroupController.update = (group) => adjustGroup(group).then(g => Group.update(g,updateOptions(g.id)));
 
 
 GroupController.addStudent = (id, student_id) => {
-    return Group.findById(id)
+    return Group.findByPk(id)
         .then((g) => new Promise((resolve, reject) => {
             if(g){
                 g.addStudent(student_id,{attendance:0})
@@ -113,14 +113,14 @@ GroupController.addStudent = (id, student_id) => {
 };
 
 GroupController.unenroll = async (group_id, client_id) => {
-    let group = await Group.findById(group_id);
-    let client = await Client.findById(client_id);
+    let group = await Group.findByPk(group_id);
+    let client = await Client.findByPk(client_id);
     return group.removeStudent(client);
 };
 
-GroupController.getStudents = (id) => Group.findById(id, includeStudents);
+GroupController.getStudents = (id) => Group.findByPk(id, includeStudents);
 GroupController.getGroupList = id => {
-    return Group.findById(id,getGroupWithAllInfo)
+    return Group.findByPk(id,getGroupWithAllInfo)
         .then(CreateGroupList);
 }
 
@@ -128,7 +128,7 @@ GroupController.createPayments = async (id, payment_info) => {
     try{
         const installments = Number(payment_info.installments);
         const due_date_base = moment(payment_info.due_date, "DD/MM/YYYY",true);
-        let groups = await Group.findById(id,{ include: {
+        let groups = await Group.findByPk(id,{ include: {
             model: Client, as: 'Students', through: {
                 attributes: ['id']
             }, attributes : ['id']

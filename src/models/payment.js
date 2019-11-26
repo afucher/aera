@@ -19,21 +19,19 @@ module.exports = function (sequelize, DataTypes) {
         return getDateWithoutTime(this.getDataValue(field))
       }
     }
-  },{
-    classMethods: {
-      associate: function (models) {
-        // associations can be defined here
-        models.Payment.belongsTo(models.ClientGroup, { foreignKey: 'clientGroup_id' });
-        models.Payment.belongsTo(models.Group,{
-          through: models.ClientGroup,
-          foreignKey: 'clientGroup_id',
-          otherKey: 'id',
-          as: 'Group',
-          primaryKeyDeleted: false
-        });
-      }
-    }
   });
+
+  Payment.associate = function (models) {
+    // associations can be defined here
+    models.Payment.belongsTo(models.ClientGroup, { foreignKey: 'clientGroup_id' });
+    models.Payment.belongsTo(models.Group,{
+      through: models.ClientGroup,
+      foreignKey: 'clientGroup_id',
+      otherKey: 'id',
+      as: 'Group',
+      primaryKeyDeleted: false
+    });
+  }
   return Payment;
 };
 

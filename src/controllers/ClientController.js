@@ -19,9 +19,9 @@ const adjust = client => {
 
 ClientController.getAll = ({filter,limit,offset}) => 
     filter? 
-        Client.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:'name',attributes:getAllFields}) : 
-        Client.findAndCountAll({limit,offset,order:'name', attributes:getAllFields});
-ClientController.get = (id) => Client.findById(id);
+        Client.findAndCountAll({where:{name:{$ilike:'%'+filter+'%'}},limit,offset,order:[['name']],attributes:getAllFields}) : 
+        Client.findAndCountAll({limit,offset,order:[['name']], attributes:getAllFields});
+ClientController.get = (id) => Client.findByPk(id);
 ClientController.create = (client) => Client.create(client);
 ClientController.delete = (id) => Client.destroy({where:{id:id}});
 ClientController.update = (client) => adjust(client).then(Client.update(client,updateOptions(client.id)));
@@ -31,14 +31,14 @@ ClientController.getAllGroups = async id => {
             include: {model:Group, as: "Groups"},
             attributes: getAllFields
         };
-        let client = await Client.findById(id,options);
+        let client = await Client.findByPk(id,options);
         return client;
     } catch (error) {
         return error;
     }
 }
 ClientController.getWithPayments2 = id => {
-    return Client.findById(id,{
+    return Client.findByPk(id,{
         include: [{
             model: Payment, as: 'Payments', through: {
                 attributes: ['id'],
@@ -61,17 +61,19 @@ ClientController.getWithPayments = (id,month) => {
             $lte : dateRange.end.format('YYYY-MM-DD')
         };
     }
-    return Client.findById(id,{
+    return Client.findByPk(id,{
         include: [{
             model: ClientGroup,
             attributes: ['group_id','client_id','id'],
+            required: true,
             include : [{
                 model : Payment,
                 where
             },{
                 model : Group,
                 include: Course,
-                attributes: ['course_id']
+                attributes: ['course_id'],
+                required: true                
             }]
         }],
         attributes: ['name']
@@ -85,7 +87,7 @@ ClientController.getFinishedGroupsWithAttendance = id => {
         }
     };
 
-    return Client.findById(id,{
+    return Client.findByPk(id,{
         include: [{
             model: ClientGroup,
             attributes: ['group_id','client_id','id','attendance'],
