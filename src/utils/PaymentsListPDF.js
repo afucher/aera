@@ -39,7 +39,7 @@ const drawReceipt = (doc, student, due_date) => {
     student.Payments.forEach(payment => {
         let value = formatToBRL(payment.value);
         doc.moveDown();
-        doc.text(`${payment.Group.Course.name} - ${value}`, alignRight);
+        doc.text(`${payment.Group.Course.name} ${payment.installment}/${payment.number_installments} - ${value}`, alignRight);
         total += parseFloat(payment.value);
     })
     doc.moveDown();
