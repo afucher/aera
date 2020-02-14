@@ -74,21 +74,21 @@ lab.experiment('PaymentController', () => {
                 clientGroup_id: 1,
                 installment: 1,
                 value: 10.50,
-                due_date: new Date(2019,JANUARY-1,2)
+                due_date: new Date(2020,JANUARY-1,2)
             });
             await Payment.create({
                 clientGroup_id: 2,
                 installment: 1,
                 value: 1.35,
                 paid: true,
-                due_date: new Date(2019,MARCH-1,2)
+                due_date: new Date(2020,MARCH-1,2)
             });
             await Payment.create({
                 clientGroup_id: 3,
                 installment: 1,
                 value: 2.74,
                 paid: true,
-                due_date: new Date(2019,MARCH-1,2)
+                due_date: new Date(2020,MARCH-1,2)
             });
             let result = await PaymentController.getTotalPaymentsForMonths(JANUARY, 3);
             Code.expect(result).to.have.length(3);

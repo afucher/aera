@@ -18,7 +18,8 @@ module.exports = function (sequelize, DataTypes) {
       get: function (field) {
         return getDateWithoutTime(this.getDataValue(field))
       }
-    }
+    },
+    number_installments: DataTypes.INTEGER
   },{
     classMethods: {
       associate: function (models) {

@@ -146,6 +146,7 @@ GroupController.createPayments = async (id, payment_info) => {
                         let paymentToCreate = {
                             clientGroup_id: header.clientGroup_id,
                             installment: header.installment,
+                            number_installments: installments,
                             value: payment_info.value,
                             due_date: due_date_base.clone().add(header.installment-1, 'M').format()
                         };
