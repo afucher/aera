@@ -53,13 +53,20 @@ ClientController.getWithPayments2 = id => {
     });
 }
 
-ClientController.getWithPayments = (id,month) => {
+ClientController.getWithPayments = (id,month,strict = false) => {
     let where = {paid : false};
     if(month){
         let dateRange = getMonthDateRange(month);
-        where["due_date"] = {
-            $lte : dateRange.end.format('YYYY-MM-DD')
-        };
+        if(strict){
+            where["due_date"] = {
+                $gte : dateRange.start.format('YYYY-MM-DD'),
+                $lte : dateRange.end.format('YYYY-MM-DD')
+            };
+        }else {
+            where["due_date"] = {
+                $lte : dateRange.end.format('YYYY-MM-DD')
+            };
+        }  
     }
     return Client.findById(id,{
         include: [{

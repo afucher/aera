@@ -7,10 +7,9 @@ const PaymentListController = {};
 
 PaymentListController.generateReceiptForStudents = async (studentIds, month) => {
     
-    return Promise.all(studentIds.map(async id => await ClientController.getWithPayments(id,month)))
+    return Promise.all(studentIds.map(async id => await ClientController.getWithPayments(id,month, true)))
     .then(students => {
-        
-        students = students.map(stu => stu.get({plain: true}));
+        students = students.filter(stu => stu != null).map(stu => stu.get({plain: true}));
         
         return new Promise((resolve, reject) => {
             let doc = new PDFDocument({size: 'A4'});
