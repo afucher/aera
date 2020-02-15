@@ -3,11 +3,11 @@ const PDFDocument = require('pdfkit');
 const alignRight = {align:'right'};
 const {formatToBRL} = require('./index.js');
 
-module.exports = (student) => {
-    return new Promise((resolve, reject) => {
-        let doc = new PDFDocument({size: 'A4'});
-        doc.font('Courier');
-        let buffers = [];
+module.exports = (doc, student) => {
+    //return new Promise((resolve, reject) => {
+        // let doc = new PDFDocument({size: 'A4'});
+        // doc.font('Courier');
+        // let buffers = [];
         let due_date = student.Payments.reduce( (prev, curr) => {
             return prev.due_date < curr.due_date ?
                     prev :
@@ -20,15 +20,15 @@ module.exports = (student) => {
             .stroke()
         doc.moveDown()
         drawReceipt(doc, student, due_date);
-        doc.on('data', buffers.push.bind(buffers) )
-        doc.on('end', ()=>{
-            resolve({
-                data: Buffer.concat(buffers),
-                name: student.name + '.pdf'
-            });
-        })
-        doc.end();
-    });
+        // doc.on('data', buffers.push.bind(buffers) )
+        // doc.on('end', ()=>{
+        //     resolve({
+        //         data: Buffer.concat(buffers),
+        //         name: student.name + '.pdf'
+        //     });
+        // })
+        // doc.end();
+    //});
 }
 
 const drawReceipt = (doc, student, due_date) => {

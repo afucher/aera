@@ -6,6 +6,7 @@ exports.register = function (server, options, next) {
     server.route(require('../routes/ClientRouter'));
     server.route(require('../routes/TeacherRouter'));
     server.route(require('../routes/PaymentRouter'));
+    server.route(require('../routes/PaymentListRouter'));
     server.route(require('../routes/AutoCompleteRouter'));
 
     next();

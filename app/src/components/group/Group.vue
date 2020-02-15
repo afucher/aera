@@ -44,6 +44,9 @@
             </div>
         </div>
         <div class="row">
+            <GetPaymentsForStudents :ids="studentIds"></GetPaymentsForStudents>
+        </div>
+        <div class="row">
 
             <div>
                 <button @click="$modal.show('hello-world')">Gerar parcelas</button>
@@ -64,11 +67,12 @@ import DownloadList from './GetGroupList.vue'
 import ModalPayment from '../payment/ModalPayment.vue'
 import ModalUnenroll from './ModalConfirmUnenroll.vue'
 import ListPayment from '../payment/ListPayment.vue'
+import GetPaymentsForStudents from '../payment/GetPaymentsForStudents.vue'
 const Service = new GroupService();
 export default {
         name: "Group",
         props: ['group_id'],
-        components: {MyErrMsg,DownloadList,ModalPayment,ModalUnenroll,ListPayment},
+        components: {MyErrMsg,DownloadList,ModalPayment,ModalUnenroll,ListPayment,GetPaymentsForStudents},
         data : function(){
             return {
                 selected_client_name: null,
@@ -80,6 +84,9 @@ export default {
         computed: {
             groupId: function() {
                 return this.group_id || this.$route.params.id
+            },
+            studentIds: function() {
+                return this.group.Students.map(stu => stu.id);
             }
         },
         mounted(){

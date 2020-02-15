@@ -9,6 +9,7 @@ const ClientController = require('./ClientController');
 const paymentPDF = require('../utils/PaymentsListPDF');
 const getMonthDateRange = require('../utils').getMonthDateRange;
 const PaymentController = {};
+const PDFDocument = require('pdfkit');
 const groupInfo = groupId => {
     if(groupId) return {model:Group,attributes:['id'],where:{id:groupId}, include:{model:Course}};
     return {model:Group,attributes:['id'], include:{model:Course}}
@@ -79,7 +80,23 @@ PaymentController.generateReceiptForStudent = async (student_id, month) => {
     cli.Payments = require('lodash').cloneDeep([].concat(...clientPayments));
     delete cli.ClientGroups;
     delete cli.Group;
-    return paymentPDF(cli);
+
+    return new Promise((resolve, reject) => {
+        let doc = new PDFDocument({size: 'A4'});
+        doc.font('Courier');
+        let buffers = [];
+        doc.on('data', buffers.push.bind(buffers) )
+        doc.on('end', ()=>{
+            resolve({
+                data: Buffer.concat(buffers),
+                name: cli.name + '.pdf'
+            });
+        })
+
+        paymentPDF(doc, cli);
+
+        doc.end();
+    });
 }
 
 PaymentController.pay = async (clientGroup_id, installment) => {
