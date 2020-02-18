@@ -3,12 +3,12 @@ const PDFDocument = require('pdfkit');
 const alignRight = {align:'right'};
 const {formatToBRL} = require('./index.js');
 
-module.exports = (doc, student) => {
+module.exports = (doc, student, due_date) => {
     //return new Promise((resolve, reject) => {
         // let doc = new PDFDocument({size: 'A4'});
         // doc.font('Courier');
         // let buffers = [];
-        let due_date = student.Payments.reduce( (prev, curr) => {
+        due_date = due_date || student.Payments.reduce( (prev, curr) => {
             return prev.due_date < curr.due_date ?
                     prev :
                     curr;

@@ -18,6 +18,13 @@
                     <option value="12">Dezembro</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label>Data de vencimento</label>
+                <input name="due_date" type="text" v-model="due_date"
+                    v-validate="{ rules: { regex: /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/,required:true} }" 
+                    required>
+                <span v-show="errors.has('due_date')" class="bg-danger">{{ errors.first('due_date') }}</span>
+            </div>
             <button @click.prevent="download">Download</button>
         </modal>
         <button @click.prevent="selectMonth">Gerar pagamento da turma</button>
@@ -29,16 +36,19 @@
         props:['ids'],
         data: function() {
             return {
-                month : 1
+                month : 1,
+                due_date: ""
             }
         },
         methods: {
             selectMonth(){
                 this.$modal.show('select-month');
             },
-            download(){
+            async download(){
+                var errors = await this.$validator.validateAll();
+                if(!errors) return;
                 this.$modal.hide('select-month');
-                this.$http.post(`/api/paymentList`,{ids:this.ids, month: this.month},{responseType:'blob'}).then(a=>{
+                this.$http.post(`/api/paymentList`,{ids:this.ids, month: this.month, due_date: this.due_date},{responseType:'blob'}).then(a=>{
                     let result = document.createElement('a');
                     document.body.appendChild(result);
                     let contentDisposition = a.headers.get('Content-Disposition') || '';

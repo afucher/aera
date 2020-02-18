@@ -5,9 +5,8 @@ module.exports = [
     method:'POST',
     path: '/paymentList',
     handler: ({payload}, reply) => {
-        PaymentListController.generateReceiptForStudents( payload.ids , payload.month )
+        PaymentListController.generateReceiptForStudents( payload.ids , payload.month, payload.due_date )
             .then(({data,name}) => {
-                console.log("cheguei")
                 reply(data).bytes(data.length).type('application/pdf')
                     .header("Content-Disposition", "attachment; filename=" + name);
             })
