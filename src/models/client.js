@@ -21,9 +21,17 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.DATEONLY(),
       get: function (field) {
         return getDateWithoutTime(this.getDataValue(field))
+      },
+      set: function(value) {
+        this.setDataValue('birth_date', value === '' ? null : value);
       }
     },
-    birth_hour: DataTypes.TIME(),
+    birth_hour: {
+      type: DataTypes.TIME(),
+      set: function(value) {
+        this.setDataValue('birth_hour', value === '' ? null : value);
+      }
+    },
     birth_place: DataTypes.STRING(50),
     note: DataTypes.TEXT()
   }, {
