@@ -200,6 +200,17 @@ lab.experiment('ClientController', () => {
         Code.expect(clientWithGroups.ClientGroups[0].Group.end_date).to.be.equals("01/02/2017");
     });
 
+    lab.test('Should return error when sequelize throws error', async () => {
+        try {
+            await ClientController.create({birth_hour: '32:00'});
+            Code.fail('should throw error');
+        } catch(error) {
+            Code.expect(error.message).to.be.equal('date/time field value out of range: "32:00"');
+            Code.expect(error.name).to.be.equal('SequelizeDatabaseError');
+        }
+
+    });
+
 });
 
 
