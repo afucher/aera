@@ -11,7 +11,7 @@ const server = new Hapi.Server();
 server.connection({
     port: port, routes: {
         files: {
-            relativeTo: Path.join(__dirname, 'app/dist')
+            relativeTo: Path.join(__dirname, 'app/dist/aera')
         },
         validate: {
             options: {
