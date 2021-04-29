@@ -1,0 +1,18 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: vue-tables-2
+    versions:
+    - 2.1.80
+    - 2.2.0
+  - dependency-name: pg
+    versions:
+    - 8.5.1
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
